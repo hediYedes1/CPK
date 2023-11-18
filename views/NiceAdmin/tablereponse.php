@@ -1,8 +1,8 @@
 <?php
-include "../../controller/reclamationc.php";
+include "../../controller/ReponseReclamationC.php";
 
-$c = new reclamationC();
-$tab = $c->listreclamation();
+$c = new reponseC();
+$tab = $c->listreponse();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,10 +51,10 @@ $tab = $c->listreclamation();
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
 
-    <img src="img.png"  style="width: 60px; height: 60px;">
+        <img src="img.png" style="width: 60px; height: 60px;">
         <div class="d-flex align-items-center justify-content-between">
             <a href="index.html" class="logo d-flex align-items-center">
-                
+
                 <span class="d-none d-lg-block">LocalArt</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -88,8 +88,8 @@ $tab = $c->listreclamation();
                             You have 4 new notifications
                             <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
                         </li>
-                        
-                        
+
+
                         <li class="dropdown-footer">
                             <a href="#">Show all notifications</a>
                         </li>
@@ -113,11 +113,6 @@ $tab = $c->listreclamation();
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-
-                       
-                        
-                       
-
                         <li class="dropdown-footer">
                             <a href="#">Show all messages</a>
                         </li>
@@ -141,7 +136,6 @@ $tab = $c->listreclamation();
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-
                         <li>
                             <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
                                 <i class="bi bi-person"></i>
@@ -188,7 +182,7 @@ $tab = $c->listreclamation();
 
                     <li>
                         <a href="tablerec.php" class="active">
-                            <i class="bi bi-circle"></i><span>Data Tables reclamations</span>
+                            <i class="bi bi-circle"></i><span>Data Tables</span>
                         </a>
                     </li>
                 </ul>
@@ -196,7 +190,7 @@ $tab = $c->listreclamation();
 
                     <li>
                         <a href="tablereponse.php" class="active">
-                            <i class="bi bi-circle"></i><span>Data Tables reponse</span>
+                            <i class="bi bi-circle"></i><span>Data Tables reponses</span>
                         </a>
                     </li>
                 </ul>
@@ -249,7 +243,8 @@ $tab = $c->listreclamation();
             <h1>Data Tables</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="http://localhost/last%20khedma/views/addreclamation.php">Home</a></li>
+                    <li class="breadcrumb-item"><a
+                            href="http://localhost/last%20khedma/views/addreclamation.php">Home</a></li>
                     <li class="breadcrumb-item"><a href="tablerec.php">Tables</a></li>
                     <li class="breadcrumb-item active">Data</li>
                 </ol>
@@ -263,87 +258,45 @@ $tab = $c->listreclamation();
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Datatables</h5>
-                            <p>here is our table for those who add a reclamation  library. Just add <code>.datatable</code> </p>
+                            <p>here is our table for those who add a reclamation library. Just add
+                                <code>.datatable</code> </p>
 
                             <!-- Table with stripped rows -->
                             <table class="table datatable">
                                 <thead>
                                     <tr>
-                                        <th scope="col">id_rec</th>
-                                        <th scope="col">Nom</th>
-                                        <th scope="col">sujet</th>
-                                        <th scope="col">texte</th>
+                                        <th scope="col">id_rep</th>
+                                        <th scope="col">contenu</th>
                                         <th scope="col">date</th>
                                         <th scope="col">modifier</th>
                                         <th scope="col">supprimer</th>
-                                        <th scope="col">repondre</th>
+
                                     </tr>
                                 </thead>
                                 <!--
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Brandon Jacob</td>
-                    <td>Designer</td>
-                    <td>28</td>
-                    <td>2016-05-25</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Bridie Kessler</td>
-                    <td>Developer</td>
-                    <td>35</td>
-                    <td>2014-12-05</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Ashleigh Langosh</td>
-                    <td>Finance</td>
-                    <td>45</td>
-                    <td>2011-08-12</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td>Angus Grady</td>
-                    <td>HR</td>
-                    <td>34</td>
-                    <td>2012-06-11</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">5</th>
-                    <td>Raheem Lehner</td>
-                    <td>Dynamic Division Officer</td>
-                    <td>47</td>
-                    <td>2011-04-19</td>
-                  </tr>
-                
--->                 <?php foreach ($tab as $reclamation) { ?>
+              
+--> <?php foreach ($tab as $reponse_rec) { ?>
                                 <tr>
-                                    <td><?= $reclamation['id_rec']; ?></td>
-                                    <td><?= $reclamation['nom']; ?></td>
-                                    <td><?= $reclamation['sujet']; ?></td>
-                                    <td><?= $reclamation['texte']; ?></td>
-                                    <td><?= $reclamation['date']; ?></td>
+                                    <td><?= $reponse_rec['id_rep']; ?></td>
+                                    <td><?= $reponse_rec['contenu']; ?></td>
+                                    <td><?= $reponse_rec['date']; ?></td>
                                     <td>
-                                        <form method="POST" action="http://localhost/last%20khedma/views/updatereclamation.php">
+                                        <form method="POST"
+                                            action="http://localhost/last%20khedma/views/updatereponse.php">
                                             <input type="submit" name="update" value="modifier">
-                                            <input type="hidden" value=<?PHP echo $reclamation['id_rec']; ?>
+                                            <input type="hidden" value=<?PHP echo $reponse_rec['id_rep']; ?>
 
-                                            name="id_rec">
-                                            <input type="hidden" value=<?PHP echo $reclamation['date']; ?>
+                                            name="id_rep">
+                                            <input type="hidden" value=<?PHP echo $reponse_rec['date']; ?>
 
                                             name="date">
                                         </form>
                                     </td>
                                     <td>
                                         <button> <a
-                                                href="http://localhost/last%20khedma/views/deletereclamation.php?id_rec=<?= $reclamation['id_rec']; ?>">supprimer</a></button>
+                                                href="http://localhost/last%20khedma/views/deletereponse.php?id_rep=<?= $reponse_rec['id_rep']; ?>">supprimer</a></button>
                                     </td>
-                                    <td>
-                                        <button>
-                                            <a href="http://localhost/last%20khedma/views/addreponse.php"?id_rec=<?= $reclamation['id_rec']; ?>>reponse</a>
-                                        </button>
-                                    </td>
+
 
                                 </tr>
                                 <?php } ?>

@@ -183,6 +183,15 @@ error_reporting(E_ALL);
                          
                      
                  </ul>
+                 <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+                     <li>
+                         <a href="http://localhost/last%20khedma/views/NiceAdmin/tablereponse.php">
+                             <i class="bi bi-circle"></i><span>Data Tables</span>
+                         </a>
+                         
+                     
+                 </ul>
              </li><!-- End Tables Nav -->
              <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
@@ -262,64 +271,6 @@ error_reporting(E_ALL);
                              <div id="columnChart"></div>
                              <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
                              <script>
-                             
-/*
-                            document.addEventListener("DOMContentLoaded", () => {
-                                new ApexCharts(document.querySelector("#columnChart"), {
-                                    series: [{
-                                        name: 'Net Profit',
-                                        data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
-                                    }, {
-                                        name: 'Revenue',
-                                        data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
-                                    }, {
-                                        name: 'Free Cash Flow',
-                                        data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
-                                    }],
-                                    chart: {
-                                        type: 'bar',
-                                        height: 350
-                                    },
-                                    plotOptions: {
-                                        bar: {
-                                            horizontal: false,
-                                            columnWidth: '55%',
-                                            endingShape: 'rounded'
-                                        },
-                                    },
-                                    dataLabels: {
-                                        enabled: false
-                                    },
-                                    stroke: {
-                                        show: true,
-                                        width: 2,
-                                        colors: ['transparent']
-                                    },
-                                    xaxis: {
-                                        categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug',
-                                            'Sep', 'Oct'
-                                        ],
-                                    },
-                                    yaxis: {
-                                        title: {
-                                            text: '$ (thousands)'
-                                        }
-                                    },
-                                    fill: {
-                                        opacity: 1
-                                    },
-                                    tooltip: {
-                                        y: {
-                                            formatter: function(val) {
-                                                return "$ " + val + " thousands"
-                                            }
-                                        }
-                                    }
-                                }).render();
-                            });*/
-                            
-
-
 
                              document.addEventListener("DOMContentLoaded", () => {
                                  // Use Fetch API to get data from PHP

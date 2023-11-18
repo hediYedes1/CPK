@@ -181,6 +181,7 @@ $tab = $c->listreclamation();
                                             <th scope="col">date</th>
                                             <th scope="col">modifier</th>
                                             <th scope="col">supprimer</th>
+                                            <th scope = "col">reponse</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -209,6 +210,7 @@ $tab = $c->listreclamation();
                                                 <button> <a
                                                         href="deletereclamation.php?id_rec=<?= $reclamation['id_rec']; ?>">supprimer</a></button>
                                             </td>
+                                            
 
                                         </tr>
                                         <?php } ?>

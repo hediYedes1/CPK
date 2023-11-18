@@ -2,12 +2,12 @@
 
 include __DIR__ . '/../config.php';
 
-class reclamationC
+class reponseC
 {
 
-    public function listreclamation()
+    public function listreponse()
     {
-        $sql = "SELECT * FROM reclamation";
+        $sql = "SELECT * FROM reponse_rec";
         $db = config::getConnexion();
         try {
             $liste = $db->query($sql);
@@ -16,10 +16,10 @@ class reclamationC
             die('Error:' . $e->getMessage());
         }
     }
-
+ /*
     public function getSubjectsBySubject()
     {
-       /* $sql = "SELECT sujet, COUNT(*) AS nombre FROM reclamation GROUP BY sujet";*/
+       
        $sql = "SELECT
        sujet,
        COUNT(*) AS nombre
@@ -37,17 +37,17 @@ class reclamationC
             echo json_encode(["error" => "Internal Server Error"]);
         }
     }
+*/
 
 
 
-
-    function deletereclamation($id_rec)
+    function deletereponse($id_rep)
     {
-        $sql = "DELETE FROM reclamation WHERE id_rec = :id_rec";
+        $sql = "DELETE FROM reponse_rec WHERE id_rep = :id_rep";
         $db = config::getConnexion();
         $req = $db->prepare($sql);
         //$req->bindValue(':id_rec', $ide);
-        $req->bindValue(':id_rec', $id_rec, PDO::PARAM_INT);
+        $req->bindValue(':id_rep', $id_rep, PDO::PARAM_INT);
 
         try {
             $req->execute();
@@ -57,57 +57,55 @@ class reclamationC
     }
 
 
-    function addreclamation($reclamation)
+    function addreponse($reponse)
     {
-        $sql = "INSERT INTO reclamation  
-        VALUES (NULL, :nom,:sujet, :texte, :date)";//, baad texte
+        $sql = "INSERT INTO reponse_rec  
+        VALUES (NULL, :contenu, :date)";//, baad texte
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
             $query->execute([
-                'nom' => $reclamation->getdate(),
-                'sujet' => $reclamation->getsujet(),
-                'texte' => $reclamation->gettexte(),
-                'date' => $reclamation->getdates(),
+               
+                'contenu' => $reponse->getcontenu(),
+                
+                'date' => $reponse->getdate(),
             ]);
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage();
         }
     }
 
-function showreclamation($id_rec)
+function showreponse($id_rep)
 {
-    $sql = "SELECT * FROM reclamation WHERE id_rec = :id_rec";
+    $sql = "SELECT * FROM reponse_rec WHERE id_rep = :id_rep";
     $db = config::getConnexion();
     try {
         $query = $db->prepare($sql);
-        $query->bindParam(':id_rec', $id_rec, PDO::PARAM_INT);
+        $query->bindParam(':id_rep', $id_rep, PDO::PARAM_INT);
         $query->execute();
-        $reclamation = $query->fetch();
-        return $reclamation;
+        $reponse = $query->fetch();
+        return $reponse;
     } catch (Exception $e) {
         die('Error: ' . $e->getMessage());
     }
 }
 
-    function updateJoueur($reclamation, $id_rec )
+    function updateReponse($reponse, $id_rep )
     {   
         try {
             $db = config::getConnexion();
             $query = $db->prepare(
-                'UPDATE reclamation SET 
-                    nom = :nom, 
-                    sujet = :sujet, 
-                    texte = :texte ,
+                'UPDATE reponse_rec SET                
+                    contenu = :contenu,                    
                     date:= date 
-                WHERE id_rec= :id_rec' 
+                WHERE id_rep= :id_rep' 
             );
             
             $query->execute([
-                'id_rec' => $id_rec,
-                'nom' => $reclamation->getdate(),
-                'sujet' => $reclamation->getsujet(),
-                'texte' => $reclamation->gettexte(),
+                'id_rep' => $id_rep,
+               
+                'contenu' => $reponse->getcontenu(),
+                
                 
                 
             ]);
@@ -118,7 +116,7 @@ function showreclamation($id_rec)
         }
     }
 }
-$reclamationController = new reclamationC();
+$reponseController = new reponseC();
 
 if (isset($_GET['action'])) {
     if ($_GET['action'] === 'getSubjects') {
