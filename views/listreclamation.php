@@ -36,16 +36,10 @@ $tab = $c->listreclamation();
 
 
 
-
-
-
-
-
-    
 </head>
 
 <body>
-    
+
     <style>
     /* Reset some default styles */
     body,
@@ -155,10 +149,12 @@ $tab = $c->listreclamation();
                 <h1>Data Tables</h1>
                 <nav>
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a
+                                href="http://localhost/last%20khedma/views/addreclamation.php">Home</a></li>
                         <li class="breadcrumb-item">Tables</li>
                         <li class="breadcrumb-item active">Data</li>
-                        <li class="breadcrumb-item"><a href="http://localhost/last%20khedma/views/NiceAdmin/stat.php">statistique</a></li>
+                        <li class="breadcrumb-item"><a
+                                href="http://localhost/last%20khedma/views/NiceAdmin/stat.php">statistique</a></li>
                     </ol>
                 </nav>
             </div><!-- End Page Title -->
@@ -182,6 +178,7 @@ $tab = $c->listreclamation();
                                             <th scope="col">Nom</th>
                                             <th scope="col">sujet</th>
                                             <th scope="col">texte</th>
+                                            <th scope="col">date</th>
                                             <th scope="col">modifier</th>
                                             <th scope="col">supprimer</th>
                                         </tr>
@@ -193,11 +190,19 @@ $tab = $c->listreclamation();
                                             <td><?= $reclamation['nom']; ?></td>
                                             <td><?= $reclamation['sujet']; ?></td>
                                             <td><?= $reclamation['texte']; ?></td>
+                                            <td><?= $reclamation['date']; ?></td>
+                                            
+                                           
                                             <td>
                                                 <form method="POST" action="updatereclamation.php">
                                                     <input type="submit" name="update" value="modifier">
                                                     <input type="hidden" value=<?PHP echo $reclamation['id_rec']; ?>
+
                                                     name="id_rec">
+                                                    <input type="hidden" value=<?PHP echo $reclamation['date']; ?>
+
+                                                    name="date">
+
                                                 </form>
                                             </td>
                                             <td>

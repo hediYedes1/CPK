@@ -5,14 +5,16 @@ class reclamation
     private ?string $nom = null;
     private ?string $sujet = null;
     private ?string $texte = null;
+    private ?string $date = null ;
     
 
-    public function __construct($id = null, $n, $s, $t)
+    public function __construct($id = null, $n, $s, $t , $d=null)
     {
         $this->id_rec = $id;
         $this->nom = $n ;
         $this->sujet = $s;
         $this->texte = $t;
+        $this->date = $d;
         
     }
 
@@ -20,6 +22,15 @@ class reclamation
     public function getIdreclamation()
     {
         return $this->id_rec;
+    }
+    public function getdates(){
+        return $this->date;
+    }
+    public function setdates($date)
+    {
+        $this->date = $date;
+
+        return $this;
     }
 
 

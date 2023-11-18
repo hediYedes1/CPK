@@ -19,29 +19,7 @@ function validerNom() {
     }
 }
 
-/*
-function validerNom() {
-    var nom = document.getElementById('nom'); // Remplacez 'nom' par l'ID de votre champ de nom
-    var nomValue = nom.value.trim();
-    
-    var nomPattern = /^[A-Za-z]{1,40}$/; // Le nom ne doit contenir que des lettres et avoir une longueur maximale de 15 caractères
-    
-    var msgNom = document.getElementById('mynom'); // Remplacez 'mynom' par l'ID de votre message d'erreur
-    
-    if (nomValue === '') {
-        msgNom.innerHTML = '<span style="color: red">Ce champ est obligatoire.</span>';
-        return false; // La validation a échoué, empêche la soumission du formulaire
-    } else if (nomPattern.test(nomValue)) {
-        msgNom.innerHTML = '<span style="color: green">Correct</span>';
-        return true; // La validation est réussie, permet la soumission du formulaire
-    } else {
-        msgNom.innerHTML = '<span style="color: red">Le nom ne doit contenir que des lettres et avoir une longueur maximale de 40 caractères.</span>';
-        return false; // La validation a échoué, empêche la soumission du formulaire
-    }
-}
 
-
-*/
         
         var form = document.getElementById('myForm');
        

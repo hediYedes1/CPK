@@ -24,7 +24,7 @@ if (
         !empty($_POST["texte"]) 
         
     ) {
-        foreach ($_POST as $key => $value) {
+        foreach ($_POST as $key => $value) { //parcourir 
             echo "Key: $key, Value: $value<br>";
         }
         $reclamation = new reclamation(
@@ -39,7 +39,8 @@ if (
         $reclamationC->updateJoueur($reclamation, $_POST['id_rec']);
        // $reclamationC->updatereclamation($reclamation, $_POST['id_rec']);
 
-        header('Location:listreclamation.php');
+        //header('Location:listreclamation.php');
+        header('Location:http://localhost/last%20khedma/views/NiceAdmin/tablerec.php');
     } else
         $error = "Missing information";
 }
@@ -135,7 +136,7 @@ if (
 
 
    <!-- <a href="listreclamation.php"></a>-->
-   <a href="listereclamation.php"></a>
+   <a href="http://localhost/last%20khedma/views/NiceAdmin/tablerec.php"></a>
     <hr>
 
     <div id="error">

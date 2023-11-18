@@ -19,7 +19,13 @@ class reclamationC
 
     public function getSubjectsBySubject()
     {
-        $sql = "SELECT sujet, COUNT(*) AS nombre FROM reclamation GROUP BY sujet";
+       /* $sql = "SELECT sujet, COUNT(*) AS nombre FROM reclamation GROUP BY sujet";*/
+       $sql = "SELECT
+       sujet,
+       COUNT(*) AS nombre
+   FROM reclamation
+   WHERE sujet IN ('Signaler un texte abus', 'Signaler un problème', 'autres')
+   GROUP BY sujet";
         $db = config::getConnexion();
         try {
             $statement = $db->query($sql);
@@ -54,7 +60,7 @@ class reclamationC
     function addreclamation($reclamation)
     {
         $sql = "INSERT INTO reclamation  
-        VALUES (NULL, :nom,:sujet, :texte)";//, baad texte
+        VALUES (NULL, :nom,:sujet, :texte, :date)";//, baad texte
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
@@ -62,7 +68,7 @@ class reclamationC
                 'nom' => $reclamation->getdate(),
                 'sujet' => $reclamation->getsujet(),
                 'texte' => $reclamation->gettexte(),
-                
+                'date' => $reclamation->getdates(),
             ]);
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage();
@@ -84,7 +90,7 @@ function showreclamation($id_rec)
     }
 }
 
-    function updateJoueur($reclamation, $id_rec)
+    function updateJoueur($reclamation, $id_rec )
     {   
         try {
             $db = config::getConnexion();
@@ -92,9 +98,10 @@ function showreclamation($id_rec)
                 'UPDATE reclamation SET 
                     nom = :nom, 
                     sujet = :sujet, 
-                    texte = :texte
+                    texte = :texte ,
+                    date:= date 
                     
-                WHERE id_rec= :id_rec'
+                WHERE id_rec= :id_rec' 
             );
             
             $query->execute([
@@ -103,11 +110,12 @@ function showreclamation($id_rec)
                 'sujet' => $reclamation->getsujet(),
                 'texte' => $reclamation->gettexte(),
                 
+                
             ]);
             
             echo $query->rowCount() . " records UPDATED successfully <br>";
         } catch (PDOException $e) {
-            $e->getMessage();
+          echo 'Error :'.  $e->getMessage();
         }
     }
 }
@@ -122,4 +130,4 @@ if (isset($_GET['action'])) {
 }
 
 header('HTTP/1.1 400 Bad Request');
-echo json_encode(["error" => "Invalid Request"]);
+//echo json_encode(["error" => "Invalid Request"]);

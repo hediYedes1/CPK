@@ -49,14 +49,14 @@ error_reporting(E_ALL);
  </head>
 
  <body>
-
+ 
      <!-- ======= Header ======= -->
      <header id="header" class="header fixed-top d-flex align-items-center">
-
+     <img src="img.png"  style="width: 60px; height: 60px;">
          <div class="d-flex align-items-center justify-content-between">
              <a href="index.html" class="logo d-flex align-items-center">
-                 <img src="assets/img/logo.png" alt="">
-                 <span class="d-none d-lg-block">NiceAdmin</span>
+             
+                 <span class="d-none d-lg-block">LocalArt</span>
              </a>
              <i class="bi bi-list toggle-sidebar-btn"></i>
          </div><!-- End Logo -->
@@ -84,21 +84,7 @@ error_reporting(E_ALL);
                              You have 4 new notifications
                              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
                          </li>
-                         <li>
-                             <hr class="dropdown-divider">
-                         </li>
-
-                         <li class="notification-item">
-                             <i class="bi bi-check-circle text-success"></i>
-                             <div>
-                                 <h4>Sit rerum fuga</h4>
-                                 <p>Quae dolorem earum veritatis oditseno</p>
-                                 <p>2 hrs. ago</p>
-                             </div>
-                         </li>
-
-
-
+                
                          <li>
                              <hr class="dropdown-divider">
                          </li>
@@ -122,29 +108,7 @@ error_reporting(E_ALL);
                              You have 1 new messages
                              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
                          </li>
-                         <li>
-                             <hr class="dropdown-divider">
-                         </li>
-
-
-
-                         <li>
-                             <hr class="dropdown-divider">
-                         </li>
-
-                         <li class="message-item">
-                             <a href="#">
-                                 <img src="assets/img/messages-3.jpg" alt="" class="rounded-circle">
-                                 <div>
-                                     <h4>David Muldon</h4>
-                                     <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                                     <p>8 hrs. ago</p>
-                                 </div>
-                             </a>
-                         </li>
-                         <li>
-                             <hr class="dropdown-divider">
-                         </li>
+                        
 
                          <li class="dropdown-footer">
                              <a href="#">Show all messages</a>
@@ -157,7 +121,7 @@ error_reporting(E_ALL);
                  <li class="nav-item dropdown pe-3">
 
                      <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                         <img src="assets/img/hedi.jpg" alt="Profile" class="rounded-circle">
+                         <img src="hedi.jpg" alt="Profile" class="rounded-circle">
                          <span class="d-none d-md-block dropdown-toggle ps-2">Y.Hedi</span>
                      </a><!-- End Profile Iamge Icon -->
 
@@ -199,7 +163,12 @@ error_reporting(E_ALL);
      <aside id="sidebar" class="sidebar">
 
          <ul class="sidebar-nav" id="sidebar-nav">
-
+         <li class="nav-item">
+                <a class="nav-link collapsed" href="">
+                    <i class="bi bi-grid"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
              <li class="nav-item">
                  <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
                      <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i
@@ -208,26 +177,29 @@ error_reporting(E_ALL);
                  <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
                      <li>
-                         <a href="http://localhost/localArt/views/listreclamation.php">
+                         <a href="http://localhost/last%20khedma/views/NiceAdmin/tablerec.php">
                              <i class="bi bi-circle"></i><span>Data Tables</span>
                          </a>
-                     </li>
+                         
+                     
                  </ul>
              </li><!-- End Tables Nav -->
-
              <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
-                 <ul id="charts-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="http://localhost/last%20khedma/views/NiceAdmin/stat.php">
+                            <i class="bi bi-circle"></i><span>ApexCharts</span>
+                        </a>
+                    </li>
 
-                     <li>
-                         <a href="charts-apexcharts.html" class="active">
-                             <i class="bi bi-circle"></i><span>ApexCharts</span>
-                         </a>
-                     </li>
+                </ul>
+            </li>
 
-                 </ul>
-             </li><!-- End Charts Nav -->
-
+             
 
 
              <li class="nav-heading">Pages</li>
@@ -266,15 +238,14 @@ error_reporting(E_ALL);
              <h1>ApexCharts</h1>
              <nav>
                  <ol class="breadcrumb">
-                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                     <li class="breadcrumb-item"><a href="http://localhost/last%20khedma/views/addreclamation.php">Home</a></li>
                      <li class="breadcrumb-item">Charts</li>
-                     <li class="breadcrumb-item active">ApexCharts</li>
+                     <li class="breadcrumb-item active"><a href="stat.php">ApexCharts</a></li>
                  </ol>
              </nav>
          </div><!-- End Page Title -->
 
-         <p>ApexCharts Examples. You can check the <a href="https://apexcharts.com/javascript-chart-demos/"
-                 target="_blank">official website</a> for more examples.</p>
+         <p>here is our statistic for the subject of reclamations </p>
 
          <section class="section">
              <div class="row">
@@ -291,8 +262,8 @@ error_reporting(E_ALL);
                              <div id="columnChart"></div>
                              <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
                              <script>
-                             /*
-
+                             
+/*
                             document.addEventListener("DOMContentLoaded", () => {
                                 new ApexCharts(document.querySelector("#columnChart"), {
                                     series: [{
@@ -345,8 +316,8 @@ error_reporting(E_ALL);
                                         }
                                     }
                                 }).render();
-                            });
-                            */
+                            });*/
+                            
 
 
 
@@ -369,9 +340,15 @@ error_reporting(E_ALL);
                                      // Use the data to create the chart
                                      new ApexCharts(document.querySelector("#columnChart"), {
                                          series: [{
-                                             name: 'Reclamations',
+                                             name: 'reclamations',
                                              data: data.map(item => item.nombre)
-                                         }],
+                                             
+                                             
+                                         },
+                                         
+                                         
+                                        ],
+
                                          chart: {
                                              type: 'bar',
                                              height: 350
@@ -393,6 +370,10 @@ error_reporting(E_ALL);
                                          },
                                          xaxis: {
                                              categories: data.map(item => item.sujet),
+                                             /*
+                                             categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug',
+                                            'Sep', 'Oct'
+                                        ],*/
                                          },
                                          yaxis: {
                                              title: {
@@ -405,13 +386,81 @@ error_reporting(E_ALL);
                                          tooltip: {
                                              y: {
                                                  formatter: function(val) {
-                                                     return val + " reclamations";
+                                                     return $ + val + " reclamations";
                                                  }
                                              }
                                          }
                                      }).render();
                                  }
                              });
+                             /*
+                             document.addEventListener("DOMContentLoaded", () => {
+    // Utiliser Fetch API pour obtenir des données depuis PHP
+    fetch('/last%20khedma/controller/reclamationc.php?action=getSubjects')
+        .then(response => response.json())
+        .then(data => {
+            if (Array.isArray(data)) {
+                renderChart(data);
+            } else {
+                console.error('Format de données invalide :', data);
+            }
+        })
+        .catch(error => console.error('Erreur lors de la récupération des données :', error));
+
+    function renderChart(data) {
+        // Utiliser les données pour créer le graphique
+        new ApexCharts(document.querySelector("#columnChart"), {
+            series: [{
+                name: 'Signaler un texte abusif',
+                data: data.map(item => item.nombretecteabusif)
+            }, {
+                name: 'Signaler un problème',
+                data: data.map(item => item.nombreprobleme)
+            }, {
+                name: 'Autres',
+                data: data.map(item => item.nombreautres)
+            }],
+            chart: {
+                type: 'bar',
+                height: 350
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '55%',
+                    endingShape: 'rounded'
+                },
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                show: true,
+                width: 2,
+                colors: ['transparent']
+            },
+            xaxis: {
+                categories: data.map(item => item.sujet),
+            },
+            yaxis: {
+                title: {
+                    text: 'Nombre de réclamations'
+                }
+            },
+            fill: {
+                opacity: 1
+            },
+            tooltip: {
+                y: {
+                    formatter: function(val) {
+                        return val + " réclamations";
+                    }
+                }
+            }
+        }).render();
+    }
+});
+*/
                              </script>
                              <!-- End Column Chart -->
 
