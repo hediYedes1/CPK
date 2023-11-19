@@ -3,8 +3,104 @@ include "../../controller/ReponseReclamationC.php";
 
 $c = new reponseC();
 $tab = $c->listreponse();
+
 ?>
+
 <!DOCTYPE html>
+<style>
+    /* Reset some default styles */
+
+
+/* Main content styles */
+#main {
+    padding: 20px;
+}
+
+.pagetitle {
+    margin-bottom: 20px;
+}
+
+.pagetitle h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.pagetitle ol {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.pagetitle ol li {
+    display: inline;
+    margin-right: 5px;
+    font-size: 16px;
+}
+
+/* Table styles */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.table th, .table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.table th {
+    background-color: #f2f2f2;
+}
+
+/* Back to top button styles */
+.back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 18px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Hover effect for back to top button */
+.back-to-top:hover {
+    background-color: #0056b3;
+}
+/* Add these styles to color the buttons */
+.table td form input[type="submit"] {
+    background-color: #28a745; /* Green color for "Modifier" button */
+    color: #fff; /* White text color */
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.table td button {
+    background-color: #dc3545; /* Red color for "Supprimer" button */
+    color: #fff; /* White text color */
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Hover effect for the buttons */
+.table td form input[type="submit"]:hover,
+.table td button:hover {
+    opacity: 0.8;
+}
+
+
+</style>
 <html lang="en">
 
 <head>
@@ -282,7 +378,7 @@ $tab = $c->listreponse();
                                     <td><?= $reponse_rec['date']; ?></td>
                                     <td>
                                         <form method="POST"
-                                            action="http://localhost/last%20khedma/views/updatereponse.php">
+                                            action="http://localhost/last%20khedma/views/NiceAdmin/updatereponse.php">
                                             <input type="submit" name="update" value="modifier">
                                             <input type="hidden" value=<?PHP echo $reponse_rec['id_rep']; ?>
 
@@ -294,7 +390,7 @@ $tab = $c->listreponse();
                                     </td>
                                     <td>
                                         <button> <a
-                                                href="http://localhost/last%20khedma/views/deletereponse.php?id_rep=<?= $reponse_rec['id_rep']; ?>">supprimer</a></button>
+                                                href="http://localhost/last%20khedma/views/NiceAdmin/deletereponse.php?id_rep=<?= $reponse_rec['id_rep']; ?>">supprimer</a></button>
                                     </td>
 
 

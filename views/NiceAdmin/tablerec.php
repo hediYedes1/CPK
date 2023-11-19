@@ -5,6 +5,74 @@ $c = new reclamationC();
 $tab = $c->listreclamation();
 ?>
 <!DOCTYPE html>
+<style>
+ 
+
+
+/* Header styles */
+
+
+/* Main content styles */
+#main {
+    padding: 30px;
+}
+
+.pagetitle {
+    margin-bottom: 20px;
+}
+
+/* Table styles */
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+}
+
+.table th,
+.table td {
+    padding: 1rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+/* Button styles */
+.table td form input[name="update"],
+.table td button {
+    background-color: #28a745;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.table td form input[name="delete"],
+.table td button {
+    background-color: #dc3545;
+    color: #ffffff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+/* Back to top button styles */
+.back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 24px;
+    color: #007bff;
+    background-color: #ffffff;
+    border: 1px solid #007bff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.back-to-top:hover {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+</style>
 <html lang="en">
 
 <head>
@@ -341,7 +409,7 @@ $tab = $c->listreclamation();
                                     </td>
                                     <td>
                                         <button>
-                                            <a href="http://localhost/last%20khedma/views/addreponse.php"?id_rec=<?= $reclamation['id_rec']; ?>>reponse</a>
+                                            <a href="http://localhost/last%20khedma/views/NiceAdmin/addreponse.php"?id_rec=<?= $reclamation['id_rec']; ?>>reponse</a>
                                         </button>
                                     </td>
 

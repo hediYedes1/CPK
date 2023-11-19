@@ -1,5 +1,5 @@
 <?php
-include '../Controller/ReponseReclamationC.php';
+include '../../Controller/ReponseReclamationC.php';
 $reponseC = new reponseC();
 
 // Check if "id_rec" is set in the URL or in POST data
