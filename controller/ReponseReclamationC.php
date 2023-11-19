@@ -16,29 +16,6 @@ class reponseC
             die('Error:' . $e->getMessage());
         }
     }
- /*
-    public function getSubjectsBySubject()
-    {
-       
-       $sql = "SELECT
-       sujet,
-       COUNT(*) AS nombre
-   FROM reclamation
-   WHERE sujet IN ('Signaler un texte abus', 'Signaler un problème', 'autres')
-   GROUP BY sujet";
-        $db = config::getConnexion();
-        try {
-            $statement = $db->query($sql);
-            $data = $statement->fetchAll(PDO::FETCH_ASSOC);
-            header('Content-Type: application/json');
-            echo json_encode($data);
-        } catch (PDOException $e) {
-            header('HTTP/1.1 500 Internal Server Error');
-            echo json_encode(["error" => "Internal Server Error"]);
-        }
-    }
-*/
-
 
 
     function deletereponse($id_rep)
@@ -60,7 +37,7 @@ class reponseC
     function addreponse($reponse)
     {
         $sql = "INSERT INTO reponse_rec  
-        VALUES (NULL, :contenu, :date)";//, baad texte
+        VALUES (NULL, :contenu, :date )";//, baad texte
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
@@ -116,15 +93,3 @@ function showreponse($id_rep)
         }
     }
 }
-$reponseController = new reponseC();
-
-if (isset($_GET['action'])) {
-    if ($_GET['action'] === 'getSubjects') {
-        $reclamationController->getSubjectsBySubject();
-        exit; // Important to exit to prevent further execution
-    }
-    // Add more actions if needed
-}
-
-header('HTTP/1.1 400 Bad Request');
-//echo json_encode(["error" => "Invalid Request"]);

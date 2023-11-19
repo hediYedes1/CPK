@@ -6,33 +6,51 @@ $tab = $c->listreclamation();
 ?>
 <!DOCTYPE html>
 <style>
- 
-
-
-/* Header styles */
-
-
-/* Main content styles */
-#main {
-    padding: 30px;
+ /* Reset some default styles for better consistency */
+body, h1, h2, h3, p, table {
+    margin: 0;
+    padding: 0;
 }
 
+/* Apply a background color to the body */
+body {
+    background-color: #f8f9fa;
+}
+
+/* Header styles */
+header {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 10px;
+}
+
+/* Page title styles */
 .pagetitle {
-    margin-bottom: 20px;
+    margin: 20px 0;
 }
 
 /* Table styles */
 .table {
     width: 100%;
-    margin-bottom: 1rem;
-    color: #212529;
+    background-color: #ffffff;
+    border-collapse: collapse;
+    margin-bottom: 20px;
 }
 
-.table th,
-.table td {
-    padding: 1rem;
-    vertical-align: top;
-    border-top: 1px solid #dee2e6;
+.table th, .table td {
+    border: 1px solid #dee2e6;
+    padding: 10px;
+    text-align: left;
+}
+
+.table th {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+/* Alternating row colors for better readability */
+.table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
 }
 
 /* Button styles */
@@ -44,6 +62,7 @@ $tab = $c->listreclamation();
     padding: 5px 10px;
     cursor: pointer;
 }
+
 .table td form input[name="delete"],
 .table td button {
     background-color: #dc3545;
@@ -71,6 +90,10 @@ $tab = $c->listreclamation();
     background-color: #007bff;
     color: #ffffff;
 }
+
+
+
+
 
 </style>
 <html lang="en">
@@ -348,42 +371,6 @@ $tab = $c->listreclamation();
                                     </tr>
                                 </thead>
                                 <!--
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Brandon Jacob</td>
-                    <td>Designer</td>
-                    <td>28</td>
-                    <td>2016-05-25</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Bridie Kessler</td>
-                    <td>Developer</td>
-                    <td>35</td>
-                    <td>2014-12-05</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Ashleigh Langosh</td>
-                    <td>Finance</td>
-                    <td>45</td>
-                    <td>2011-08-12</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td>Angus Grady</td>
-                    <td>HR</td>
-                    <td>34</td>
-                    <td>2012-06-11</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">5</th>
-                    <td>Raheem Lehner</td>
-                    <td>Dynamic Division Officer</td>
-                    <td>47</td>
-                    <td>2011-04-19</td>
-                  </tr>
                 
 -->                 <?php foreach ($tab as $reclamation) { ?>
                                 <tr>
@@ -408,7 +395,9 @@ $tab = $c->listreclamation();
                                                 href="http://localhost/last%20khedma/views/deletereclamation.php?id_rec=<?= $reclamation['id_rec']; ?>">supprimer</a></button>
                                     </td>
                                     <td>
+                                        
                                         <button>
+                                        
                                             <a href="http://localhost/last%20khedma/views/NiceAdmin/addreponse.php"?id_rec=<?= $reclamation['id_rec']; ?>>reponse</a>
                                         </button>
                                     </td>
