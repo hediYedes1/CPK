@@ -1,4 +1,3 @@
-
 <?php
 
 include '../Controller/ReponseReclamationC.php';
@@ -199,11 +198,3 @@ if (
 
 
 </html>
-
-
-
-
-
-
-
-

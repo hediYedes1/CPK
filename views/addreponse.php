@@ -62,8 +62,3 @@ if ( isset($_POST["contenu"]) ) {
 
 </body>
 </html>
-
-
-
-
-
