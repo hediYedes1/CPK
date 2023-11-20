@@ -1,4 +1,33 @@
 
+<?php
+
+include "../controller/articleA.php";
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $article = new articleA();
+
+    if (isset($_POST['deleteArticleId'])) {
+        $articleId = $_POST['deleteArticleId'];
+        $article->deleteArticle($articleId);
+
+    } elseif (isset($_POST['updateArticleId'])) {
+        $articleId = $_POST['id_art'];
+        $categorie = $_POST['categorie'];
+        $titre = $_POST['titre'];
+        $nomprenom_artiste = $_POST['nomprenom_artiste'];
+        $contenu = $_POST['contenu'];
+        $article->updateArticle($articleId,$categorie,$titre,$nomprenom_artiste,$contenu);
+        
+    }
+    header('Location: ' . $_SERVER['PHP_SELF']);
+        exit;
+}
+
+$c = new articleA();
+$categorie = NULL;
+$category='livre';
+$tab = $c->listArticlesByCategory($category);
+?>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -114,13 +143,123 @@
     
         </div>
     </nav>
+    <center>
+    <h1>Liste des articles</h1>
+    <h2><a href="addArticle.php">Ajouter un article</a></h2>
+</center>
+
+<section id="blog" class="blog">
+        <div class="container" data-aos="fade-up">
+  
+          
+  
+            <div class="col-lg-8 entries">
+            <?php foreach ($tab as $article) { ?>
+             <div class="blog-author d-flex align-items-center">
+                
+                    <img src="assets/img/blog/blog-author.jpg" class="rounded-circle float-left" alt="">
+                    <div id="article">
+                        <h4><?= $article['nomprenom_artiste']; ?></h4>
+                        <div class="social-links">
+                            <!-- You can customize the URLs and icons based on your requirements -->
+                            <a class="text-light" href="https://fb.com" target="_blank" rel="sponsored"><i class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
+                            <a class="text-light" href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram fa-sm fa-fw me-2"></i></a>
+                        </div>
+                        <p>
+                            <h5><?= $article['titre']; ?></h5>
+                            <pw>
+                            <?= insertLineBreaks($article['contenu'], 40); ?>
+                            </pw>
+                        </p>
+                    </div>
+                
+             </div>
+             <?php } 
+             function insertLineBreaks($text, $lineLength) {
+                // Insert a line break after every $lineLength characters
+                return wordwrap($text, $lineLength, "<br>", true);
+            }
+             ?>
+              
+              <div class="blog-comments">
+  
+               <h4 cl ass="comments-count"id="comment">Commentaires</h4>
+                <div id="comment-2" class="comment">
+                  <div class="d-flex">
+    
+                    
+                  </div>
+  
+                  <div id="comment-reply-1" class="comment comment-reply">
+                 
+                
+                  <div class="reply-form" >
+                  
+                    <h4 id="ajcmnt">Ajouter un commentaire</h4>
+                    <form  id="myBtn">
+                      
+                        <div class="col-md-6 form-group">
+                          <input id="noun" type= "text" class="form-control" placeholder="Votre nom*" > 
+                          <label id="msg1"></label>
+                        </div>
+                      
+                        <div class="col form-group">
+                          <input id="cmnt" type= "text" class="form-control" placeholder="Votre commentaire*" > 
+                          <label id="msg2"></label>
+                        </div>
+                        <button id="client" type="submit" class="btn btn-primary" style="background-color:green;"onclick="verif()"  >Poster commentaire <a href="#comment">+</a></button>
+                        
+                    </form>
+                    
+                   
+    
+                  
+              </div><!-- End blog comments -->
+                
+            </div><!-- End blog entries list -->
+            <div class="col-lg-4">
+                <div class="sidebar">
+                  <h2> Menu</h2>
+                 <p>checher une catégorie d'articles spécific</p>
+                 <div class="w3-dropdown-hover">
+                  <button class="w3-button w3-black">Dérouler</button>
+                  <div class="w3-dropdown-content w3-bar-block w3-card w3-light-grey" id="myDIV">
+                  <input class="w3-input w3-padding" type="text" placeholder="Search.." id="myInput" onkeyup="categories()">
+                  <a class="w3-bar-item w3-button" href="tab.php">tableaux</a>
+                  <a class="w3-bar-item w3-button" href="vt.php">vetements traditionnels</a>
+                  <a class="w3-bar-item w3-button" href="mon.php">monumens</a>
+                  <a class="w3-bar-item w3-button" href="lvr.php">livres</a>
+                  <a class="w3-bar-item w3-button" href="vl.php">villes</a>
+                  </div>
+
+               </div>
+            </div>
+            
+               
+            
+         
+        
+        </div>
+    
+    </section>
+            
 </body>
 
 
+            
+        
+   
+<!-- <script>
+    function openUpdateForm(articleId) {
+        // Hide all update forms
+        document.querySelectorAll('[id^="updateForm"]').forEach(function (form) {
+            form.style.display = 'none';
+        });
 
-
-
-
+        // Show the selected update form
+        document.getElementById('updateForm' + articleId).style.display = 'table-row';
+    }
+</script> -->
 <!-- ======= Footer ======= -->
 <footer class="bg-dark" id="tempaltemo_footer">
     <div class="container">

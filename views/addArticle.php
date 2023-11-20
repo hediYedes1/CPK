@@ -96,8 +96,8 @@ if (isset($_GET['id_art'])) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (isset($_POST['add'])) {
-      // Handle signup form submission
-      
+   
+          
       $categorie = $_POST['categorie'];
       if ($categorie=="tableau"){
           $titre = $_POST['titre'];
@@ -105,20 +105,56 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           $contenu = $_POST['contenu'];
           $article= new articleA;
           $article->addArticle(NULL,$categorie,$titre,$nomprenom_artiste,$contenu);
-          header('location:tab.php');
+          if ($article->checkTitleExists($titre)) {
+           echo '<script>alert("Le titre existe déjà dans la base de données.");</script>';
+          } 
+          else
+          {
+            header('location:tab.php');
+          }
+         
          }
-      else{$titre = $_POST['titre'];
-        $nomprenom_artiste = $_POST['nomprenom_artiste'];
-        $contenu = $_POST['contenu'];
-        $article= new articleA;
-        $article->addArticle(NULL,$categorie,$titre,$nomprenom_artiste,$contenu);
-        header('location:vt.php');
+        if ($categorie=="vetement"){
+          $titre = $_POST['titre'];
+          $nomprenom_artiste = $_POST['nomprenom_artiste'];
+          $contenu = $_POST['contenu'];
+          $article= new articleA;
+          $article->addArticle(NULL,$categorie,$titre,$nomprenom_artiste,$contenu);
+          header('location:vt.php');
+         }
+         if ($categorie=="monument"){
+          $titre = $_POST['titre'];
+          $nomprenom_artiste = $_POST['nomprenom_artiste'];
+          $contenu = $_POST['contenu'];
+          $article= new articleA;
+          $article->addArticle(NULL,$categorie,$titre,$nomprenom_artiste,$contenu);
+          header('location:mon.php');
+         }
+         if ($categorie=="livre"){
+          $titre = $_POST['titre'];
+          $nomprenom_artiste = $_POST['nomprenom_artiste'];
+          $contenu = $_POST['contenu'];
+          $article= new articleA;
+          $article->addArticle(NULL,$categorie,$titre,$nomprenom_artiste,$contenu);
+          header('location:lvr.php');
+         }
+         if ($categorie=="ville"){
+          $titre = $_POST['titre'];
+          $nomprenom_artiste = $_POST['nomprenom_artiste'];
+          $contenu = $_POST['contenu'];
+          $article= new articleA;
+          $article->addArticle(NULL,$categorie,$titre,$nomprenom_artiste,$contenu);
+          header('location:vl.php');
+         }
+        
+       
 
       }
+    }
      
-  }
+  
   //else if()
-}
+
 ?>
 
 <!DOCTYPE html>
@@ -159,7 +195,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 
-<body>
+<body >
     
     <div class="topnav">
         <div class="container text-light">
@@ -494,14 +530,14 @@ function openImg(imgName) {
                     
                       <div class="col-md-6 form-group">
                         <input id="noun" type= "text" class="form-control" placeholder="Votre nom*" > 
-                        <label id="msg1"></label>
+                        <span id="msg1" style="color: red" ></span>
                       </div>
                     
                       <div class="col form-group">
-                        <input id="cmnt" type= "text" class="form-control" placeholder="Votre commentaire*" > 
-                        <label id="msg2"></label>
+                        <input id="cmnt" type= "text" class="form-control" placeholder="Votre commentaire*" autocomplete="off" > 
+                        <span id="msg2" style="color: red" ></span>
                       </div>
-                      <button id="client" type="submit" class="btn btn-primary" style="background-color:green;"onclick="verif()"  >Poster commentaire <a href="#comment">+</a></button>
+                      <button id="client" type="submit" class="btn btn-primary" style="background-color:green;" >Poster commentaire <a href="#comment">+</a></button>
                       
                   </form>
   
@@ -513,7 +549,8 @@ function openImg(imgName) {
                 <form  action="" method="POST" id="artBtn">
                   <div class="row">
                     <div class="col-md-6 form-group">
-                    <select class="form-control" id="cat" type= "text" name="categorie">         
+                    <select class="form-control" id="cat" type= "text" name="categorie">
+                       <option value="">Choisir une catégorie*</option>
                         <option>tableau</option>
                         <option >vetement</option>
                         <option >monument</option>
@@ -524,28 +561,22 @@ function openImg(imgName) {
                       
                     </div>
                     <div class="col-md-6 form-group">
-                      <input id="title" type= "text" class="form-control" name="titre" placeholder="titre*" > 
-                      <span id="msg4" ></span>
+                      <input id="title" type= "text" class="form-control" name="titre" placeholder="titre* " autocomplete="off"> 
+                      <span id="msg4" style="color: red" ></span>
                     </div>
+                   
+
                   </div>
                   <div class="row">
                     <div class="col-md-6 form-group">
-                      <input id="dc" type= "date" class="form-control" name="date_creation" placeholder="date creation*" > 
-                      
-                    </div>
-                    <div class="col-md-6 form-group">
-                      <input id="dm" type= "date" class="form-control" name="date_modification" placeholder="date modification*" > 
-                      
-                    </div>
-                    <div class="col-md-6 form-group">
                       <input id="nom" type= "text" class="form-control" name="nomprenom_artiste" placeholder="nom complet*" > 
-                      <span id="msg7" ></span>
+                      <span id="msg7" style="color: red"></span>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col form-group">
-                      <input id="art" type= "text" class="form-control" name="contenu" placeholder="Votre Article*" > 
-                        <label id="msg8"></label>
+                      <input id="art" type= "text" class="form-control" name="contenu" placeholder="Votre Article*"autocomplete="off" > 
+                        <label id="msg8" style="color: red"></label>
                     </div>
                   </div>
                   <div>
@@ -603,6 +634,10 @@ function openImg(imgName) {
               </div>
             
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
 
 <script>
@@ -722,11 +757,9 @@ function openImg(imgName) {
 </footer>
 <!-- End Footer -->
 <script>
-       document.getElementById('artBtn').addEventListener('submit', function (event) {
+     document.getElementById('artBtn').addEventListener('submit', function (event) {
     var category = document.getElementById('cat').value;
     var title = document.getElementById('title').value;
-    var dateCreation = document.getElementById('dc').value;
-    var dateModification = document.getElementById('dm').value;
     var artistName = document.getElementById('nom').value;
     var articleContent = document.getElementById('art').value;
 
@@ -735,32 +768,53 @@ function openImg(imgName) {
     document.getElementById('msg4').textContent = '';
     document.getElementById('msg7').textContent = '';
     document.getElementById('msg8').textContent = '';
-  
+
     // Check if category is selected
     if (category === '') {
-        document.getElementById('msg3').textContent = 'Please select a category.';
+        document.getElementById('msg3').textContent = 'Vous devez sélectionner une catégorie*.';
         event.preventDefault();
     }
 
     // Check if title is filled and contains only alphabetic characters
-    if (title === '' || !/^[a-zA-Z]+$/.test(title)) {
-        document.getElementById('msg4').textContent = 'Please enter a valid title with only alphabetical characters.';
-        event.preventDefault();
-    }
+    if (title === '') {
+    document.getElementById('msg4').textContent = 'Le champ du titre ne peut pas être vide*.';
+    event.preventDefault();
+}  else if (!/^[a-zA-Z ]+$/.test(title)) {
+    document.getElementById('msg4').textContent = 'Entrer un titre valide seulement avec des lettres alphabétiques et des espaces*.';
+    event.preventDefault();
+}
 
     // You can add more validation for date fields, and other fields as needed
 
     // Check if artist name is filled and contains only alphabetic characters
-    if (artistName === '' || !/^[a-zA-Z]+$/.test(artistName)) {
-        document.getElementById('msg7').textContent = 'Please enter a valid artist\'s name with only alphabetical characters.';
+    if (artistName.trim() === '' || !/^[a-zA-Z]+$/.test(artistName)) {
+        document.getElementById('msg7').textContent = 'Entrer un nom valide seulement avec des lettres alphabétiques*.';
         event.preventDefault();
     }
 
     // Check if article content is filled
     if (articleContent === '') {
-        document.getElementById('msg8').textContent = 'Please enter your article content.';
+        document.getElementById('msg8').textContent = 'Cette entrée est obligatoire*.';
         event.preventDefault();
     }
+});
+document.getElementById('myBtn').addEventListener('submit', function two (event) {
+  var nom = document.getElementById('noun').value;
+  var commentaire = document.getElementById('cmnt').value; 
+  document.getElementById('msg1').textContent = '';
+  document.getElementById('msg2').textContent = ''; 
+  if (nom === '') {
+    document.getElementById('msg1').textContent = 'Le champ du titre ne peut pas être vide*.';
+    event.preventDefault();
+}  else if (!/^[a-zA-Z ]+$/.test(nom)) {
+    document.getElementById('msg1').textContent = 'Entrer un nom valide seulement avec des lettres alphabétiques et des espaces*.';
+    event.preventDefault();
+}
+if (commentaire === '') {
+        document.getElementById('msg2').textContent = 'Cette entrée est obligatoire*.';
+        event.preventDefault();
+    }
+
 });
 
 </script>

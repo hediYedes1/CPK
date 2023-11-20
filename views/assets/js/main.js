@@ -292,4 +292,8 @@
    */
   new PureCounter();
 
+<<<<<<< HEAD
 })
+=======
+})();
+>>>>>>> 34dbc6babcbd4786a4dd7e9d96033afa7b7e9f55
