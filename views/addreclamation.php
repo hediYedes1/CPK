@@ -210,8 +210,9 @@ https://templatemo.com/tm-559-zay-shop
                             <label for="nom">nom</label>
                             
                             <input type="text" class="form-control" id="nom" name="nom" placeholder="nom" >
+                            <td>
                             <span id="mynom"></span>
-                            
+                            </td>
                             
                         </div>
                     
@@ -226,13 +227,17 @@ https://templatemo.com/tm-559-zay-shop
                                 <option >Signaler un problème</option>
                                 <option >Autres</option>
                             </select>
+                            <td>
                             <span id="myobjet"></span>
+                            </td>
                     </div>
                         <div class="form-group">
                             <label for="texte">Texte</label>
                             
                             <textarea class="form-control" id="texte" name="texte" placeholder="Texte" rows="8"></textarea>
+                            <td>
                             <span id="mytexte"></span>
+                            </td>
                         </div>
 
                     

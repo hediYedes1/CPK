@@ -362,12 +362,12 @@ if (
       var contenuField = document.getElementById('contenu');
 
       // Vérifiez si le champ contenu est vide ou a moins de 40 caractères
-      if (contenuField.value.trim() === '' || contenuField.value.length <6) {
+      if (contenuField.value.trim() === '' || contenuField.value.length <3) {
         // Empêchez la soumission du formulaire
         event.preventDefault();
 
         // Affichez un message d'erreur
-        document.getElementById('erreurreponse').innerText = 'Le champ "contenu" ne peut pas être vide et doit avoir au moins 6 caractères.';
+        document.getElementById('erreurreponse').innerText = 'Le champ "contenu" ne peut pas être vide et doit avoir au moins 3 caractères.';
       } else {
         // Effacez le message d'erreur s'il existe
         document.getElementById('erreurreponse').innerText = '';
