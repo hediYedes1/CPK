@@ -2,12 +2,20 @@
 include "../../controller/reclamationc.php";
 
 $c = new reclamationC();
-$tab = $c->listreclamation();
+$id_rec = isset($_GET['id']) ? $_GET['id'] : null;
+if ($id_rec !== null) {
+$tab = $c->listreclamationunique($id_rec);}
+
 ?>
 <!DOCTYPE html>
 <style>
- /* Reset some default styles for better consistency */
-body, h1, h2, h3, p, table {
+/* Reset some default styles for better consistency */
+body,
+h1,
+h2,
+h3,
+p,
+table {
     margin: 0;
     padding: 0;
 }
@@ -37,7 +45,8 @@ header {
     margin-bottom: 20px;
 }
 
-.table th, .table td {
+.table th,
+.table td {
     border: 1px solid #dee2e6;
     padding: 10px;
     text-align: left;
@@ -90,11 +99,6 @@ header {
     background-color: #007bff;
     color: #ffffff;
 }
-
-
-
-
-
 </style>
 <html lang="en">
 
@@ -142,10 +146,10 @@ header {
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
 
-    <img src="img.png"  style="width: 60px; height: 60px;">
+        <img src="img.png" style="width: 60px; height: 60px;">
         <div class="d-flex align-items-center justify-content-between">
             <a href="index.html" class="logo d-flex align-items-center">
-                
+
                 <span class="d-none d-lg-block">LocalArt</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -179,8 +183,8 @@ header {
                             You have 4 new notifications
                             <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
                         </li>
-                        
-                        
+
+
                         <li class="dropdown-footer">
                             <a href="#">Show all notifications</a>
                         </li>
@@ -205,9 +209,9 @@ header {
                             <hr class="dropdown-divider">
                         </li>
 
-                       
-                        
-                       
+
+
+
 
                         <li class="dropdown-footer">
                             <a href="#">Show all messages</a>
@@ -340,7 +344,8 @@ header {
             <h1>Data Tables</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="http://localhost/last%20khedma/views/addreclamation.php">Home</a></li>
+                    <li class="breadcrumb-item"><a
+                            href="http://localhost/last%20khedma/views/addreclamation.php">Home</a></li>
                     <li class="breadcrumb-item"><a href="tablerec.php">Tables</a></li>
                     <li class="breadcrumb-item active">Data</li>
                 </ol>
@@ -354,66 +359,58 @@ header {
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Datatables</h5>
-                            <p>here is our table for those who add a reclamation  library. Just add <code>.datatable</code> </p>
+                            <p>here is our table for those who add a reclamation library. Just add
+                                <code>.datatable</code> </p>
 
                             <!-- Table with stripped rows -->
                             <table class="table datatable">
                                 <thead>
                                     <tr>
-                                        <th scope="col">id_rec</th>
-                                        <th scope="col">Nom</th>
-                                        <th scope="col">sujet</th>
-                                        <th scope="col">texte</th>
-                                        <th scope="col">date</th>
-                                        <th scope="col">modifier</th>
-                                        <th scope="col">supprimer</th>
-                                        <th scope="col">repondre</th>
-                                        <th scope="col">details</th>
+                                        <th scope="col">Attribut</th>
+                                        <th scope="col">Valeur</th>
                                     </tr>
+
                                 </thead>
-                                <!--
-                
--->                 <?php foreach ($tab as $reclamation) { ?>
-                                <tr>
-                                    <td><?= $reclamation['id_rec']; ?></td>
-                                    <td><?= $reclamation['nom']; ?></td>
+                                <tbody>
+                                <?php foreach ($tab as $reclamation) { ?>
+                                    <tr>
+                                        <td>id_rec</td>
+                                        <td><?= $reclamation['id_rec']; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>nom</td>
+                                        <td><?= $reclamation['nom']; ?></td>
+                                    </tr>
+                                    <tr>
+                                    <td>sujet</td>
                                     <td><?= $reclamation['sujet']; ?></td>
+                                    </tr>
+                                    <tr>
+                                    <td>texte</td>
                                     <td><?= $reclamation['texte']; ?></td>
+                                    </tr>
+                                    <tr>
+                                    <td>date</td>
                                     <td><?= $reclamation['date']; ?></td>
-                                    <td>
-                                        <form method="POST" action="http://localhost/last%20khedma/views/updatereclamation.php">
-                                            <input type="submit" name="update" value="modifier">
-                                            <input type="hidden" value=<?PHP echo $reclamation['id_rec']; ?>
+                                    </tr>
+                                </tbody>
+                                <tr>
+                                    <th scope="col">id_rec</th>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">sujet</th>
+                                    <th scope="col">texte</th>
+                                    <th scope="col">date</th>
 
-                                            name="id_rec">
-                                            <input type="hidden" value=<?PHP echo $reclamation['date']; ?>
-
-                                            name="date">
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <button> <a
-                                                href="http://localhost/last%20khedma/views/deletereclamation.php?id_rec=<?= $reclamation['id_rec']; ?>">supprimer</a></button>
-                                    </td>
-                                    <td>
-                                        
-                                        <button>
-                                        
-                                            <a href="http://localhost/last%20khedma/views/NiceAdmin/addreponse.php?id_rec=<?= $reclamation['id_rec']; ?>">repondre</a>
-                                        </button>
-                                    </td>
-                                    <td>
-                                        
-                                        <button>
-                                        
-                                            <a href="http://localhost/last%20khedma/views/NiceAdmin/afficherdetailreclamation.php?id=<?= $reclamation['id_rec']; ?>">details</a>
-                                        </button>
-                                    </td>
                                 </tr>
+                              
                                 <?php } ?>
                                 </tbody>
                             </table>
-
+                            <div style="text-align: right; margin-top: 10px;">
+                            <button>
+                                <a href="http://localhost/last%20khedma/views/NiceAdmin/tablerec.php">Retourner a la liste</a>
+                            </button>
+                        </div>
 
                         </div>
                     </div>
