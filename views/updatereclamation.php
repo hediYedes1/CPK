@@ -73,7 +73,40 @@ if (
     
     <link rel="stylesheet" href="assets/css/fontawesome.min.css"> 
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var form = document.getElementById('myForm');
 
+            form.addEventListener('submit', function (event) {
+                var nom = document.getElementById('nom').value.trim();
+                var texte = document.getElementById('texte').value.trim();
+                var erreurnom = document.getElementById('erreurnom');
+                var erreurtexte = document.getElementById('erreurtexte');
+                var isValid = true;
+
+                // Validation pour le champ nom
+                if (nom === '') {
+                    erreurnom.textContent = 'Le champ nom ne peut pas être vide.';
+                    isValid = false;
+                } else {
+                    erreurnom.textContent = ''; // Efface le message d'erreur
+                }
+
+                // Validation pour le champ texte
+                if (texte === '') {
+                    erreurtexte.textContent = 'Le champ texte ne peut pas être vide.';
+                    isValid = false;
+                } else {
+                    erreurtexte.textContent = ''; // Efface le message d'erreur
+                }
+
+                // Si la validation n'est pas réussie, annule l'envoi du formulaire
+                if (!isValid) {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
 </head>
 
 <body>

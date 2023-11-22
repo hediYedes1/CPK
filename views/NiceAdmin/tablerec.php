@@ -398,7 +398,7 @@ header {
                                         
                                         <button>
                                         
-                                            <a href="http://localhost/last%20khedma/views/NiceAdmin/addreponse.php"?id_rec=<?= $reclamation['id_rec']; ?>>reponse</a>
+                                            <a href="http://localhost/last%20khedma/views/NiceAdmin/addreponse.php?id_rec=<?= $reclamation['id_rec']; ?>">reponse</a>
                                         </button>
                                     </td>
 

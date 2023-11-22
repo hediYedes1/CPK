@@ -346,6 +346,38 @@ if (
                   <label for="contenu" class="col-sm-2 col-form-label">contenu</label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control"  name="contenu" id="contenu" rows="4" cols="50"value="<?php echo $reponse['contenu']; ?> "/> 
+                    <span id="erreurreponse" style="color: red;"></span>
+
+                    <!-- ... Autres balises d'en-tête ... -->
+
+<!-- Ajoutez ce script JavaScript pour la validation côté client -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Sélectionnez le formulaire par son ID
+    var form = document.getElementById('myForm'); // Assurez-vous de définir l'ID de votre formulaire ici
+
+    // Ajoutez un écouteur d'événements de soumission au formulaire
+    form.addEventListener('submit', function (event) {
+      // Sélectionnez le champ contenu
+      var contenuField = document.getElementById('contenu');
+
+      // Vérifiez si le champ contenu est vide ou a moins de 40 caractères
+      if (contenuField.value.trim() === '' || contenuField.value.length <6) {
+        // Empêchez la soumission du formulaire
+        event.preventDefault();
+
+        // Affichez un message d'erreur
+        document.getElementById('erreurreponse').innerText = 'Le champ "contenu" ne peut pas être vide et doit avoir au moins 6 caractères.';
+      } else {
+        // Effacez le message d'erreur s'il existe
+        document.getElementById('erreurreponse').innerText = '';
+      }
+    });
+  });
+</script>
+
+<!-- ... Autres balises de fermeture d'en-tête ... -->
+
 
 
                     

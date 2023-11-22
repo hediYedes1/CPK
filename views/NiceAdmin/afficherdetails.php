@@ -2,7 +2,9 @@
 include "../../controller/ReponseReclamationC.php";
 
 $c = new reponseC();
-$tab = $c->listreponse();
+$id_rep = isset($_GET['id']) ? $_GET['id'] : null;
+if ($id_rep !== null) {
+$tab = $c->listreponseunique($id_rep);}
 
 ?>
 
@@ -77,27 +79,7 @@ $tab = $c->listreponse();
     background-color: #0056b3;
 }
 /* Add these styles to color the buttons */
-.table td form input[type="submit"] {
-    background-color: #28a745; /* Green color for "Modifier" button */
-    color: #fff; /* White text color */
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-}
 
-.table td button {
-    background-color: #dc3545; /* Red color for "Supprimer" button */
-    color: #fff; /* White text color */
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-}
-
-/* Hover effect for the buttons */
-.table td form input[type="submit"]:hover,
-.table td button:hover {
-    opacity: 0.8;
-}
 
 
 </style>
@@ -334,86 +316,66 @@ $tab = $c->listreponse();
     </aside><!-- End Sidebar-->
 
     <main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Data Tables</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="http://localhost/last%20khedma/views/addreclamation.php">Home</a></li>
+                <li class="breadcrumb-item"><a href="http://localhost/last%20khedma/views/NiceAdmin/tablereponse.php">Tables</a></li>
+                <li class="breadcrumb-item active">Data</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
 
-        <div class="pagetitle">
-            <h1>Data Tables</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a
-                            href="http://localhost/last%20khedma/views/addreclamation.php">Home</a></li>
-                    <li class="breadcrumb-item"><a href="http://localhost/last%20khedma/views/NiceAdmin/tablereponse.php">Tables</a></li>
-                    <li class="breadcrumb-item active">Data</li>
-                </ol>
-            </nav>
-        </div><!-- End Page Title -->
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Datatables</h5>
+                        <p>Here is our table for those who add a reclamation library. Just add <code>.datatable</code> </p>
 
-        <section class="section">
-            <div class="row">
-                <div class="col-lg-12">
-
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Datatables</h5>
-                            <p>here is our table for those who add a reclamation library. Just add
-                                <code>.datatable</code> </p>
-
-                            <!-- Table with stripped rows -->
-                            <table class="table datatable">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">id_rep</th>
-                                        <th scope="col">contenu</th>
-                                        <th scope="col">date</th>
-                                        <th scope="col">modifier</th>
-                                        <th scope="col">supprimer</th>
-                                        <th scopr="col">details</th>
-
-                                    </tr>
-                                </thead>
-                                <!--
-              
---> <?php foreach ($tab as $reponse_rec) { ?>
+                        <!-- Table with stripped rows -->
+                        <table class="table datatable">
+                            <thead>
                                 <tr>
-                                    <td><?= $reponse_rec['id_rep']; ?></td>
-                                    <td><?= $reponse_rec['contenu']; ?></td>
-                                    <td><?= $reponse_rec['date']; ?></td>
-                                    <td>
-                                        <form method="POST"
-                                            action="http://localhost/last%20khedma/views/NiceAdmin/updatereponse.php">
-                                            <input type="submit" name="update" value="modifier">
-                                            <input type="hidden" value=<?PHP echo $reponse_rec['id_rep']; ?>
-
-                                            name="id_rep">
-                                            <input type="hidden" value=<?PHP echo $reponse_rec['date']; ?>
-
-                                            name="date">
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <button> <a
-                                                href="http://localhost/last%20khedma/views/NiceAdmin/deletereponse.php?id_rep=<?= $reponse_rec['id_rep']; ?>">supprimer</a></button>
-                                    </td>
-                                    <td>
-                                        <button>
-                                            <a href="http://localhost/last%20khedma/views/NiceAdmin/afficherdetails.php?id=<?=$reponse_rec['id_rep'];?>">details</a>
-                                        </button>
-                                    </td>
-
-
+                                    <th scope="col">Attribut</th>
+                                    <th scope="col">Valeur</th>
                                 </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($tab as $reponse_rec) { ?>
+                                    <tr>
+                                        <td>id_rep</td>
+                                        <td><?= $reponse_rec['id_rep']; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>contenu</td>
+                                        <td><?= $reponse_rec['contenu']; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>date</td>
+                                        <td><?= $reponse_rec['date']; ?></td>
+                                    </tr>
                                 <?php } ?>
-                                </tbody>
-                            </table>
-
-
+                                
+                               
+                            </tbody>
+                            
+                               
+                            
+                        </table>
+                        <div style="text-align: right; margin-top: 10px;">
+                            <button>
+                                <a href="http://localhost/last%20khedma/views/NiceAdmin/tablereponse.php">Retourner a la liste</a>
+                            </button>
                         </div>
                     </div>
-
                 </div>
             </div>
-        </section>
-
-    </main>
+        </div>
+    </section>
+</main>
 
 
 

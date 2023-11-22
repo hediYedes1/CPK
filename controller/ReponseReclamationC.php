@@ -16,6 +16,21 @@ class reponseC
             die('Error:' . $e->getMessage());
         }
     }
+    public function listreponseunique($id_rep)
+{
+    $sql = "SELECT * FROM reponse_rec WHERE id_rep = :id_rep";
+    $db = config::getConnexion();
+    try {
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':id_rep', $id_rep, PDO::PARAM_INT);
+        $stmt->execute();
+        $liste = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $liste;
+    } catch (Exception $e) {
+        die('Error:' . $e->getMessage());
+    }
+}
+
 
 
     function deletereponse($id_rep)

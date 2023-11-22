@@ -329,13 +329,41 @@ if ( isset($_POST["contenu"]) ) {
               <h5 class="card-title">General Form Elements</h5>
 
               <!-- General Form Elements -->
-              <form method="post" action= "">
+              <form method="post" action= "" id="yourFormId">
                 <div class="row mb-3">
                
 
                   <label for="contenu" class="col-sm-2 col-form-label">contenu</label>
                   <div class="col-sm-10">
                     <input type="text" class="form-control"  name="contenu" id="contenu" rows="4" cols="50"><?php echo $reponse ? $reponse->getcontenu() : ''; ?>>
+                   <!-- ... Autres balises d'en-tête ... -->
+
+<!-- Ajoutez ce script JavaScript pour la validation côté client -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Sélectionnez le formulaire par son ID
+    var form = document.getElementById('yourFormId'); // Assurez-vous de définir l'ID de votre formulaire ici
+
+    // Ajoutez un écouteur d'événements de soumission au formulaire
+    form.addEventListener('submit', function (event) {
+      // Sélectionnez le champ contenu
+      var contenuField = document.getElementById('contenu');
+
+      // Vérifiez si le champ contenu est vide
+      if (contenuField.value.trim() === '') {
+        // Empêchez la soumission du formulaire
+        event.preventDefault();
+
+        // Affichez un message d'erreur ou effectuez une autre action pour informer l'utilisateur
+        alert('Le champ "contenu" ne peut pas être vide');
+      }
+      // Vous pouvez ajouter d'autres validations ici si nécessaire
+    });
+  });
+</script>
+
+<!-- ... Autres balises de fermeture d'en-tête ... -->
+
                   </div>
                 </div>  
                 <div class="row mb-3">
@@ -381,6 +409,7 @@ if ( isset($_POST["contenu"]) ) {
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  
 
 </body>
 
