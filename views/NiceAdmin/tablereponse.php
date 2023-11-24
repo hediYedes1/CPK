@@ -1,6 +1,7 @@
 <?php
 include "../../controller/ReponseReclamationC.php";
 
+$id_rec = isset($_GET["id_rec"]) ? $_GET["id_rec"] :null;
 $c = new reponseC();
 $tab = $c->listreponse();
 
@@ -364,9 +365,11 @@ $tab = $c->listreponse();
                                         <th scope="col">id_rep</th>
                                         <th scope="col">contenu</th>
                                         <th scope="col">date</th>
+                                        <th scope = "col">id_rec</th>
                                         <th scope="col">modifier</th>
                                         <th scope="col">supprimer</th>
-                                        <th scopr="col">details</th>
+                                        <th scope="col">details</th>
+                                       
 
                                     </tr>
                                 </thead>
@@ -377,6 +380,7 @@ $tab = $c->listreponse();
                                     <td><?= $reponse_rec['id_rep']; ?></td>
                                     <td><?= $reponse_rec['contenu']; ?></td>
                                     <td><?= $reponse_rec['date']; ?></td>
+                                    <td><?=$reponse_rec['id_rec'];?></td>
                                     <td>
                                         <form method="POST"
                                             action="http://localhost/last%20khedma/views/NiceAdmin/updatereponse.php">

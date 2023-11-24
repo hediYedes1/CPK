@@ -16,6 +16,28 @@ class reclamationC
             die('Error:' . $e->getMessage());
         }
     }
+    public function affichereponse($id_rec){
+        try {
+            $pdo = config ::getConnexion();
+            $query = $pdo->prepare("SELECT * FROM reponse_rec where reclamation = :id");
+            $query->execute(['id'=> $id_rec]);
+            return $query->fetchAll();
+        }catch (PDOException $e) {
+            echo  $e->getMessage();
+    }
+}
+public function afficherreclamation(){
+    try {
+        $pdo = config ::getConnexion();
+        $query = $pdo->prepare("SELECT * FROM reclamation");
+        $query->execute();
+        return $query->fetchAll();
+
+    }
+    catch (PDOException $e) {
+        echo $e->getMessage();
+    }
+}
     public function listreclamationunique($id_rec)
     {
         $sql = "SELECT * FROM reclamation WHERE id_rec = :id_rec";

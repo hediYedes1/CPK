@@ -49,10 +49,10 @@ class reponseC
     }
 
 
-    function addreponse($reponse)
+    function addreponse($reponse,$id_rec)
     {
         $sql = "INSERT INTO reponse_rec  
-        VALUES (NULL, :contenu, :date )";//, baad texte
+        VALUES (NULL, :contenu, :date , :id_rec )";//, baad texte
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
@@ -61,6 +61,7 @@ class reponseC
                 'contenu' => $reponse->getcontenu(),
                 
                 'date' => $reponse->getdate(),
+                'id_rec' => $id_rec,
             ]);
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage();

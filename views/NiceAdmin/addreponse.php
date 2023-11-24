@@ -4,7 +4,7 @@ require_once '../../Controller/ReponseReclamationC.php';
 require_once '../../model/reponsereclamation.php';
 
 $error = "";
-
+$id_rec = isset($_GET['id_rec']) ? $_GET['id_rec'] : null;
 // create an instance of the controller
 $reponseC = new reponseC();
 
@@ -22,6 +22,7 @@ if ( isset($_POST["contenu"]) ) {
             // Update existing reclamation
             $reponse->setdate(date("Y-m-d H:i:s"));
             $reponse->setcontenu($_POST['contenu']);
+            $reponse->setIderc($_POST['id_rec']);
             
             
 
@@ -30,7 +31,9 @@ if ( isset($_POST["contenu"]) ) {
             // Add new reclamation
             $reponse = new reponse(null,  $_POST['contenu']);
             $reponse->setdate(date("Y-m-d H:i:s"));
-            $reponseC->addreponse($reponse);
+            $reponse->setIderc($_POST['id_rec']);
+            
+            $reponseC->addreponse($reponse,$id_rec);
         }
 
       //  header('Location:listreclamation.php');

@@ -357,6 +357,10 @@ $tab = $c->listreponseunique($id_rep);}
                                         <td>date</td>
                                         <td><?= $reponse_rec['date']; ?></td>
                                     </tr>
+                                    <tr>
+                                        <td>id_rec</td>
+                                        <td><?=$reponse_rec['id_rec'];?></td>
+                                    </tr>
                                 <?php } ?>
                                 
                                
