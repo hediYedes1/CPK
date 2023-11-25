@@ -1,10 +1,6 @@
 <?php
-/*
 include '../Controller/reclamationc.php';
 include '../model/reclamation.php';
-*/
-require_once '../Controller/reclamationc.php';
-require_once '../model/reclamation.php';
 
 $error = "";
 
@@ -13,8 +9,8 @@ $reclamationC = new reclamationC();
 
 // check if id_rec is provided for updating
 if (isset($_GET['id_rec'])) {
-    $id_rec = $_GET['id_rec'];  
-    $reclamation = $reclamationC->showreclamation($id_rec);//récupère les détails de la réclamation
+    $id_rec = $_GET['id_rec'];
+    $reclamation = $reclamationC->showreclamation($id_rec);
 } else {
     $reclamation = null; // for adding new reclamation
 }
@@ -23,16 +19,14 @@ if (isset($_POST["nom"]) && isset($_POST["sujet"]) && isset($_POST["texte"])) {
     if (!empty($_POST['nom']) && !empty($_POST["sujet"]) && !empty($_POST["texte"])) {
         if ($reclamation) {
             // Update existing reclamation
-            $reclamation->setdates(date("Y-m-d H:i:s"));
-            $reclamation->setdate($_POST['nom']);
+            $reclamation->setdate(date("Y-m-d"));
             $reclamation->setsujet($_POST['sujet']);
             $reclamation->settexte($_POST['texte']);
 
-           // $reclamationC->updateJoueur($reclamation, $id_rec);
+            $reclamationC->updateJoueur($reclamation, $id_rec);
         } else {
             // Add new reclamation
-            $reclamation = new reclamation(null, $_POST['nom'], $_POST['sujet'], $_POST['texte']);
-            $reclamation->setdates(date("Y-m-d H:i:s"));
+            $reclamation = new reclamation(null, $_POST['nom'], $_POST['sujet'], $_POST['texte'],date("Y-m-d"));
             $reclamationC->addreclamation($reclamation);
         }
 
@@ -45,7 +39,6 @@ if (isset($_POST["nom"]) && isset($_POST["sujet"]) && isset($_POST["texte"])) {
 ?>
 
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -53,7 +46,6 @@ if (isset($_POST["nom"]) && isset($_POST["sujet"]) && isset($_POST["texte"])) {
     <title>LocalArt - Contact</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <!--<link rel="apple-touch-icon" href="assets/img/apple-icon.png">
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
@@ -68,8 +60,12 @@ if (isset($_POST["nom"]) && isset($_POST["sujet"]) && isset($_POST["texte"])) {
     <!-- Load fonts style after rendering the layout styles -->
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
-    <link rel="stylesheet" href="assets/css/fontawesome.min.css">   
+    <link rel="stylesheet" href="assets/css/fontawesome.min.css"> 
+    
     <link rel="stylesheet" href="assets/css/taraji.css">
+    
+
+
     <!-- Load map styles -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
 <!--
@@ -79,6 +75,10 @@ TemplateMo 559 Zay Shop
 https://templatemo.com/tm-559-zay-shop
 
 -->
+
+
+
+
 
 </head>
 
@@ -207,19 +207,18 @@ https://templatemo.com/tm-559-zay-shop
                         
                         <div  class="form-group" >
                             
-                            <label for="nom">nom</label>
+                            <label for="inputname">nom</label>
                             
                             <input type="text" class="form-control" id="nom" name="nom" placeholder="nom" >
-                            <td>
                             <span id="mynom"></span>
-                            </td>
+                            
                             
                         </div>
                     
                        
                     
                         <div class="form-group">
-                            <label for="sujet">Sujet</label>
+                            <label for="inputsubject">Sujet</label>
                             
                             <select class="form-control" id="sujet" name="sujet">
                                 
@@ -227,17 +226,13 @@ https://templatemo.com/tm-559-zay-shop
                                 <option >Signaler un problème</option>
                                 <option >Autres</option>
                             </select>
-                            <td>
                             <span id="myobjet"></span>
-                            </td>
                     </div>
                         <div class="form-group">
-                            <label for="texte">Texte</label>
+                            <label for="inputmessage">Texte</label>
                             
                             <textarea class="form-control" id="texte" name="texte" placeholder="Texte" rows="8"></textarea>
-                            <td>
                             <span id="mytexte"></span>
-                            </td>
                         </div>
 
                     
@@ -398,15 +393,12 @@ mymap.touchZoom.disable();
     <script src="assets/js/templatemo.js"></script>
     <script src="assets/js/custom.js"></script>
     <script src="assets/js/contact.js"></script>
-    <!--
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
--->
 
+    
     <!-- End Script -->
   
 </body>
 
 
 </html>
-
-

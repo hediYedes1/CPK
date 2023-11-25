@@ -16,28 +16,28 @@ class reclamationC
             die('Error:' . $e->getMessage());
         }
     }
-    public function affichereponse($id_rec){
+    public function afficher_reponse_selon_id_de_rec($id_rec){
         try {
-            $pdo = config ::getConnexion();
-            $query = $pdo->prepare("SELECT * FROM reponse_rec where reclamation = :id");
-            $query->execute(['id'=> $id_rec]);
+            $pdo = config::getConnexion();
+            $query = $pdo->prepare("SELECT * FROM reponse_rec WHERE id_rec = :id");
+            $query->execute(['id' => $id_rec]);
             return $query->fetchAll();
-        }catch (PDOException $e) {
+        } catch (PDOException $e) {
             echo  $e->getMessage();
+        }
     }
-}
-public function afficherreclamation(){
-    try {
-        $pdo = config ::getConnexion();
-        $query = $pdo->prepare("SELECT * FROM reclamation");
-        $query->execute();
-        return $query->fetchAll();
-
+    
+    public function afficherreclamation(){
+        try {
+            $pdo = config::getConnexion();
+            $query = $pdo->prepare("SELECT * FROM reclamation");
+            $query->execute();
+            return $query->fetchAll();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
     }
-    catch (PDOException $e) {
-        echo $e->getMessage();
-    }
-}
+    
     public function listreclamationunique($id_rec)
     {
         $sql = "SELECT * FROM reclamation WHERE id_rec = :id_rec";
@@ -152,6 +152,14 @@ function showreclamation($id_rec)
           echo 'Error :'.  $e->getMessage();
         }
     }
+
+
+    
+    
+
+
+
+
 }
 $reclamationController = new reclamationC();
 
