@@ -48,8 +48,7 @@ $tab = $c->listArticles();
 
      <!-- Google Fonts -->
      <link href="https://fonts.gstatic.com" rel="preconnect">
-     <link
-         href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
          rel="stylesheet">
 
      <!-- Vendor CSS Files -->
@@ -277,19 +276,19 @@ $tab = $c->listArticles();
          </div><!-- End Page Title -->
 
          <p>voici La liste des articles </p>
-            
-         <section class="section">
-         <table border="1" align="center" width="70%">
-    <tr>
-        <th>Id</th>
-        <th>Categorie</th>
-        <th>Titre</th>
-        <th>Nom Artiste</th>
-        <th>Contenu</th>
-        <th>Action</th>
-    </tr>
-
-    <?php
+         <table class="table datatable">
+                <thead>
+                  <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Categorie</th>
+                    <th scope="col">Titre</th>
+                    <th scope="col">Nom Artiste</th>
+                    <th scope="col">Contenu</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <?php
     foreach ($tab as $article) {
     ?>
         <tr>
@@ -309,6 +308,21 @@ $tab = $c->listArticles();
     <?php
     }
     ?>
+                </tbody>
+              </table>
+              <End Table with 
+         <section class="section">
+         <table border="1" align="center" width="70%">
+    <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th>Action</th>
+    </tr>
+
+    
 
 </table>
   </section>

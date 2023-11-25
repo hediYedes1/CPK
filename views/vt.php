@@ -1,35 +1,58 @@
 <?php
+include '../Controller/articleA.php';
+include '../model/article.php';
+$error = "";
 
-include "../controller/articleA.php";
+// create client
+$article = null;
+// create an instance of the controller
+$articleA = new articleA();
 
+if (
+    isset($_POST["categorie"]) &&
+    isset($_POST["titre"]) &&
+    isset($_POST["nomprenom_artiste"]) &&
+    isset($_POST["contenu"])
+) {
+    if (
+        !empty($_POST['categorie']) &&
+        !empty($_POST["titre"]) &&
+        !empty($_POST["nomprenom_artiste"]) &&
+        !empty($_POST["contenu"])
+    ) {
+        foreach ($_POST as $key => $value) {
+            echo "Key: $key, Value: $value<br>";
+        }
 
+        $article = new articleA(
+            null,
+            $_POST['categorie'],
+            $_POST['titre'],
+            $_POST['nomprenom_artiste'],
+            $_POST['contenu']
+        );
 
+        var_dump($article);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $article = new articleA();
+       
+        if (isset($_POST['updateArticleId'])) {
+            $articleId = $_POST['id_art'];
+            $categorie = $_POST['categorie'];
+            $titre = $_POST['titre'];
+            $nomprenom_artiste = $_POST['nomprenom_artiste'];
+            $contenu = $_POST['contenu'];
+            // Add proper error handling
+            if (!$articleA->updateArticle($articleId, $categorie, $titre, $nomprenom_artiste, $contenu)) {
+                echo "Error updating article.";
+            }
+        }
 
-    if (isset($_POST['deleteArticleId'])) {
-        $articleId = $_POST['deleteArticleId'];
-        $article->deleteArticle($articleId);
-
-    } elseif (isset($_POST['updateArticleId'])) {
-        $articleId = $_POST['id_art'];
-        $categorie = $_POST['categorie'];
-        $titre = $_POST['titre'];
-        $nomprenom_artiste = $_POST['nomprenom_artiste'];
-        $contenu = $_POST['contenu'];
-        $article->updateArticle($articleId,$categorie,$titre,$nomprenom_artiste,$contenu);
-        
+        header('Location: listartvt.php ');
+        exit(); // Stop further execution after the redirect
     }
-    header('Location: ' . $_SERVER['PHP_SELF']);
-        exit;
 }
-
-$c = new articleA();
-$categorie = NULL;
-$category='vetement';
-$tab = $c->listArticlesByCategory($category);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -152,14 +175,23 @@ $tab = $c->listArticlesByCategory($category);
     <!-- les images en haut -->
     
     
-  <style >
+  
+      <br>   
+    <button><a href="listartvt.php">Back to list</a></button>
+    <br>
+
+    <?php
+    if (isset($_POST['id_art'])) {
+        $article = $articleA->showArticle($_POST['id_art']);
+    ?>
+    <style >
     .city {display:none}
     </style>
     <body>
     
     <div class="w3-container">
     <h2>cliquer sur ce bouton:</h2>
-    <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black">Info</button>
+    <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black">Update</button><br>
     
     <div id="id01" class="w3-modal" >
      <div class="w3-modal-content w3-card-4 w3-animate-zoom">
@@ -170,26 +202,61 @@ $tab = $c->listArticlesByCategory($category);
       </header>
     
       <div class="w3-bar w3-border-bottom">
-       <button class="tablink w3-bar-item w3-button" onclick="openCity(event, 'art1')">Litterature</button>
-       <button class="tablink w3-bar-item w3-button" onclick="openCity(event, 'culture')">écrivain</button>
+      <button onclick="openUpdateForm(<?php echo $article['id_art']; ?>)" class="tablink w3-bar-item w3-button" >article</button>
+       <button class="tablink w3-bar-item w3-button" onclick="openCity(event, 'updateForma')">Changer</button>
       </div>
-    
-      <div id="art1" class="w3-container city">
-       <h1>La litterature tunisienne</h1>
-       <p>La littérature de la Tunisie désigne l'ensemble des productions, orales et écrites, des populations (12 millions environ en 2023) du territoire tunisien, à toute époque, en toute langue. Elle inclut également celles des écrivains la diaspora tunisienne (plus d'un million, en 2023) et celles des auteurs qui revendiquent, au moins partiellement, leur appartenance à la culture tunisienne.</p>
+      <style>
+      form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+form input,
+form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+form input[type="submit"] {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form input[type="submit"]:hover {
+    background-color: #45a049;
+}
+           </style>
+ 
+      <div id="updateForma" class="w3-container city">
+      <table>
+            <tr id="updateForm<?php echo $article['id_art']; ?>" style="display: none;">
+                <td colspan="6">
+                    <form method="POST" action="" id="upd">
+                        <input type="hidden" value=<?PHP echo $article['id_art']; ?> name="id_art">
+                        <label>Categorie:</label>
+                        <input type="text" id="cat" name="categorie" value="<?php echo $article['categorie']; ?>"><br>
+                        <span id="msg1" style="color: red" ></span>
+                        <label>Titre:</label>
+                        <input type="text" id="title" name="titre" value="<?php echo $article['titre']; ?>"><br>
+                        <span id="msg2" style="color: red" ></span>
+                        <label>Nom complet de l'artiste:</label>
+                        <input type="text" id="nom" name="nomprenom_artiste" value="<?php echo $article['nomprenom_artiste']; ?>"><br>
+                        <span id="msg3" style="color: red" ></span>
+                        <label>Contenu:</label>
+                        <textarea id="art" name="contenu"><?php echo $article['contenu']; ?></textarea><br>
+                        <span id="msg4" style="color: red" ></span>
+                        <input type="submit" name="updateArticleId" value="Update">
+                    </form>
+                </td>
+            </tr>
+        </table>
        </div>
-    
-      <div id="culture" class="w3-container city">
-       <h1>des écrivains tunisens</h1>
-       <p><li>Ibn Al-Abbar (1199-1260)</li>
-       <li>Abdelaziz El Aroui (1898-1971)</li>
-       <li>Tahar Haddad (1899-1935)</li>
-       <li>Tahar Guiga (1922-1993), nouvelliste</li>
-       <li>Emna Belhadj Yahia (1945- ), enseignante, philosophe, essayiste</li>
-        et beaucoup plus d'autres écrivains
-    </p>
-       
-      </div>
       <div class="w3-container w3-light-grey w3-padding">
        <button class="w3-button w3-right w3-white w3-border" 
        onclick="document.getElementById('id01').style.display='none'">Close</button>
@@ -215,306 +282,137 @@ $tab = $c->listArticlesByCategory($category);
         evt.currentTarget.classList.add("w3-light-grey");
       }
       
-      </script>    
+      </script> 
+        
 
-
-
-
-    <div style="text-align:center">
-      <div class="w3-panel w3-leftbar w3-light-grey">
-        <p class="w3-xlarge w3-serif"><i>“ Le retour à la culture. Oui, vraiment, à la culture. On ne peut pas consommer grand-chose si l'on reste tranquillement assis à lire des livres. ”</i><br></p>
-        <p> Aldous Huxley</p> 
-      </div> 
-      <!-- The four columns -->
-      
-      
-      <div class="w3-row-padding">
-         </div><br>
-      <div class="w3-display-bottomleft w3-container w3-padding w3-text-white">culture</div>
-      </div>
-    
-    <!-- ======= Blog Single Section ======= -->
-    <center>
-    <h2><a href="addArticle.php">Ajouter un article</a></h2>
-</center>
-    <section id="blog" class="blog">
-      <div class="container" data-aos="fade-up">
-
+        <section id="blog" class="blog">
+    <div class="container" data-aos="fade-up">
         <div class="row">
-
-          <div class="col-lg-8 entries">
-          <?php foreach ($tab as $article) { ?>
-            <div>
-            <table>
-            <tr id="updateForm<?php echo $article['id_art']; ?>" style="display: none;">
-                <td colspan="6">
-                    <form method="POST" action="">
-                        <input type="hidden" value=<?PHP echo $article['id_art']; ?> name="id_art">
-                        <label>Categorie:</label>
-                        <input type="text" name="categorie" value="<?php echo $article['categorie']; ?>"><br>
-                        <label>Titre:</label>
-                        <input type="text" name="titre" value="<?php echo $article['titre']; ?>"><br>
-                        <label>Nom complet de l'artiste:</label>
-                        <input type="text" name="nomprenom_artiste" value="<?php echo $article['nomprenom_artiste']; ?>"><br>
-                        <label>Contenu:</label>
-                        <textarea name="contenu"><?php echo $article['contenu']; ?></textarea><br>
-                        <input type="submit" name="updateArticleId" value="Update">
-                    </form>
-                </td>
-            </tr>
-            </table>
-            
-            <table>
-                <tr>
-                    <td>
-                    <form method="POST" action="">
-                        <input type="hidden" value=<?PHP echo $article['id_art']; ?> name="deleteArticleId" >
-                        <button name="delete_button"  type="submit"value="Save" class="btn btn-primary" style="background-color:green; ">Delete</button>
-                    </form>
-                    </td>
-                    <td>
-                        <button onclick="openUpdateForm(<?php echo $article['id_art']; ?>)" class="btn btn-primary" style="background-color:green; ">Update</button>
-                    </td>
-                </tr>
-
-            
-            </table>
-             
-             </div>
-             <br>
-             <div class="blog-author d-flex align-items-center">
-
+            <div class="col-lg-8 entries">
+                <br>
+                <div class="blog-author d-flex align-items-center">
                     <img src="assets/img/blog/blog-author.jpg" class="rounded-circle float-left" alt="">
-                    
                     <div id="article">
-                        <h4><?= $article['nomprenom_artiste']; ?></h4>
+                        <h4><?= htmlspecialchars($article['nomprenom_artiste']); ?></h4>
                         <div class="social-links">
-                            <!-- You can customize the URLs and icons based on your requirements -->
-                            <a class="text-light" href="https://fb.com" target="_blank" rel="sponsored"><i class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
-                            <a class="text-light" href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram fa-sm fa-fw me-2"></i></a>
+                            <a class="text-light" href="https://fb.com" target="_blank" rel="sponsored">
+                                <i class="fab fa-facebook-f fa-sm fa-fw me-2"></i>
+                            </a>
+                            <a class="text-light" href="https://www.instagram.com/" target="_blank">
+                                <i class="fab fa-instagram fa-sm fa-fw me-2"></i>
+                            </a>
                         </div>
                         <p>
                             <div class="w3-panel w3-pale-green">
                                 <h1 class="w3-opacity">
-                                <b><?= $article['titre']; ?></b></h1>
+                                    <b><?= htmlspecialchars($article['titre']); ?></b>
+                                </h1>
                             </div>
-                           
                             <pw>
-                            <?= insertLineBreaks($article['contenu'], 40); ?>
+                                <?= insertLineBreaks($article['contenu'], 40); ?>
                             </pw>
                         </p>
                     </div>
-                
-             </div>
-             
-             <?php } 
-             function insertLineBreaks($text, $lineLength) {
-                // Insert a line break after every $lineLength characters
-                return wordwrap($text, $lineLength, "<br>", true);
-            }
-             ?>
-            <script>
-    function openUpdateForm(articleId) {
-        // Hide all update forms
-        document.querySelectorAll('[id^="updateForm"]').forEach(function (form) {
-            form.style.display = 'none';
-        });
+                </div>
+                <div class="blog-comments">
+                    <h4 class="comments-count" id="comment">Commentaires</h4>
 
-        // Show the selected update form
-        document.getElementById('updateForm' + articleId).style.display = 'table-row';
-    }
-</script>
-            <div class="blog-comments">
-
-              <h4 class="comments-count"id="comment">Commentaires</h4>
-              
-                <div class="reply-form" >
+                    <div class="reply-form" >
                 
                   <h4 id="ajcmnt">Ajouter un commentaire</h4>
                   <form  id="myBtn">
                     
                       <div class="col-md-6 form-group">
-                        <input id="noun" type= "text" class="form-control" placeholder="Votre nom*" > 
-                        <label id="msg1"></label>
+                        <input id="noun" type= "text" class="w3-panel w3-border w3-border-red w3-hover-border-green" placeholder="Votre nom*" > 
+                        <span id="msg5" style="color: red" ></span>
                       </div>
                     
                       <div class="col form-group">
-                        <input id="cmnt" type= "text" class="form-control" placeholder="Votre commentaire*" > 
-                        <label id="msg2"></label>
+                      <textarea id="cmnt" class="w3-panel w3-border w3-border-red w3-hover-border-green" placeholder="Votre commentaire*" autocomplete="off"></textarea>
+                        <span id="msg6" style="color: red" ></span>
                       </div>
-                      <button id="client" type="submit" class="btn btn-primary" style="background-color:green;"onclick="verif()"  >Poster commentaire <a href="#comment">+</a></button>
+                      <button id="client" type="submit" class="btn btn-primary" style="background-color:green;" >Poster commentaire</button>
                       
                   </form>
   
                 </div>
-              
-
-            </div><!-- End blog comments -->
-
-          </div><!-- End blog entries list -->
-
-          <div class="col-lg-4">
-
-            <div class="sidebar">
-              <h2> Menu</h2>
-              <p>checher une catégorie d'articles spécific</p>
-                <div class="w3-dropdown-hover">
-                  <button class="w3-button w3-black">Dérouler</button>
-                  <div class="w3-dropdown-content w3-bar-block w3-card w3-light-grey" id="myDIV">
-                  <input class="w3-input w3-padding" type="text" placeholder="Search.." id="myInput" onkeyup="categories()">
-                  <a class="w3-bar-item w3-button" href="tab.php">tableaux</a>
-                  <a class="w3-bar-item w3-button" href="vt.php">vetements traditionnels</a>
-                  <a class="w3-bar-item w3-button" href="mon.php">monumens</a>
-                  <a class="w3-bar-item w3-button" href="lvr.php">livres</a>
-                  <a class="w3-bar-item w3-button" href="vl.php">villes</a>
-                  </div>
-               </div>
+                </div>
             </div>
-          
-          </div>
         </div>
-      </div>
-    </section>
-
+    </div>
+</section>
 
 <script>
-     function categories() {
-  var input, filter, ul, li, a, i;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  div = document.getElementById("myDIV");
-  a = div.getElementsByTagName("a");
-  for (i = 0; i < a.length; i++) {
-    txtValue = a[i].textContent || a[i].innerText;
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-      a[i].style.display = "";
-    } else {
-      a[i].style.display = "none";
+    function submitForm() {
+        // Add your form submission logic here
+        // Return false to prevent the form from submitting traditionally
+        return false;
     }
-  }
-}
 </script>
-</div>
-    </section><!-- End Blog Single Section -->
 
-  </main><!-- End #main -->
+    <script>
+        function openUpdateForm(articleId) {
+            // Hide all update forms
+            document.querySelectorAll('[id^="updateForm"]').forEach(function (form) {
+                form.style.display = 'none';
+            });
 
-  <!-- ======= Footer ======= -->
-  <footer class="bg-dark" id="tempaltemo_footer">
-    <div class="container">
-        <div class="row">
+            // Show the selected update form
+            document.getElementById('updateForm' + articleId).style.display = 'table-row';
+        }
+        <?php }?>
+    </script>
 
-            <div class="col-md-4 pt-5">
-                <h2 class="h2 text-success border-bottom pb-3 border-light logo">Zay Shop</h2>
-                <ul class="list-unstyled text-light footer-link-list">
-                    <li>
-                        <i class="fas fa-map-marker-alt fa-fw"></i>
-                        123 Consectetur at ligula 10660
-                    </li>
-                    <li>
-                        <i class="fa fa-phone fa-fw"></i>
-                        <a class="text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
-                    </li>
-                    <li>
-                        <i class="fa fa-envelope fa-fw"></i>
-                        <a class="text-decoration-none" href="mailto:info@company.com">info@company.com</a>
-                    </li>
-                </ul>
-            </div>
+    <?php
+    function insertLineBreaks($text, $lineLength)
+    {
+        // Insert a line break after every $lineLength characters
+        return wordwrap($text, $lineLength, "<br>", true);
+    }
+    ?>
+    <script>
+document.getElementById('myBtn').addEventListener('submit', function two (event) {
+  var nom = document.getElementById('noun').value;
+  var commentaire = document.getElementById('cmnt').value; 
+  document.getElementById('msg5').textContent = '';
+  document.getElementById('msg6').textContent = ''; 
+  if (nom === '') {
+    document.getElementById('msg5').textContent = 'Le champ du titre ne peut pas être vide*.';
+    event.preventDefault();
+}  else if (!/^[a-zA-Z ]+$/.test(nom)) {
+    document.getElementById('msg5').textContent = 'Entrer un nom valide seulement avec des lettres alphabétiques et des espaces*.';
+    event.preventDefault();
+}
+if (commentaire === '') {
+        document.getElementById('msg6').textContent = 'Cette entrée est obligatoire*.';
+        event.preventDefault();
+    }
 
-            <div class="col-md-4 pt-5">
-                <h2 class="h2 text-light border-bottom pb-3 border-light">Products</h2>
-                <ul class="list-unstyled text-light footer-link-list">
-                    <li><a class="text-decoration-none" href="#">Luxury</a></li>
-                    <li><a class="text-decoration-none" href="#">Sport Wear</a></li>
-                    <li><a class="text-decoration-none" href="#">Men's Shoes</a></li>
-                    <li><a class="text-decoration-none" href="#">Women's Shoes</a></li>
-                    <li><a class="text-decoration-none" href="#">Popular Dress</a></li>
-                    <li><a class="text-decoration-none" href="#">Gym Accessories</a></li>
-                    <li><a class="text-decoration-none" href="#">Sport Shoes</a></li>
-                </ul>
-            </div>
-
-            <div class="col-md-4 pt-5">
-                <h2 class="h2 text-light border-bottom pb-3 border-light">Further Info</h2>
-                <ul class="list-unstyled text-light footer-link-list">
-                    <li><a class="text-decoration-none" href="#">Home</a></li>
-                    <li><a class="text-decoration-none" href="#">About Us</a></li>
-                    <li><a class="text-decoration-none" href="#">Shop Locations</a></li>
-                    <li><a class="text-decoration-none" href="#">FAQs</a></li>
-                    <li><a class="text-decoration-none" href="#">Contact</a></li>
-                </ul>
-            </div>
-
-        </div>
-
-        <div class="row text-light mb-4">
-            <div class="col-12 mb-3">
-                <div class="w-100 my-3 border-top border-light"></div>
-            </div>
-            <div class="col-auto me-auto">
-                <ul class="list-inline text-left footer-icons">
-                    <li class="list-inline-item border border-light rounded-circle text-center">
-                        <a class="text-light text-decoration-none" target="_blank" href="http://facebook.com/"><i class="fab fa-facebook-f fa-lg fa-fw"></i></a>
-                    </li>
-                    <li class="list-inline-item border border-light rounded-circle text-center">
-                        <a class="text-light text-decoration-none" target="_blank" href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg fa-fw"></i></a>
-                    </li>
-                    <li class="list-inline-item border border-light rounded-circle text-center">
-                        <a class="text-light text-decoration-none" target="_blank" href="https://twitter.com/"><i class="fab fa-twitter fa-lg fa-fw"></i></a>
-                    </li>
-                    <li class="list-inline-item border border-light rounded-circle text-center">
-                        <a class="text-light text-decoration-none" target="_blank" href="https://www.linkedin.com/"><i class="fab fa-linkedin fa-lg fa-fw"></i></a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-auto">
-                <label class="sr-only" for="subscribeEmail">Email address</label>
-                <div class="input-group mb-2">
-                    <input type="text" class="form-control bg-dark border-light" id="subscribeEmail" placeholder="Email address">
-                    <div class="input-group-text btn-success text-light">Subscribe</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="w-100 bg-black py-3">
-        <div class="container">
-            <div class="row pt-2">
-                <div class="col-12">
-                    <p class="text-left text-light">
-                        Copyright &copy; 2021 Company Name 
-                        | Designed by <a rel="sponsored" href="https://templatemo.com" target="_blank">TemplateMo</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</footer>
-<!-- End Footer -->
+});
+</script>
 <script>
-       document.getElementById('artBtn').addEventListener('submit', function (event) {
+
+       document.getElementById('upd').addEventListener('submit', function (event) {
     var category = document.getElementById('cat').value;
     var title = document.getElementById('title').value;
         var artistName = document.getElementById('nom').value;
     var articleContent = document.getElementById('art').value;
 
     // Reset error messages
+    document.getElementById('msg1').textContent = '';
+    document.getElementById('msg2').textContent = '';
     document.getElementById('msg3').textContent = '';
     document.getElementById('msg4').textContent = '';
-    document.getElementById('msg7').textContent = '';
-    document.getElementById('msg8').textContent = '';
   
     // Check if category is selected
     if (category === '') {
-        document.getElementById('msg3').textContent = 'vous devez selectionner une categorie*.';
+        document.getElementById('msg1').textContent = 'vous devez selectionner une categorie*.';
         event.preventDefault();
     }
 
     // Check if title is filled and contains only alphabetic characters
     if (title === '' || !/^[a-zA-Z]+$/.test(title)) {
-        document.getElementById('msg4').textContent = 'entrer un titre valide seulement avec des lettes alphabitiques*.';
+        document.getElementById('msg2').textContent = 'entrer un titre valide seulement avec des lettes alphabitiques*.';
         event.preventDefault();
     }
 
@@ -522,43 +420,25 @@ $tab = $c->listArticlesByCategory($category);
 
     // Check if artist name is filled and contains only alphabetic characters
     if (artistName === '' || !/^[a-zA-Z]+$/.test(artistName)) {
-        document.getElementById('msg7').textContent = 'entrer un nom valide seulement avec des lettes alphabitiques*.';
+        document.getElementById('msg3').textContent = 'entrer un nom valide seulement avec des lettes alphabitiques*.';
         event.preventDefault();
     }
 
     // Check if article content is filled
     if (articleContent === '') {
-        document.getElementById('msg8').textContent = 'cette entrer est obligatoire*.';
+        document.getElementById('msg4').textContent = 'cette entrer est obligatoire*.';
         event.preventDefault();
     }
 });
 
+
+
+
 </script>
-
-
-</script>
-<!-- Start Script -->
-<script src="assets/js/jquery-1.11.0.min.js"></script>
-<script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
-<script src="assets/js/bootstrap.bundle.min.js"></script>
-<script src="assets/js/templatemo.js"></script>
-<script src="assets/js/custom.js"></script>
-<!-- End Script -->
-
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
-  
-
     
+    
+
+</body>
+
+</html>
 

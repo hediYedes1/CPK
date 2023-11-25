@@ -94,35 +94,49 @@ public function checkTitleExists($titl) {
 
     function showArticle($id_art)
     {
-        $sql = "SELECT * from article where id_art = :id_art";
+        $sql = "SELECT * FROM article WHERE id_art = :id_art";
         $db = config::getConnexion();
+        
         try {
             $query = $db->prepare($sql);
+            $query->bindParam(':id_art', $id_art, PDO::PARAM_INT);
             $query->execute();
-            $article = $query->fetch();
-            return $article;
+    
+            // Check if any rows were returned
+            if ($query->rowCount() > 0) {
+                // Fetch the article
+                $article = $query->fetch(PDO::FETCH_ASSOC);
+                return $article;
+            } else {
+                // No rows found, return null or handle the case accordingly
+                return null;
+            }
         } catch (Exception $e) {
             die('Error: ' . $e->getMessage());
         }
     }
+    
 
   /* u */
 
   
-public function deleteArticle($id_art): bool
-{
-    try {
-        $pdo = config::getconnexion();
-
-        $query = $pdo->prepare('DELETE FROM article WHERE id_art = ?');
-        $query->execute([$id_art]);
-
-        return $query->rowCount() > 0;
-    } catch (PDOException $e) {
-        echo "Error: " . $e->getMessage();
-        return false;
-    }
-}
+  public function deleteArticle($id_art): bool
+  {
+      try {
+          $pdo = config::getconnexion();
+  
+          $query = $pdo->prepare('DELETE FROM article WHERE id_art = ?');
+          $query->execute([$id_art]);
+  
+          return $query->rowCount() > 0;
+      } catch (PDOException $e) {
+          // Log the error or throw an exception for the calling code to handle
+          // Log: error_log("Error deleting article: " . $e->getMessage());
+          // or throw: throw new Exception("Error deleting article: " . $e->getMessage());
+          return false;
+      }
+  }
+  
 
 public function updateArticle($articleId,$categorie,$titre,$nomprenom_artiste,$contenu): bool
     {
