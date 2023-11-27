@@ -1,12 +1,9 @@
 <?php
 include '../Controller/reclamationc.php';
 include '../model/reclamation.php';
-
 $error = "";
-
 // create an instance of the controller
 $reclamationC = new reclamationC();
-
 // check if id_rec is provided for updating
 if (isset($_GET['id_rec'])) {
     $id_rec = $_GET['id_rec'];
@@ -14,7 +11,6 @@ if (isset($_GET['id_rec'])) {
 } else {
     $reclamation = null; // for adding new reclamation
 }
-
 if (isset($_POST["nom"]) && isset($_POST["sujet"]) && isset($_POST["texte"])) {
     if (!empty($_POST['nom']) && !empty($_POST["sujet"]) && !empty($_POST["texte"])) {
         if ($reclamation) {
@@ -22,7 +18,6 @@ if (isset($_POST["nom"]) && isset($_POST["sujet"]) && isset($_POST["texte"])) {
             $reclamation->setdate(date("Y-m-d"));
             $reclamation->setsujet($_POST['sujet']);
             $reclamation->settexte($_POST['texte']);
-
             $reclamationC->updateJoueur($reclamation, $id_rec);
         } else {
             // Add new reclamation
@@ -30,60 +25,39 @@ if (isset($_POST["nom"]) && isset($_POST["sujet"]) && isset($_POST["texte"])) {
             $reclamationC->addreclamation($reclamation);
         }
 
-        header('Location:listreclamation.php');
+        header('Location:aboutabout.php');
        // header('location:updatereclamation.php');
     } else {
         $error = "Missing information";
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    
+<head>    
     <title>LocalArt - Contact</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!--<link rel="apple-touch-icon" href="assets/img/apple-icon.png">
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
-    -->
-    
+    -->    
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/templatemo.css">
     <!--
     <link rel="stylesheet" href="assets/css/custom.css">
--->
-    
-    <!-- Load fonts style after rendering the layout styles -->
-    
+-->   
+    <!-- Load fonts style after rendering the layout styles -->    
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
-    <link rel="stylesheet" href="assets/css/fontawesome.min.css"> 
-    
+    <link rel="stylesheet" href="assets/css/fontawesome.min.css">     
     <link rel="stylesheet" href="assets/css/taraji.css">
-    
-
-
     <!-- Load map styles -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
-<!--
-    
+<!--    
 TemplateMo 559 Zay Shop
-
 https://templatemo.com/tm-559-zay-shop
-
 -->
-
-
-
-
-
 </head>
-
-<body>
-    
+<body>    
     <!-- Start Top Nav -->
     <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
         <div class="container text-light">
@@ -104,16 +78,12 @@ https://templatemo.com/tm-559-zay-shop
         </div>
     </nav>
     <!-- Close Top Nav -->
-
-
     <!-- Header -->
     <nav class="navbar navbar-expand-lg navbar-light shadow">
         <div class="container d-flex justify-content-between align-items-center">
-
             <a class="navbar-brand text-success logo h1 align-self-center" style="color: brown;" href="index.html">
                 LocalArt
             </a>
-
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -162,7 +132,6 @@ https://templatemo.com/tm-559-zay-shop
         </div>
     </nav>
     <!-- Close Header -->
-
     <!-- Modal -->
     <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -179,29 +148,19 @@ https://templatemo.com/tm-559-zay-shop
             </form>
         </div>
     </div>
-
-
     <!-- Start Content Page -->
     <div class="container-fluid bg-light py-5">
         <div class="col-md-6 m-auto text-center">
-            
-    
-
-            <h1 id="contactText" class="h1">Contactez Nous</h1>
-            
-            
+            <h1 id="contactText" class="h1">Contactez Nous</h1>            
             <p>
                Chers client , nous sommes à votre disposition pour répondre à vos questions .
-            </p>
-            
+            </p>            
 <a href="#tempaltemo_footer" class="u-active-palette-1-base u-align-left u-black u-border-none u-btn u-button-style u-hover-palette-1-base u-btn-2">savoir plus</a>
-
         </div>
-    </div>
-    
+    </div>    
     <div class="container py-5">
         <div class="row py-5">
-            <form  class="col-md-9 m-auto" method="post" role="form" id="myForm"  novalidate >
+            <form  class="col-md-9 m-auto" action="" method="post" role="form" id="myForm"  novalidate >
                 <div class="row">
                     <div class="col-md-6 form-container slide-from-left">
                         
@@ -210,18 +169,11 @@ https://templatemo.com/tm-559-zay-shop
                             <label for="inputname">nom</label>
                             
                             <input type="text" class="form-control" id="nom" name="nom" placeholder="nom" >
-                            <span id="mynom"></span>
-                            
-                            
-                        </div>
-                    
-                       
-                    
+                            <span id="mynom"></span>                                            
+                        </div>                    
                         <div class="form-group">
-                            <label for="inputsubject">Sujet</label>
-                            
-                            <select class="form-control" id="sujet" name="sujet">
-                                
+                            <label for="inputsubject">Sujet</label>                            
+                            <select class="form-control" id="sujet" name="sujet">                                
                                 <option>Signaler un texte abus</option>
                                 <option >Signaler un problème</option>
                                 <option >Autres</option>
@@ -229,21 +181,14 @@ https://templatemo.com/tm-559-zay-shop
                             <span id="myobjet"></span>
                     </div>
                         <div class="form-group">
-                            <label for="inputmessage">Texte</label>
-                            
+                            <label for="inputmessage">Texte</label>                   
                             <textarea class="form-control" id="texte" name="texte" placeholder="Texte" rows="8"></textarea>
                             <span id="mytexte"></span>
                         </div>
-
-                    
                         <br>
                         <br>
-                        <br>
-                        
-                        
-                        <button  type="submit" class="btn btn-success btn-lg px-3" >Envoyer</button>
-                        
-                        
+                        <br>           
+                        <button  type="submit" class="btn btn-success btn-lg px-3" >Envoyer</button>              
                     </div>
                     <div class="col-md-6">
                     <img id="titre" src="image/img.jpg" alt="image" class="img slide-from-right" width="100%" height = "99%">
@@ -251,50 +196,32 @@ https://templatemo.com/tm-559-zay-shop
                 </div>
             </form>
         </div>
-    </div>
-  
+    </div>  
     <!--
     <script src="rh\templatemo_559_zay_shop\assets\js\animations.js"></script>
     -->
-
     <!-- Start Map -->
     <div id="mapid" style="width: 100%; height: 300px;"></div>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
     <script>
-       
-
-    // Initialize the map
-    
+    // Initialize the map    
     var mymap = L.map('mapid').setView([36.8065, 10.1815], 13);
-
-
-
 // Add a tile layer (replace with your preferred tile layer)
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors'
 }).addTo(mymap);
-
 // Add a marker
-
 L.marker([36.8065, 10.1815]).addTo(mymap)
-
     .bindPopup("<b>LocalArt</b> eCommerce Site<br />Position.")
     .openPopup();
-
 // Disable scroll wheel zoom and touch zoom
 mymap.scrollWheelZoom.disable();
 mymap.touchZoom.disable();
-
-
-
-    </script>
-    
-    <!-- Start Footer -->
-    
+    </script>   
+    <!-- Start Footer -->    
     <footer class="bg-dark" id="tempaltemo_footer" >
         <div class="container">
             <div class="row">
-
                 <div class="col-md-4 pt-5">
                     <h2 class="h2 text-success border-bottom pb-3 border-light logo">LocalArt boutique</h2>
                     <ul class="list-unstyled text-light footer-link-list">
@@ -312,7 +239,6 @@ mymap.touchZoom.disable();
                         </li>
                     </ul>
                 </div>
-
                 <div class="col-md-4 pt-5">
                     <h2 class="h2 text-light border-bottom pb-3 border-light">Products</h2>
                     <ul class="list-unstyled text-light footer-link-list">
@@ -325,7 +251,6 @@ mymap.touchZoom.disable();
                         <li><a class="text-decoration-none" href="#">Sport Shoes</a></li>
                     </ul>
                 </div>
-
                 <div class="col-md-4 pt-5">
                     <h2 class="h2 text-light border-bottom pb-3 border-light">Plus d'Info</h2>
                     <ul class="list-unstyled text-light footer-link-list">
@@ -336,9 +261,7 @@ mymap.touchZoom.disable();
                         <li><a class="text-decoration-none" href="#">Contact</a></li>
                     </ul>
                 </div>
-
             </div>
-
             <div class="row text-light mb-4">
                 <div class="col-12 mb-3">
                     <div class="w-100 my-3 border-top border-light"></div>
@@ -368,7 +291,6 @@ mymap.touchZoom.disable();
                 </div>
             </div>
         </div>
-
         <div class="w-100 bg-black py-3">
             <div class="container">
                 <div class="row pt-2">
@@ -381,24 +303,16 @@ mymap.touchZoom.disable();
                 </div>
             </div>
         </div>
-
     </footer>
     <!-- End Footer -->
-
-    <!-- Start Script -->
-    
+    <!-- Start Script -->    
     <script src="assets/js/jquery-1.11.0.min.js"></script>
     <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/templatemo.js"></script>
     <script src="assets/js/custom.js"></script>
     <script src="assets/js/contact.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    
-    <!-- End Script -->
-  
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>    
+    <!-- End Script -->  
 </body>
-
-
 </html>

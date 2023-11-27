@@ -2,7 +2,13 @@
 include "../../controller/reclamationc.php";
 
 $c = new reclamationC();
+if (isset($_GET['id_rec'])){
+    $tab= $c->trireclmation();
+}
+else{
 $tab = $c->listreclamation();
+}
+
 ?>
 <!DOCTYPE html>
 <style>
@@ -354,7 +360,7 @@ header {
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Datatables</h5>
-                            <p>here is our table for those who add a reclamation  library. Just add <code>.datatable</code> </p>
+                            <p>here is our table for those who add a reclamation  library. Just filter  </p>
 
                             <!-- Table with stripped rows -->
                             <table class="table datatable">
@@ -408,19 +414,24 @@ header {
                                         
                                             <a href="http://localhost/last%20khedma/views/NiceAdmin/afficherdetailreclamation.php?id=<?= $reclamation['id_rec']; ?>">details</a>
                                         </button>
-                                    </td>
+                                   
+                                    <td>
+                                   
+                                
                                 </tr>
                                 <?php } ?>
                                 </tbody>
                             </table>
-
+                            <a  href="tablerec.php?id_rec=y" role="button">Filtrer</a>
 
                         </div>
                     </div>
 
                 </div>
             </div>
+           
         </section>
+        
 
     </main>
 

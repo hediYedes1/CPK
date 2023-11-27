@@ -39,7 +39,7 @@ if (
        // $reclamationC->updatereclamation($reclamation, $_POST['id_rec']);
 
         //header('Location:listreclamation.php');
-        header('Location:http://localhost/last%20khedma/views/NiceAdmin/tablerec.php');
+        header('Location:http://localhost/last%20khedma/views/aboutabout.php');
     } else
         $error = "Missing information";
 }
@@ -231,23 +231,9 @@ https://templatemo.com/tm-559-zay-shop
 
 
     <!-- Start Content Page -->
-    <div class="container-fluid bg-light py-5">
-        <div class="col-md-6 m-auto text-center">
+          
+               <!-- <a href="http://localhost/last%20khedma/views/NiceAdmin/tablerec.php"></a> -->
 
-
-
-            <h1 id="contactText" class="h1">Contactez Nous</h1>
-
-
-            <p>
-                Chers client , nous sommes à votre disposition pour répondre à vos questions .
-            </p>
-
-            <a href="#tempaltemo_footer"
-                class="u-active-palette-1-base u-align-left u-black u-border-none u-btn u-button-style u-hover-palette-1-base u-btn-2">savoir
-                plus</a>
-                <a href="http://localhost/last%20khedma/views/NiceAdmin/tablerec.php"></a>
-    <hr>
 
     <div id="error">
         <?php echo $error; ?>
@@ -258,11 +244,14 @@ https://templatemo.com/tm-559-zay-shop
     }
         
     ?>
-        </div>
-    </div>
+        
 
     <div class="container py-5">
+    <p align= "center">
+                Chers client , nous sommes à votre disposition pour répondre à vos questions .
+            </p>
         <div class="row py-5">
+       
             <form class="col-md-9 m-auto" method="post" role="form" id="myForm" novalidate>
                 <div class="row">
                     <div class="col-md-6 form-container slide-from-left">
@@ -330,140 +319,7 @@ https://templatemo.com/tm-559-zay-shop
         </div>
     </div>
 
-    <!--
-    <script src="rh\templatemo_559_zay_shop\assets\js\animations.js"></script>
-    -->
-
-    <!-- Start Map -->
-    <div id="mapid" style="width: 100%; height: 300px;"></div>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-        crossorigin=""></script>
-    <script>
-    // Initialize the map
-
-    var mymap = L.map('mapid').setView([36.8065, 10.1815], 13);
-
-
-
-    // Add a tile layer (replace with your preferred tile layer)
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
-    }).addTo(mymap);
-
-    // Add a marker
-
-    L.marker([36.8065, 10.1815]).addTo(mymap)
-
-        .bindPopup("<b>LocalArt</b> eCommerce Site<br />Position.")
-        .openPopup();
-
-    // Disable scroll wheel zoom and touch zoom
-    mymap.scrollWheelZoom.disable();
-    mymap.touchZoom.disable();
-    </script>
-
-    <!-- Start Footer -->
-
-    <footer class="bg-dark" id="tempaltemo_footer">
-        <div class="container">
-            <div class="row">
-
-                <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-success border-bottom pb-3 border-light logo">LocalArt boutique</h2>
-                    <ul class="list-unstyled text-light footer-link-list">
-                        <li>
-                            <i class="fas fa-map-marker-alt fa-fw"></i>
-                            123 Consectetur at ligula 10660
-                        </li>
-                        <li>
-                            <i class="fa fa-phone fa-fw"></i>
-                            <a class="text-decoration-none" href="tel:010-020-0340">92993232</a>
-                        </li>
-                        <li>
-                            <i class="fa fa-envelope fa-fw"></i>
-                            <a class="text-decoration-none" href="mailto:info@company.com">info@localArt.tn</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-light border-bottom pb-3 border-light">Products</h2>
-                    <ul class="list-unstyled text-light footer-link-list">
-                        <li><a class="text-decoration-none" href="#">Luxury</a></li>
-                        <li><a class="text-decoration-none" href="#">Sport Wear</a></li>
-                        <li><a class="text-decoration-none" href="#">Men's Shoes</a></li>
-                        <li><a class="text-decoration-none" href="#">Women's Shoes</a></li>
-                        <li><a class="text-decoration-none" href="#">Popular Dress</a></li>
-                        <li><a class="text-decoration-none" href="#">Gym Accessories</a></li>
-                        <li><a class="text-decoration-none" href="#">Sport Shoes</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-light border-bottom pb-3 border-light">Plus d'Info</h2>
-                    <ul class="list-unstyled text-light footer-link-list">
-                        <li><a class="text-decoration-none" href="#">acceuil</a></li>
-                        <li><a class="text-decoration-none" href="#">à propos</a></li>
-                        <li><a class="text-decoration-none" href="#">boutique localisation</a></li>
-                        <li><a class="text-decoration-none" href="#">FAQs</a></li>
-                        <li><a class="text-decoration-none" href="#">Contact</a></li>
-                    </ul>
-                </div>
-
-            </div>
-
-            <div class="row text-light mb-4">
-                <div class="col-12 mb-3">
-                    <div class="w-100 my-3 border-top border-light"></div>
-                </div>
-                <div class="col-auto me-auto">
-                    <ul class="list-inline text-left footer-icons">
-                        <li class="list-inline-item border border-light rounded-circle text-center">
-                            <a class="text-light text-decoration-none" target="_blank" href="http://facebook.com/"><i
-                                    class="fab fa-facebook-f fa-lg fa-fw"></i></a>
-                        </li>
-                        <li class="list-inline-item border border-light rounded-circle text-center">
-                            <a class="text-light text-decoration-none" target="_blank"
-                                href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg fa-fw"></i></a>
-                        </li>
-                        <li class="list-inline-item border border-light rounded-circle text-center">
-                            <a class="text-light text-decoration-none" target="_blank" href="https://twitter.com/"><i
-                                    class="fab fa-twitter fa-lg fa-fw"></i></a>
-                        </li>
-                        <li class="list-inline-item border border-light rounded-circle text-center">
-                            <a class="text-light text-decoration-none" target="_blank"
-                                href="https://www.linkedin.com/"><i class="fab fa-linkedin fa-lg fa-fw"></i></a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-auto">
-                    <label class="sr-only" for="subscribeEmail">Email addresse</label>
-                    <div class="input-group mb-2">
-                        <input type="text" class="form-control bg-dark border-light" id="subscribeEmail"
-                            placeholder="Email addresse">
-                        <div class="input-group-text btn-success text-light">S'inscrire</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="w-100 bg-black py-3">
-            <div class="container">
-                <div class="row pt-2">
-                    <div class="col-12">
-                        <p class="text-left text-light">
-                            Copyright &copy; 2023 Local-Art
-                            | concue par <a rel="sponsored" href="https://www.instagram.com/hedi_yedes/"
-                                target="_blank">LocalArt</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </footer>
-    <!-- End Footer -->
+    
 
     <!-- Start Script -->
 

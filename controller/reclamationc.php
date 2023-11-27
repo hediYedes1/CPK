@@ -38,13 +38,13 @@ class reclamationC
         }
     }
     
-    public function listreclamationunique($id_rec)
-    {
-        $sql = "SELECT * FROM reclamation WHERE id_rec = :id_rec";
+    public function listreclamationunique(){
+
+        $sql = "SELECT * FROM reclamation WHERE id_rec = (SELECT max(id_rec) FROM reclamation)";
         $db = config::getConnexion();
         try {
             $stmt = $db->prepare($sql);
-            $stmt->bindParam(':id_rec', $id_rec, PDO::PARAM_INT);
+            // $stmt->bindParam(':id_rec', $id_rec, PDO::PARAM_INT);
             $stmt->execute();
             $liste = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $liste;
@@ -152,15 +152,21 @@ function showreclamation($id_rec)
           echo 'Error :'.  $e->getMessage();
         }
     }
-
-
-    
-    
-
-
+    function trireclmation(){
+        $sql="SELECT * FROM reclamation order by nom ASC";
+        $db = config::getConnexion();
+        try{
+            $liste = $db->query($sql);
+            return $liste;
+        }
+        catch(Exception $e){
+            die('Erreur:'. $e->getMessage());
+        }
+    }
 
 
 }
+
 $reclamationController = new reclamationC();
 
 if (isset($_GET['action'])) {
