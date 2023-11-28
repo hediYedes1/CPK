@@ -4,7 +4,7 @@ include "../../controller/reclamationc.php";
 $c = new reclamationC();
 $id_rec = isset($_GET['id']) ? $_GET['id'] : null;
 if ($id_rec !== null) {
-$tab = $c->listreclamationunique($id_rec);}
+$tab = $c->afficherreclamation_selon_id_($id_rec);}
 
 ?>
 <!DOCTYPE html>

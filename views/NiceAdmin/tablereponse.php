@@ -382,13 +382,14 @@ $tab = $c->listreponse();
                                         </form>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-danger" > <a
-                                                href="http://localhost/last%20khedma/views/NiceAdmin/deletereponse.php?id_rep=<?= $reponse_rec['id_rep']; ?>" style="color: white;">supprimer</a></button>
+                                        <button type="button" class="btn btn-danger"> <a
+                                                href="http://localhost/last%20khedma/views/NiceAdmin/deletereponse.php?id_rep=<?= $reponse_rec['id_rep']; ?>"
+                                                style="color: white;">supprimer</a></button>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-info" >
+                                        <button type="button" class="btn btn-info">
                                             <a href="http://localhost/last%20khedma/views/NiceAdmin/afficherdetails.php?id=<?=$reponse_rec['id_rep'];?>"
-                                            style="color: white;" >details</a>
+                                                style="color: white;">details</a>
                                         </button>
 
                                     </td>

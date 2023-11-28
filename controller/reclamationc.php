@@ -37,6 +37,19 @@ class reclamationC
             echo $e->getMessage();
         }
     }
+    public function afficherreclamation_selon_id_($id_rec){
+        $sql = "SELECT * FROM reclamation WHERE id_rec = :id_rec";
+        $db = config::getConnexion();
+        try {
+            $stmt = $db->prepare($sql);
+             $stmt->bindParam(':id_rec', $id_rec, PDO::PARAM_INT);
+            $stmt->execute();
+            $liste = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $liste;
+        } catch (Exception $e) {
+            die('Error:' . $e->getMessage());
+        }
+    }
     
     public function listreclamationunique(){
 
