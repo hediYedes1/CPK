@@ -278,10 +278,7 @@ if ( isset($_POST["contenu"]) ) {
           </li>
           
         </ul>
-      </li><!-- End Charts Nav -->
-
-      
-
+      </li><!-- End Charts Nav -->  
       <li class="nav-heading">Pages</li>
 
       <li class="nav-item">
@@ -304,14 +301,9 @@ if ( isset($_POST["contenu"]) ) {
           <span>Contact</span>
         </a>
       </li><!-- End Contact Page Nav -->
-
-
     </ul>
-
   </aside><!-- End Sidebar-->
-
   <main id="main" class="main">
-
     <div class="pagetitle">
       <h1>Form Elements</h1>
       <nav>
@@ -322,7 +314,6 @@ if ( isset($_POST["contenu"]) ) {
         </ol>
       </nav>
     </div><!-- End Page Title -->
-
     <section class="section">
       <div class="row">
         <div class="col-lg-6">
@@ -330,17 +321,13 @@ if ( isset($_POST["contenu"]) ) {
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">General Form Elements</h5>
-
               <!-- General Form Elements -->
               <form method="post" action= "" id="yourFormId">
                 <div class="row mb-3">
-               
-
                   <label for="contenu" class="col-sm-2 col-form-label">contenu</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control"  name="contenu" id="contenu" rows="4" cols="50"><?php echo $reponse ? $reponse->getcontenu() : ''; ?>>
+                    <input type="text" class="form-control"  name="contenu" id="contenu" rows="4" cols="50"><?php echo $reponse ? $reponse->getcontenu() : ''; ?>
                    <!-- ... Autres balises d'en-tête ... -->
-
 <!-- Ajoutez ce script JavaScript pour la validation côté client -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -364,9 +351,6 @@ if ( isset($_POST["contenu"]) ) {
     });
   });
 </script>
-
-<!-- ... Autres balises de fermeture d'en-tête ... -->
-
                   </div>
                 </div>  
                 <div class="row mb-3">
@@ -375,16 +359,10 @@ if ( isset($_POST["contenu"]) ) {
                     <button type="submit" class="btn btn-primary">Submit Form</button>
                   </div>
                 </div>
-
               </form><!-- End General Form Elements -->
-
             </div>
           </div>
-
-        </div>
-
-       
-
+        </div>  
               </form><!-- End General Form Elements -->
 
             </div>

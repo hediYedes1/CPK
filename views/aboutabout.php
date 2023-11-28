@@ -1,28 +1,22 @@
 <?php
 include "../controller/reclamationc.php";
-
 $c = new reclamationC();
 $id_rec = $_REQUEST["id_rec"] ?? null; // get and post
 $tab = $c->listreclamationunique();
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <title>LocalArt - Contact</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/templatemo.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
     <link rel="stylesheet" href="assets/css/fontawesome.min.css">
     <link rel="stylesheet" href="assets/css/taraji.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
-
 </head>
-
 <body>
     <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
         <div class="container text-light">
@@ -42,7 +36,6 @@ $tab = $c->listreclamationunique();
             </div>
         </div>
     </nav>
-
     <nav class="navbar navbar-expand-lg navbar-light shadow">
         <div class="container d-flex justify-content-between align-items-center">
             <a class="navbar-brand text-success logo h1 align-self-center" style="color: brown;" href="index.html">
@@ -51,7 +44,6 @@ $tab = $c->listreclamationunique();
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
             <div class="align-self-center collapse navbar-collapse flex-fill d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
                 <div class="flex-fill">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
@@ -96,7 +88,6 @@ $tab = $c->listreclamationunique();
             </div>
         </div>
     </nav>
-
     <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="w-100 pt-1 mb-5 text-right">
@@ -113,51 +104,45 @@ $tab = $c->listreclamationunique();
         </div>
     </div>
 
+    
     <div class="container py-5">
-        <div class="row py-5">
-            <div class="col-md-9 m-auto">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-hover">
-                        
-                        <tbody>
-                        <?php if (!empty($tab)) { ?>
-    <div class="row">
-        <?php foreach ($tab as $reclamation) { ?>
-            <div class="col-md-6 mb-4">
+    <div class="row py-5">
+        <div class="col-md-9 m-auto">
+            <?php if (!empty($tab)) { ?>
+                <?php foreach ($tab as $reclamation) { ?>
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            Réclamation #<?= $reclamation['id_rec']; ?>
+                        </div>
+                        <div class="card-body">
+                         
+                            <p class="card-text"><strong>Nom:</strong> <?= $reclamation['nom']; ?></p>
+                            <p class="card-text"><strong>Sujet:</strong> <?= $reclamation['sujet']; ?></p>
+                            <p class="card-text"><strong>Texte:</strong> <?= $reclamation['texte']; ?></p>
+                            <p class="card-text"><strong>Date:</strong> <?= $reclamation['date']; ?></p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <form method="POST" action="updatereclamation.php">
+                                    <input type="submit" name="update" value="Modifier" class="btn btn-warning btn-sm">
+                                    <input type="hidden" value="<?= $reclamation['id_rec']; ?>" name="id_rec">
+                                    <input type="hidden" value="<?= $reclamation['date']; ?>" name="date">
+                                </form>
+                                <button class="btn btn-danger btn-sm">
+                                    <a href="deletereclamation.php?id_rec=<?= $reclamation['id_rec']; ?>" style="color: white;">Supprimer</a>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+            <?php } else { ?>
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Réclamation #<?= $reclamation['id_rec']; ?></h5>
-                        <p class="card-text"><strong>Nom:</strong> <?= $reclamation['nom']; ?></p>
-                        <p class="card-text"><strong>Sujet:</strong> <?= $reclamation['sujet']; ?></p>
-                        <p class="card-text"><strong>Texte:</strong> <?= $reclamation['texte']; ?></p>
-                        <p class="card-text"><strong>Date:</strong> <?= $reclamation['date']; ?></p>
-                        <form method="POST" action="updatereclamation.php">
-                            <input type="submit" name="update" value="Modifier" class="btn btn-warning btn-sm">
-                            <input type="hidden" value="<?= $reclamation['id_rec']; ?>" name="id_rec">
-                            <input type="hidden" value="<?= $reclamation['date']; ?>" name="date">
-                        </form>
-                        <button class="btn btn-danger btn-sm mt-2">
-                            <a href="deletereclamation.php?id_rec=<?= $reclamation['id_rec']; ?>" style="color: white;">Supprimer</a>
-                        </button>
+                        <p class="card-text">Aucune donnée de réclamation disponible.</p>
                     </div>
                 </div>
-            </div>
-        <?php } ?>
-    </div>
-<?php } else { ?>
-    <p class="text-center">Aucune donnée de réclamation disponible.</p>
-<?php } ?>
-                        </tbody>
-                    </table>
-                </div>
-
-                <br>
-                <br>
-                <br>
-                <button type="submit" class="btn btn-success btn-lg px-3">Envoyer</button>
-            </div>
+            <?php } ?>
         </div>
     </div>
+</div>
 
     <script src="assets/js/jquery-1.11.0.min.js"></script>
     <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
@@ -166,7 +151,5 @@ $tab = $c->listreclamationunique();
     <script src="assets/js/custom.js"></script>
     <script src="assets/js/contact.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 </body>
-
 </html>

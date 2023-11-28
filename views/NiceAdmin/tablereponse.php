@@ -9,7 +9,7 @@ $tab = $c->listreponse();
 
 <!DOCTYPE html>
 <style>
-    /* Reset some default styles */
+/* Reset some default styles */
 
 
 /* Main content styles */
@@ -45,7 +45,8 @@ $tab = $c->listreponse();
     margin-top: 20px;
 }
 
-.table th, .table td {
+.table th,
+.table td {
     border: 1px solid #ddd;
     padding: 10px;
     text-align: left;
@@ -77,30 +78,15 @@ $tab = $c->listreponse();
 .back-to-top:hover {
     background-color: #0056b3;
 }
-/* Add these styles to color the buttons */
-.table td form input[type="submit"] {
-    background-color: #28a745; /* Green color for "Modifier" button */
-    color: #fff; /* White text color */
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-}
 
-.table td button {
-    background-color: #dc3545; /* Red color for "Supprimer" button */
-    color: #fff; /* White text color */
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-}
+/* Add these styles to color the buttons */
+
 
 /* Hover effect for the buttons */
 .table td form input[type="submit"]:hover,
 .table td button:hover {
     opacity: 0.8;
 }
-
-
 </style>
 <html lang="en">
 
@@ -342,7 +328,8 @@ $tab = $c->listreponse();
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a
                             href="http://localhost/last%20khedma/views/addreclamation.php">Home</a></li>
-                    <li class="breadcrumb-item"><a href="http://localhost/last%20khedma/views/NiceAdmin/tablereponse.php">Tables</a></li>
+                    <li class="breadcrumb-item"><a
+                            href="http://localhost/last%20khedma/views/NiceAdmin/tablereponse.php">Tables</a></li>
                     <li class="breadcrumb-item active">Data</li>
                 </ol>
             </nav>
@@ -356,7 +343,8 @@ $tab = $c->listreponse();
                         <div class="card-body">
                             <h5 class="card-title">Datatables</h5>
                             <p>here is our table for those who add a reclamation library. Just add
-                                <code>.datatable</code> </p>
+                                <code>.datatable</code>
+                            </p>
 
                             <!-- Table with stripped rows -->
                             <table class="table datatable">
@@ -365,11 +353,11 @@ $tab = $c->listreponse();
                                         <th scope="col">id_rep</th>
                                         <th scope="col">contenu</th>
                                         <th scope="col">date</th>
-                                        <th scope = "col">id_rec</th>
+                                        <th scope="col">id_rec</th>
                                         <th scope="col">modifier</th>
                                         <th scope="col">supprimer</th>
                                         <th scope="col">details</th>
-                                       
+
 
                                     </tr>
                                 </thead>
@@ -384,7 +372,7 @@ $tab = $c->listreponse();
                                     <td>
                                         <form method="POST"
                                             action="http://localhost/last%20khedma/views/NiceAdmin/updatereponse.php">
-                                            <input type="submit" name="update" value="modifier">
+                                            <input type="submit" name="update" value="modifier" class="btn btn-success">
                                             <input type="hidden" value=<?PHP echo $reponse_rec['id_rep']; ?>
 
                                             name="id_rep">
@@ -394,13 +382,15 @@ $tab = $c->listreponse();
                                         </form>
                                     </td>
                                     <td>
-                                        <button> <a
-                                                href="http://localhost/last%20khedma/views/NiceAdmin/deletereponse.php?id_rep=<?= $reponse_rec['id_rep']; ?>">supprimer</a></button>
+                                        <button type="button" class="btn btn-danger" > <a
+                                                href="http://localhost/last%20khedma/views/NiceAdmin/deletereponse.php?id_rep=<?= $reponse_rec['id_rep']; ?>" style="color: white;">supprimer</a></button>
                                     </td>
                                     <td>
-                                        <button>
-                                            <a href="http://localhost/last%20khedma/views/NiceAdmin/afficherdetails.php?id=<?=$reponse_rec['id_rep'];?>">details</a>
+                                        <button type="button" class="btn btn-info" >
+                                            <a href="http://localhost/last%20khedma/views/NiceAdmin/afficherdetails.php?id=<?=$reponse_rec['id_rep'];?>"
+                                            style="color: white;" >details</a>
                                         </button>
+
                                     </td>
 
 
