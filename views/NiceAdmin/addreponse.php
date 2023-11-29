@@ -3,6 +3,7 @@
 require_once '../../Controller/ReponseReclamationC.php';
 require_once '../../model/reponsereclamation.php';
 
+
 $error = "";
 $id_rec = isset($_GET['id_rec']) ? $_GET['id_rec'] : null;
 // create an instance of the controller

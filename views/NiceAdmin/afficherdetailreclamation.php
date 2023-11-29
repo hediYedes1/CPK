@@ -359,8 +359,8 @@ header {
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Datatables</h5>
-                            <p>here is our table for those who add a reclamation library. Just add
-                                <code>.datatable</code> </p>
+                            <p>voici le tableau qui affiche les details d'une reclamation
+                                </p>
 
                             <!-- Table with stripped rows -->
                             <table class="table datatable">
@@ -407,8 +407,8 @@ header {
                                 </tbody>
                             </table>
                             <div style="text-align: right; margin-top: 10px;">
-                            <button>
-                                <a href="http://localhost/last%20khedma/views/NiceAdmin/tablerec.php">Retourner a la liste</a>
+                            <button type="button" class="btn btn-primary">
+                                <a  style="color: white;" href="http://localhost/last%20khedma/views/NiceAdmin/tablerec.php" >Retourner a la liste</a>
                             </button>
                         </div>
 

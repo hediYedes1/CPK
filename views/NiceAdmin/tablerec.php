@@ -8,7 +8,14 @@ if (isset($_GET['id_rec'])){
 else{
 $tab = $c->listreclamation();
 }
-
+$reclamationC = new ReclamationC();
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['reclamation']) && isset($_POST['search'])) {
+        $id_rec = $_POST['reclamation']; // Corrected variable name
+        $list = $reclamationC->afficher_reponse_selon_id_de_rec($id_rec);
+    }
+}
+$reclamations = $reclamationC->afficherreclamation();
 ?>
 <!DOCTYPE html>
 <style>
@@ -195,11 +202,6 @@ header {
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-
-
-
-
-
                         <li class="dropdown-footer">
                             <a href="#">Show all messages</a>
                         </li>
@@ -346,7 +348,7 @@ header {
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Datatables</h5>
-                            <p>here is our table for those who add a reclamation library. Just <a
+                            <p>voici notre table de reclamation si tu veux le filter cliquez sur <a
                                     href="tablerec.php?id_rec=y" role="button">Filtrer</a> </p>
 
                             <!-- Table with stripped rows -->
@@ -358,7 +360,6 @@ header {
                                         <th scope="col">sujet</th>
                                         <th scope="col">texte</th>
                                         <th scope="col">date</th>
-
                                         <th scope="col">supprimer</th>
                                         <th scope="col">repondre</th>
                                         <th scope="col">details</th>
@@ -376,7 +377,7 @@ header {
 
                                     <td>
                                         <button type="button" class="btn btn-danger"> <a
-                                                href="http://localhost/last%20khedma/views/deletereclamation.php?id_rec=<?= $reclamation['id_rec']; ?>"
+                                                href="http://localhost/last%20khedma/views/deletereclamation1.php?id_rec=<?= $reclamation['id_rec']; ?>"
                                                 style="color: white;">supprimer</a></button>
                                     </td>
                                     <td>
@@ -395,13 +396,61 @@ header {
                                                 style="color: white;">details</a>
                                         </button>
 
-                                    <td>
+                                   
 
 
                                 </tr>
                                 <?php } ?>
                                 </tbody>
+
+
                             </table>
+                            <form action="" method="POST">
+                              <strong> <label for="reclamation">Sélectionnez une réclamation</label></strong> 
+                                <select name="reclamation" id="reclamation">
+                                    <?php 
+            foreach($reclamations as $reclamation) {
+                echo '<option value="' . $reclamation['id_rec'] . '">' . $reclamation['id_rec'] . '</option>';
+            }
+        ?>
+                                </select>
+                                <input type="submit" value="Rechercher" name="search"  class="btn btn-warning">
+                            </form>
+
+                            <?php
+if (isset($list)) {
+    ?>
+                            <br>
+
+                            <?php if (!empty($list)) { ?>
+                            <p>Réponses correspondantes à la réclamation sélectionnée</p>
+                            <table class="table datatable">
+                                <thead>
+                                    <tr>
+                                        <th>ID Réponse</th>
+                                        <th>Contenu</th>
+                                        <th>Date</th>
+                                        <th>ID Réclamation</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($list as $reponse_rec) { ?>
+                                    <tr>
+                                        <td><?= $reponse_rec['id_rep'] ?></td>
+                                        <td><?= $reponse_rec['contenu'] ?></td>
+                                        <td><?= $reponse_rec['date'] ?></td>
+                                        <td><?= $reponse_rec['id_rec'] ?></td>
+                                    </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                            <?php } else { ?>
+                            <p>Aucune réponse trouvée pour la réclamation sélectionnée.</p>
+                            <?php } ?>
+                            <?php } ?>
+
+
+
                         </div>
                     </div>
 

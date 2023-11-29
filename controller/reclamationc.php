@@ -108,7 +108,7 @@ class reclamationC
     function addreclamation($reclamation)
     {
         $sql = "INSERT INTO reclamation  
-        VALUES (NULL, :nom,:sujet, :texte, :date)";//, baad texte
+        VALUES (NULL, :nom,:sujet, :texte, :date ,:etat )";//, baad texte
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
@@ -117,6 +117,7 @@ class reclamationC
                 'sujet' => $reclamation->getsujet(),
                 'texte' => $reclamation->gettexte(),
                 'date' => $reclamation->getdates(),
+                'etat'=> $reclamation->getetat(),
             ]);
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage();

@@ -49,24 +49,28 @@ class reponseC
     }
 
 
-    function addreponse($reponse,$id_rec)
+    function addreponse($reponse, $id_rec)
     {
-        $sql = "INSERT INTO reponse_rec  
-        VALUES (NULL, :contenu, :date , :id_rec )";//, baad texte
+        $sql = "INSERT INTO reponse_rec (contenu, date, id_rec) VALUES (:contenu, :date, :id_rec)";
+        $sql2 = "UPDATE reclamation SET etat = 1 WHERE id_rec = :id_rec";
         $db = config::getConnexion();
         try {
             $query = $db->prepare($sql);
             $query->execute([
-               
                 'contenu' => $reponse->getcontenu(),
-                
                 'date' => $reponse->getdate(),
+                'id_rec' => $id_rec,
+            ]);
+    
+            $query2 = $db->prepare($sql2);
+            $query2->execute([
                 'id_rec' => $id_rec,
             ]);
         } catch (Exception $e) {
             echo 'Error: ' . $e->getMessage();
         }
     }
+    
 
 function showreponse($id_rep)
 {
@@ -82,7 +86,17 @@ function showreponse($id_rep)
         die('Error: ' . $e->getMessage());
     }
 }
-
+function trireponse(){
+    $sql="SELECT * FROM reponse_rec order by contenu ASC";
+    $db = config::getConnexion();
+    try{
+        $liste = $db->query($sql);
+        return $liste;
+    }
+    catch(Exception $e){
+        die('Erreur:'. $e->getMessage());
+    }
+}
     function updateReponse($reponse, $id_rep )
     {   
         try {
@@ -108,6 +122,21 @@ function showreponse($id_rep)
           echo 'Error :'.  $e->getMessage();
         }
     }
+
+    function Recherche($contenu){
+        $sql="SELECT * from reponse_rec where contenu like '".$contenu."%' ";
+        $db = config::getConnexion();
+        try{
+            $liste = $db->query($sql);
+            return $liste;
+        }
+        catch(Exception $e){
+            die('Erreur:'. $e->getMessage());
+        }
+    }
+
+
+}
    
     
-}
+

@@ -254,7 +254,7 @@ error_reporting(E_ALL);
              </nav>
          </div><!-- End Page Title -->
 
-         <p>here is our statistic for the subject of reclamations </p>
+         <p>voici notre courbe statistique pour les sujets des reclamations </p>
 
          <section class="section">
              <div class="row">

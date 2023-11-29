@@ -11,17 +11,23 @@ if (isset($_GET['id_rec'])) {
 } else {
     $reclamation = null; // for adding new reclamation
 }
-if (isset($_POST["nom"]) && isset($_POST["sujet"]) && isset($_POST["texte"])) {
+if (isset($_POST["nom"]) && isset($_POST["sujet"]) && isset($_POST["texte"]) ) {
     if (!empty($_POST['nom']) && !empty($_POST["sujet"]) && !empty($_POST["texte"])) {
         if ($reclamation) {
             // Update existing reclamation
+            if (isset($_POST["update"])) {
             $reclamation->setdate(date("Y-m-d"));
             $reclamation->setsujet($_POST['sujet']);
             $reclamation->settexte($_POST['texte']);
+            $reclamation->setetat(1);
             $reclamationC->updateJoueur($reclamation, $id_rec);
+            }
         } else {
             // Add new reclamation
-            $reclamation = new reclamation(null, $_POST['nom'], $_POST['sujet'], $_POST['texte'],date("Y-m-d"));
+
+           $etat= 0 ;
+           
+            $reclamation = new reclamation(null, $_POST['nom'], $_POST['sujet'], $_POST['texte'],date("Y-m-d"),$etat);
             $reclamationC->addreclamation($reclamation);
         }
 
@@ -188,6 +194,7 @@ https://templatemo.com/tm-559-zay-shop
                         <br>
                         <br>
                         <br>           
+                        <input type="hidden" name="etat" value="0">
                         <button  type="submit" class="btn btn-success btn-lg px-3" >Envoyer</button>              
                     </div>
                     <div class="col-md-6">

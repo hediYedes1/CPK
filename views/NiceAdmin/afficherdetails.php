@@ -314,7 +314,7 @@ $tab = $c->listreponseunique($id_rep);}
         </ul>
 
     </aside><!-- End Sidebar-->
-
+   
     <main id="main" class="main">
     <div class="pagetitle">
         <h1>Data Tables</h1>
@@ -333,7 +333,7 @@ $tab = $c->listreponseunique($id_rep);}
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Datatables</h5>
-                        <p>Here is our table for those who add a reclamation library. Just add <code>.datatable</code> </p>
+                        <p>voici notre tableau qui affiche les details d'une reponse  </p>
 
                         <!-- Table with stripped rows -->
                         <table class="table datatable">
@@ -370,8 +370,8 @@ $tab = $c->listreponseunique($id_rep);}
                             
                         </table>
                         <div style="text-align: right; margin-top: 10px;">
-                            <button>
-                                <a href="http://localhost/last%20khedma/views/NiceAdmin/tablereponse.php">Retourner a la liste</a>
+                            <button type="button" class="btn btn-primary">
+                                <a style="color: white;" href="http://localhost/last%20khedma/views/NiceAdmin/tablereponse.php">Retourner a la liste</a>
                             </button>
                         </div>
                     </div>
@@ -399,6 +399,12 @@ $tab = $c->listreponseunique($id_rep);}
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
+    <!-- Ajoutez ceci dans la section head -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Ajoutez ceci avant la fermeture du body -->
+
+
 
 </body>
 

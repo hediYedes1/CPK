@@ -1,10 +1,19 @@
 <?php
 include "../../controller/ReponseReclamationC.php";
 
+	
+	
+	
 $id_rec = isset($_GET["id_rec"]) ? $_GET["id_rec"] :null;
 $c = new reponseC();
-$tab = $c->listreponse();
+if(isset($_GET['search']))
+	{
+        $tab=$c->Recherche($_GET['search']);
+    }
+    else{
 
+$tab = $c->listreponse();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -334,7 +343,7 @@ $tab = $c->listreponse();
                 </ol>
             </nav>
         </div><!-- End Page Title -->
-
+       
         <section class="section">
             <div class="row">
                 <div class="col-lg-12">
@@ -343,11 +352,15 @@ $tab = $c->listreponse();
                         <div class="card-body">
                             <h5 class="card-title">Datatables</h5>
                             <p>here is our table for those who add a reclamation library. Just add
-                                <code>.datatable</code>
+                                
                             </p>
-
+                           
+                            <form method="get">
+                             <input type="text" name="search" id="search" class="form-control" placeholder="Search...">
+                                 </form>
                             <!-- Table with stripped rows -->
-                            <table class="table datatable">
+                            <table class="table ">
+                        
                                 <thead>
                                     <tr>
                                         <th scope="col">id_rep</th>

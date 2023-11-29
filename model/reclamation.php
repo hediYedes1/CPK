@@ -6,19 +6,29 @@ class reclamation
     private ?string $sujet = null;
     private ?string $texte = null;
     private ?string $date = null ;
+
+    private ?string $etat = null;
     
 
-    public function __construct($id = null, $n, $s, $t , $d=null)
+    public function __construct($id = null, $n, $s, $t , $d=null , $e=null)
     {
         $this->id_rec = $id;
         $this->nom = $n ;
         $this->sujet = $s;
         $this->texte = $t;
         $this->date = $d;
+        $this->etat = $e;
         
     }
 
-
+    public function getetat()
+    {
+        return $this->etat;
+    }
+    public function setetat($etat){
+        $this->etat = $etat;
+        return $this;
+    }
     public function getIdreclamation()
     {
         return $this->id_rec;
@@ -32,8 +42,6 @@ class reclamation
 
         return $this;
     }
-
-
     public function getdate()
     {
         return $this->nom;
