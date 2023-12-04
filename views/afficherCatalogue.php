@@ -1,9 +1,8 @@
 <?PHP
 include "../controller/CatalogueC.php";
 $CatalogueC=new CatalogueC();
-$listeEmployes=$CatalogueC->afficherCatalogue();
+$tab=$CatalogueC->afficherCatalogue();
 
-//var_dump($listeEmployes->fetchAll());
 ?>
 <table border="1">
 <tr>
@@ -18,7 +17,7 @@ $listeEmployes=$CatalogueC->afficherCatalogue();
 </tr>
 
 <?PHP
-foreach($listeEmployes as $row){
+foreach($tab as $row){
 	?>
 	<tr>
 	<td><?PHP echo $row['id_article']; ?></td>
@@ -36,9 +35,10 @@ foreach($listeEmployes as $row){
 	<td><a href="modifierCatalogue.php?id=<?PHP echo $row['id_article']; ?>">
 	Modifier</a></td>
 	</tr>
+	
 	<?PHP
 }
-?>
+?>	
 </table>
 
 

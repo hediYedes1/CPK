@@ -1,14 +1,14 @@
 <?php  
-include "../controller/CatalogueC.php";
+include "../controller/PubliciteC.php";
 
 
-$sql="SELECT * from catalogue where id_article='".$_GET['id']."'";
+$sql="SELECT * from pub where id_pub='".$_GET['id']."'";
 		$db = config::getConnexion();
 				$liste=$db->query($sql);
 
 
-$CatalogueC=new CatalogueC();
-$tab=$CatalogueC->recupererCatalogue($_GET['id']);
+$PubliciteC=new PubliciteC();
+$tab=$PubliciteC->recupererpublicite($_GET['id']);
 ?>
 
 
@@ -157,44 +157,45 @@ https://templatemo.com/tm-559-zay-shop
 				<div class="row">
 
 
-					<!-- Products tab & slick -->
-					<div class="col-md-12">
-						<div class="row">
-							<div class="products-tabs">
+					  <!-- Products tab & slick -->
+                      <div class="col-md-12">
+            <div class="row">
+              <div class="products-tabs">
 
 
 
-								<!-- tab -->
-                                <?php foreach($tab as $row){?>
-									<div class="products-slick" data-nav="#slick-nav-2">
+                <!-- tab -->
+                <!-- <div id="tab2" class="tab-pane fade in active"> -->
+                  <div class="products-slick" data-nav="#slick-nav-2">
 
+<?php foreach($tab as $row){
+  $pourcentage=round(((($row['prix_sans_remise']-$row['prix_avec_remise'])*100)/($row['prix_sans_remise'])));
 
-										
-										<!-- product -->
-										<div class="product" >
-											<div class="product-img" id="zoom">
-												<img src="img/<?PHP echo $row['image']; ?>" alt="">
-												<div class="product-label">
-													
-												</div>
-											</div>
-                                            <div class="product-details">
-											<div class="product-body">
-                                            <h3 class="product-name"><u>Nom :<?PHP echo $row['nom']; ?></u></h3>
-												<p class="product-category">Description :<?PHP echo $row['description']; ?></p>
-											</div>
-											<div class="product-body">
-												<p class="product-category">Type :<?PHP echo $row['type']; ?></p>
-												
-												<table><tr>
-													
-													<td><h4 class="product-price" style="color: red; ">Prix :<?PHP echo $row['prix'].' TND'; ?></h4></td>
-												</tr></table>
-
-                                                <!-- <p class="product-category"><?PHP echo $row['quantite']; ?></p> -->
-												
-                                                </div>
-                                                <div class="row pb-3">
+   ?>
+                    
+                    <!-- product -->
+                    <div class="product">
+                      <div class="product-img">
+                        <img src="img/<?PHP echo $row['imagepub']; ?>" alt="">
+                        <div class="product-label">
+                          
+                        </div>
+                      </div>
+                      <div class="product-body">
+                       
+                        <center><table><tr>
+                      
+                        <h3 class="product-name"><u><?PHP echo $row['nompub']; ?></u></h3>
+                        <p class="product-category"><?PHP echo $row['typepub']; ?></p>
+                        <p class="product-category"><?PHP echo $row['descriptionpub']; ?></p>
+                          <td><h4 class="product-price"  ><strike style="color: red; "><?PHP echo $row['prix_sans_remise'].' TND'; ?></strike></h4></td>
+                          <td><pre style="background: none;border: none;">       </pre></td>
+                          <td><h4 class="product-price" style="color: red; "><?PHP echo $row['prix_avec_remise'].' TND'; ?></h4></td>
+                          <h4 class="product-price" style="color: red; font-size: 30px; "><?PHP echo '-'.$pourcentage.'%'; ?></h4>
+                        </tr></table></center>
+                        
+                      </div>
+                      <div class="row pb-3">
                                     <div class="col d-grid">
                                         <button type="submit" class="btn btn-success btn-lg" name="submit" value="buy">Buy</button>
                                     </div>
@@ -202,32 +203,35 @@ https://templatemo.com/tm-559-zay-shop
                                         <button type="submit" class="btn btn-success btn-lg" name="submit" value="addtocard">Add To Cart</button>
                                     </div>
                                 </div>
-										
-									
-												
-											</div>
-										
-												
-											
-										</div>
-										<!-- /product -->
+                         
+                      </div>
+                    
+                      <li>
+                                      
+                            
 
-                                        <?php } ?>
-										
-									</div>
-									<div id="slick-nav-2" class="products-slick-nav"></div>
-								
-								<!-- /tab -->
-							</div>
-						</div>
-					</div>
-					<!-- /Products tab & slick -->
-				</div>
-				<!-- /row -->
-			</div>
-			<!-- /container -->
-		</div>
-		<!-- /SECTION -->
+                                        
+                        </li>  
+                      
+                    </div>
+                    <!-- /product -->
+<?php } ?>
+
+                    
+                  </div>
+                  <div id="slick-nav-2" class="products-slick-nav"></div>
+                </div>
+                <!-- /tab -->
+              </div>
+            </div>
+          </div>
+          <!-- /Products tab & slick -->
+        </div>
+        <!-- /row -->
+      </div>
+      <!-- /container -->
+    </div>
+    <!-- /SECTION -->
 
 
 

@@ -9,7 +9,7 @@ function afficherCatalogueC ($Catalogue){
 		echo "prix: ".$Catalogue->getPrix()."<br>";
 		echo "description: ".$Catalogue->getDescription()."<br>";
 		echo "quantite: ".$Catalogue->getquantite()."<br>";
-		//) values (:cin, :nom,:prenom,:nbH,:tarifH)";
+	
 	}
 	
 	function ajouterCatalogueC($Catalogue){
@@ -45,7 +45,7 @@ function afficherCatalogueC ($Catalogue){
 	}
 
 	function affichersingle($id_article){
-		//$sql="SElECT * From ReclamationRendezvous e inner join formationphp.ReclamationRendezvous a on e.cin= a.cin";
+
 		$sql="SElECT * From catalogue where id_article= $id_article";
 		$db = config::getConnexion();
 		try{
@@ -58,7 +58,7 @@ function afficherCatalogueC ($Catalogue){
 	}
 	
 	function afficherCatalogue(){
-		//$sql="SElECT * From ReclamationRendezvous e inner join formationphp.ReclamationRendezvous a on e.cin= a.cin";
+		
 		$sql="SElECT * From catalogue";
 		$db = config::getConnexion();
 		try{
@@ -76,17 +76,17 @@ function afficherCatalogueC ($Catalogue){
 		$req->bindValue(':id_article',$id_article);
 		try{
             $req->execute();
-           // header('Location: index.php');
+      
         }
         catch (Exception $e){
             die('Erreur: '.$e->getMessage());
         }
 	}
 	function modifierCatalogue($Catalogue,$id_article){
-		$sql="UPDATE catalogue SET id_article=:id_article,type=:type,image=:image,nom=:nom,prix=:prix ,description=:description WHERE id_article=:id_article";
+		$sql="UPDATE catalogue SET id_article=:id_article,type=:type,image=:image,nom=:nom,prix=:prix ,description=:description  ,quantite=:quantite WHERE id_article=:id_article";
 		
 		$db = config::getConnexion();
-		//$db->setAttribute(PDO::ATTR_EMULATE_PREPARES,false);
+		
 try{		
         $req=$db->prepare($sql);
         $id_article=$Catalogue->getId_article();
@@ -109,7 +109,7 @@ try{
 		
             $s=$req->execute();
 			
-           // header('Location: index.php');
+          
         }
         catch (Exception $e){
             echo " Erreur ! ".$e->getMessage();
@@ -124,6 +124,9 @@ try{
 		try{
 		$liste=$db->query($sql);
 		return $liste;
+
+        
+
 		}
         catch (Exception $e){
             die('Erreur: '.$e->getMessage());
@@ -157,6 +160,76 @@ function pagetotale($prodparpage)
         }
 
 	
+
+        public function gettypeBytype()
+        {
+            $sql = "SELECT type, COUNT(*) AS nombre FROM catalogue WHERE type IN ('Art', 'Culture') GROUP BY type";
+            $db = config::getConnexion();
+            try {
+                $statement = $db->query($sql);
+                $data = $statement->fetchAll(PDO::FETCH_ASSOC);
+                header('Content-Type: application/json');
+                echo json_encode($data);
+            } catch (PDOException $e) {
+                header('HTTP/1.1 500 Internal Server Error');
+                echo json_encode(["error" => "Internal Server Error"]);
+            }
+        }
+
+function Recherche($nom){
+    $sql="SELECT * from catalogue where nom like '".$nom."%' ";
+    $db = config::getConnexion();
+    try{
+        $liste = $db->query($sql);
+        return $liste;
+    }
+    catch(Exception $e){
+        die('Erreur:'. $e->getMessage());
+    }
 }
+
+
+    public function affichercat(){
+        try {
+            $pdo = config::getConnexion();
+            $query = $pdo->prepare("SELECT * FROM catalogue");
+            $query->execute();
+            return $query->fetchAll();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+	public function afficher_publicite_selon_id_de_article($id_article){
+        try {
+            $pdo = config::getConnexion();
+            $query = $pdo->prepare("SELECT * FROM pub WHERE ida = :id");
+            $query->execute(['id' => $id_article]);
+            return $query->fetchAll();
+        } catch (PDOException $e) {
+            echo  $e->getMessage();
+        }
+    }
+
+	
+}
+$CatalogueC=new CatalogueC();
+
+if (isset($_GET['action'])) {
+  if ($_GET['action'] === 'gettype') {
+      $CatalogueC->gettypeBytype();
+      exit; // Important to exit to prevent further execution
+  }
+  // Add more actions if needed
+}
+
+header('HTTP/1.1 400 Bad Request');
+// echo json_encode(["error" => "Invalid Request"]);
+
+
+
+
+
+
 
 ?>

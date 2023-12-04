@@ -1,10 +1,24 @@
 <?php  
-include "../controller/CatalogueC.php";
-$CatalogueC=new CatalogueC();
+include "../controller/PubliciteC.php";
+$PubliciteC=new PubliciteC();
 
-$tab = $CatalogueC->afficherCatalogue();
+$tab = $PubliciteC->afficherpublicite();
 
+// Récupérer l'identifiant de l'article à partir de la requête ou d'une autre source
+$id_article = isset($_GET['id_article']) ? $_GET['id_article'] : null;
 
+// Vérifier si l'article a une publicité associée
+$publicite = $PubliciteC->getPubliciteByArticleId($id_article);
+
+// Si une publicité est trouvée, afficher le contenu
+if ($publicite) {
+    echo "<div class='publicite'>";
+    echo "<h3>Publicité</h3>";
+    echo "<p>$publicite[contenu]</p>";
+    echo "</div>";
+} else {
+    echo "<p>Aucune publicité disponible pour cet article.</p>";
+}
 ?>
       
 <!DOCTYPE html>
@@ -30,6 +44,7 @@ $tab = $CatalogueC->afficherCatalogue();
 </head>
 
 <body>
+
 <input id="queryLoc" type="text" value="Tunis,Tn" />
         <input type="button" value="Météo" onclick="buttonClickGET()"/>
         <p id="zone_meteo"></p>
@@ -56,11 +71,11 @@ $.get(url,CallBackGetSuccess).done(function(){
 .always(function(){
 });
 }
+</script>
 
-        </script>
 
        
-
+<!-- Load Facebook SDK for JavaScript -->
 <div id="fb-root"></div>
   <script>(function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
@@ -75,6 +90,8 @@ $.get(url,CallBackGetSuccess).done(function(){
     data-href="https://www.facebook.com/LocalArt/" 
     data-layout="button_count">
   </div>
+
+
     <!-- Start Top Nav -->
     <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
         <div class="container text-light">
@@ -234,24 +251,24 @@ $.get(url,CallBackGetSuccess).done(function(){
 </form>
 
 <?PHP
-	 $tab=$CatalogueC->afficherCatalogue();
+	 $tab=$PubliciteC->afficherpublicite();
 
 if(isset($_POST['submit']))
 {
 	if($_POST['type']=='Art')
 	{
-		$tab=$CatalogueC->tribytype($_POST['type']);
+		$tab=$PubliciteC->tribytypepub($_POST['type']);
 
 	}
 	else if($_POST['type']=='Culture')
 	{
-		$tab=$CatalogueC->tribytype($_POST['type']);
+		$tab=$PubliciteC->tribytypepub($_POST['type']);
 
 	}
 	else
 	{
 
-	 $tab=$CatalogueC->afficherCatalogue();
+	 $tab=$PubliciteC->afficherPublicite();
 
 	}
 
@@ -276,81 +293,82 @@ if(isset($_POST['submit']))
 					<!-- Products tab & slick -->
                    
                   
-					
-					<div class="col-md-12">
-						<div class="row">
-							<div class="products-tabs">
-
-
-
-								<!-- tab -->
-                               
-									<div class="products-slick" data-nav="#slick-nav-2">
-                                  
-                                    <?php foreach($tab as $row){
-	 ?>
-										<!-- product -->
-										<div class="product">
-                                    
-                                       										<div class="product-img" >
-                                                                              
-                                                                             
-												<img src="img/<?PHP echo $row['image']; ?>" alt="">
-											
-												<div class="product-label">
-													
-												</div>
-											</div>
-											<div class="product-body">
-                                            <div class="col-md-4">
-                        <div>
-												
-												<h3 class="product-name">Nom de produit :<u><?PHP echo $row['nom']; ?></u></h3>
-                                              
-                                               
-												<center><table><tr>
-													
-													<td><h4 class="product-price" style="color: red; ">Prix :<?PHP echo $row['prix'].' TND'; ?></h4></td>
-												</tr></table></center>
-												<div class="add-to-cart">
-                                                <center><p class="product-category">Type :<?PHP echo $row['type']; ?></p></center>
-												<center><a href="singlepage.php?id=<?php echo $row['id_article']?>"><button  class="add-to-cart-btn"><i ></i> consulter produit</button></a></center>
-
-												
-												
-											
-											</div>
-										
-                                            </div>
-                        </div>
-											
-										
-									
-												
-											</div>
-										
-												
-											
-										</div>
-										<!-- /product -->
-
-                                        <?php } ?>
-										
-									</div>
-									<div id="slick-nav-2" class="products-slick-nav"></div>
-								
-								<!-- /tab -->
-							</div>
-						</div>
-					</div>
                    
-					<!-- /Products tab & slick -->
-				</div>
-				<!-- /row -->
-			</div>
-			<!-- /container -->
-		</div>
-		<!-- /SECTION -->
+
+<!-- Products tab & slick -->
+<div class="col-md-12">
+<div class="row">
+<div class="products-tabs">
+
+
+
+<!-- tab -->
+<!-- <div id="tab2" class="tab-pane fade in active"> -->
+    <div class="products-slick" data-nav="#slick-nav-2">
+
+
+        <?php foreach($tab as $row){
+$pourcentage=round(((($row['prix_sans_remise']-$row['prix_avec_remise'])*100)/($row['prix_sans_remise'])));
+         ?>
+        <!-- product -->
+        <div class="product">
+            <div class="product-img">
+                <img src="img/<?PHP echo $row['imagepub']; ?>" alt="">
+
+                
+                <div class="product-label">
+                    
+                </div>
+            </div>
+            <div class="product-body">
+            <div class="col-md-4">
+            <h3 class="product-name"><u>nom :<?PHP echo $row['nompub']; ?></u></h3>
+                <p class="product-category">type :<?PHP echo $row['typepub']; ?></p>
+               
+                <center><table><tr>
+                    <td><h4 class="product-price" style="color: red; " >prix_sans_remise :<strike ><?PHP echo $row['prix_sans_remise'].' TND'; ?></strike></h4></td>
+                    <td><pre style="background: none;border: none;">       </pre></td>
+                    <td><h4 class="product-price" style="color: red; ">prix_avec_remise :<?PHP echo $row['prix_avec_remise'].' TND'; ?></h4></td>
+                    <h4 class="product-price" style="color: red; font-size: 30px; ">pourcentage :<?PHP echo '-'.$pourcentage.'%'; ?></h4>
+
+                </tr></table></center>
+                <center><a href="singlepagepub.php?id=<?php echo $row['id_pub']?>"><button  class="add-to-cart-btn"><i ></i> consulter produit</button></a></center>
+
+                
+            </div>
+            </div>
+        
+            
+        
+
+
+
+</div>
+
+
+
+        
+
+
+        <!-- /product -->
+<?php } ?>
+    
+
+    </div>
+    <div id="slick-nav-2" class="products-slick-nav"></div>
+</div>
+<!-- /tab -->
+</div>
+</div>
+</div>
+<!-- /Products tab & slick -->
+</div>
+<!-- /row -->
+</div>
+<!-- /container -->
+</div>
+<!-- /SECTION -->
+
 
 
 
