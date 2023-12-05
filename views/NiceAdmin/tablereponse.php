@@ -351,7 +351,7 @@ $tab = $c->listreponse();
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Datatables</h5>
-                            <p>here is our table for those who add a reclamation library. Just add
+                            <p>voici les reponse sur les reclamations
                                 
                             </p>
                            

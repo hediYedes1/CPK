@@ -2,12 +2,14 @@
 include "../controller/reclamationc.php";
 $c = new reclamationC();
 $id_rec = $_REQUEST["id_rec"] ?? null;
+/*
 if (isset($_GET['etat'])){
+
     $etat="not viewd" ;
 }
 else{
     $etat= "viewd";
-}
+}*/
  // get and post
 $tab = $c->listreclamationunique();
 ?>

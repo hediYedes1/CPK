@@ -2,12 +2,14 @@
 include "../../controller/reclamationc.php";
 
 $c = new reclamationC();
+
 if (isset($_GET['id_rec'])){
     $tab= $c->trireclmation();
 }
 else{
 $tab = $c->listreclamation();
 }
+
 $reclamationC = new ReclamationC();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['reclamation']) && isset($_POST['search'])) {

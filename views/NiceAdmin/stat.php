@@ -270,149 +270,87 @@ error_reporting(E_ALL);
                              <!-- Column Chart -->
                              <div id="columnChart"></div>
                              <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                             <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
                              <script>
-
-                             document.addEventListener("DOMContentLoaded", () => {
-                                 // Use Fetch API to get data from PHP
-                                 fetch(
-                                     '/last%20khedma/controller/reclamationc.php?action=getSubjects') // Use an absolute path
-                                     .then(response => response.json())
-                                     .then(data => {
-                                         if (Array.isArray(data)) {
-                                             renderChart(data);
-                                         } else {
-                                             console.error('Invalid data format:', data);
-                                         }
-                                     })
-                                     .catch(error => console.error('Error fetching data:', error));
-
-
-                                 function renderChart(data) {
-                                     // Use the data to create the chart
-                                     new ApexCharts(document.querySelector("#columnChart"), {
-                                         series: [{
-                                             name: 'reclamations',
-                                             data: data.map(item => item.nombre)
-                                             
-                                             
-                                         },
-                                         
-                                         
-                                        ],
-
-                                         chart: {
-                                             type: 'bar',
-                                             height: 350
-                                         },
-                                         plotOptions: {
-                                             bar: {
-                                                 horizontal: false,
-                                                 columnWidth: '55%',
-                                                 endingShape: 'rounded'
-                                             },
-                                         },
-                                         dataLabels: {
-                                             enabled: false
-                                         },
-                                         stroke: {
-                                             show: true,
-                                             width: 2,
-                                             colors: ['transparent']
-                                         },
-                                         xaxis: {
-                                             categories: data.map(item => item.sujet),
-                                             /*
-                                             categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug',
-                                            'Sep', 'Oct'
-                                        ],*/
-                                         },
-                                         yaxis: {
-                                             title: {
-                                                 text: 'Number of Reclamations'
-                                             }
-                                         },
-                                         fill: {
-                                             opacity: 1
-                                         },
-                                         tooltip: {
-                                             y: {
-                                                 formatter: function(val) {
-                                                     return $ + val + " reclamations";
-                                                 }
-                                             }
-                                         }
-                                     }).render();
-                                 }
-                             });
-                             /*
-                             document.addEventListener("DOMContentLoaded", () => {
-    // Utiliser Fetch API pour obtenir des données depuis PHP
-    fetch('/last%20khedma/controller/reclamationc.php?action=getSubjects')
-        .then(response => response.json())
-        .then(data => {
-            if (Array.isArray(data)) {
-                renderChart(data);
-            } else {
-                console.error('Format de données invalide :', data);
-            }
-        })
-        .catch(error => console.error('Erreur lors de la récupération des données :', error));
-
-    function renderChart(data) {
-        // Utiliser les données pour créer le graphique
-        new ApexCharts(document.querySelector("#columnChart"), {
-            series: [{
-                name: 'Signaler un texte abusif',
-                data: data.map(item => item.nombretecteabusif)
-            }, {
-                name: 'Signaler un problème',
-                data: data.map(item => item.nombreprobleme)
-            }, {
-                name: 'Autres',
-                data: data.map(item => item.nombreautres)
-            }],
-            chart: {
-                type: 'bar',
-                height: 350
-            },
-            plotOptions: {
-                bar: {
-                    horizontal: false,
-                    columnWidth: '55%',
-                    endingShape: 'rounded'
-                },
-            },
-            dataLabels: {
-                enabled: false
-            },
-            stroke: {
-                show: true,
-                width: 2,
-                colors: ['transparent']
-            },
-            xaxis: {
-                categories: data.map(item => item.sujet),
-            },
-            yaxis: {
-                title: {
-                    text: 'Nombre de réclamations'
-                }
-            },
-            fill: {
-                opacity: 1
-            },
-            tooltip: {
-                y: {
-                    formatter: function(val) {
-                        return val + " réclamations";
+        document.addEventListener("DOMContentLoaded", () => {
+            // Use Fetch API to get data from PHP
+            fetch('/last%20khedma/controller/reclamationc.php?action=getSubjects')
+                .then(response => response.json())
+                .then(data => {
+                    if (Array.isArray(data)) {
+                        renderChart(data);
+                    } else {
+                        console.error('Invalid data format:', data);
                     }
-                }
+                })
+                .catch(error => console.error('Error fetching data:', error));
+
+            function renderChart(data) {
+                // Extract unique months and their corresponding subjects
+                const months = data.map(item => item.sujet);
+                const reclamations = data.map(item => item.nombre);
+
+                // Generate random colors for each subject
+                const colors = Array.from({ length: months.length }, () => getRandomColor());
+
+                // Use the data to create the chart
+                new ApexCharts(document.querySelector("#columnChart"), {
+                    series: [{
+                        name: 'Reclamations',
+                        data: reclamations
+                    }],
+                    chart: {
+                        type: 'bar',
+                        height: 350
+                    },
+                    colors: colors, // Assign colors to the subjects
+                    plotOptions: {
+                        bar: {
+                            horizontal: false,
+                            columnWidth: '55%',
+                            endingShape: 'rounded'
+                        },
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                    stroke: {
+                        show: true,
+                        width: 2,
+                        colors: ['transparent']
+                    },
+                    xaxis: {
+                        categories: months,
+                    },
+                    yaxis: {
+                        title: {
+                            text: 'Number of Reclamations'
+                        }
+                    },
+                    fill: {
+                        opacity: 1
+                    },
+                    tooltip: {
+                        y: {
+                            formatter: function(val) {
+                                return val + " reclamations";
+                            }
+                        }
+                    }
+                }).render();
             }
-        }).render();
-    }
-});
-*/
-                             </script>
+
+            // Function to generate a random color
+            function getRandomColor() {
+                const letters = '0123456789ABCDEF';
+                let color = '#';
+                for (let i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+        });
+    </script>
                              <!-- End Column Chart -->
 
                          </div>
