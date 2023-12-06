@@ -135,6 +135,17 @@ function trireponse(){
         }
     }
 
+    public function afficher_reponse_selon_id($id_rec){
+        try {
+            $pdo = config::getConnexion();
+            $query = $pdo->prepare("SELECT * FROM reponse_rec WHERE id_rec = :id");
+            $query->execute(['id' => $id_rec]);
+            return $query->fetchAll();
+        } catch (PDOException $e) {
+            echo  $e->getMessage();
+        }
+    }
+
 
 }
    

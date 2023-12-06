@@ -370,6 +370,7 @@ $tab = $c->listreponse();
                                         <th scope="col">modifier</th>
                                         <th scope="col">supprimer</th>
                                         <th scope="col">details</th>
+                                        <th scope="col">envoyer</th>
 
 
                                     </tr>
@@ -405,6 +406,12 @@ $tab = $c->listreponse();
                                                 style="color: white;">details</a>
                                         </button>
 
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-warning">
+                                            <a href="http://localhost/last%20khedma/views/listreclamation.php?id=<?=$reponse_rec['id_rep'];?>" 
+                                            style="color: white;">envoyer</a>
+                                        </button>
                                     </td>
 
 
