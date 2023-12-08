@@ -1,5 +1,5 @@
 <?php
-include 'C:/xampp/htdocs/LocalArt/Model/user.php';
+include 'C:/xampp/htdocs/CPK/model/user.php';
 class UserC
 {
     public function getAllUsers()

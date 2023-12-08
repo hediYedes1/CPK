@@ -1,7 +1,7 @@
 <?php
 // Start the session
 session_start();
-include 'C:/xampp/htdocs/LocalArt/Controller/userC.php';
+include 'C:/xampp/htdocs/CPK/Controller/userC.php';
 
 
 if (isset($_SESSION['user_id'])) {
