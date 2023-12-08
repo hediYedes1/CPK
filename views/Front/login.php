@@ -3,7 +3,7 @@ session_start();
 
 session_destroy ();
 
-include 'C:/xampp/htdocs/LocalArt/Controller/userC.php';
+include 'C:/xampp/htdocs/CPK/Controller/userC.php';
 include 'login_head.php';
 ?>
 
