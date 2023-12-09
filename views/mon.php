@@ -1,6 +1,7 @@
 <?php
 include '../Controller/articleA.php';
 include '../model/article.php';
+include '../model/comment.php';
 $error = "";
 
 // create client
@@ -50,7 +51,47 @@ if (
         header('Location: listeartmon.php ');
         exit(); // Stop further execution after the redirect
     }
+
 }
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['ajout'])) {
+            $comment = $_POST['comment'];
+            $nom = $_POST['nom'];
+            $date_creation = date("Y-m-d H:i:s");
+            $date_modification = $date_creation;
+            $commente= new commentC;
+            $commente->addcomment(NULL,$comment,$nom, $date_creation,$date_modification);
+            header('Location: listeartmon.php');
+            exit;
+
+    }
+    $commente= new commentC;
+    if (isset($_POST['deletecommentId'])) {
+        $commentId = $_POST['deletecommentId'];
+        // Add proper error handling
+        if (!$commente->deletecomment($commentId)) {
+            echo "Error deleting article.";
+        }
+        
+    }
+    elseif (isset($_POST['updatecommentId'])) {
+        $commentId = $_POST['id_cmnt'];
+        $comment = $_POST['comment'];
+        $nom = $_POST['nom'];
+        $date_modification = date("Y-m-d H:i:s");
+        $commente->updatecomment($commentId,$comment,$nom,$date_modification);
+        
+    }
+        
+
+    
+          
+}
+
+
+$com = new commentC();
+//$articleId = $_POST['id_art'] ?? null;
+$cm = $com->listcomments();
 ?>
 
 <!DOCTYPE html>
@@ -177,7 +218,7 @@ if (
     
   
       <br>   
-    <button><a href="listeartmon.php">Back to list</a></button>
+    <button><a href="listearttab.php">Back to list</a></button>
     <br>
 
     <?php
@@ -314,24 +355,68 @@ form input[type="submit"]:hover {
                         </p>
                     </div>
                 </div>
+                <?php foreach ($cm as $index => $commentaire) { ?>
+                    <div class="blog-comments">
+    <div id="comment-<?php echo $index; ?>" class="comment">
+        <div class="d-flex">
+            <div class="comment-img"><img src="assets/img/blog/comments-2.jpg" alt=""></div>
+            <div>
+                <h5><a href=""><?= $commentaire['nom']; ?></a></h5>
+                <p><?= $commentaire['comment']; ?></p>
+                <div>Ajouter Le <?= date_format(date_create($commentaire['date_creation']), 'd/m/Y à H:i') ;?></div>
+                <?php if ($commentaire['date_creation'] < $commentaire['date_modification']) { ?>
+                    <div>Modifié Le <?= date_format(date_create($commentaire['date_modification']), 'd/m/Y à H:i');?> </div> 
+                <?php } ?>
+            </div>
+        </div>
+    </div>
+</div>
+<table>
+                <tr>
+                    <td>
+                    <button class="w3-container w3-green" onclick="openUpdateFormc(<?php echo $commentaire['id_cmnt']; ?>)">Update</button>
+                    </td>
+                    <td>
+                    <form method="POST" action="">
+                        <input type="hidden" value=<?PHP echo $commentaire['id_cmnt']; ?> name="deletecommentId">
+                        <button name="delete_button" type="submit"class="w3-container w3-red" onclick="return confirm('Voulez-vous vraiment supprimer ce commentaire?');">Delete</button>
+                    </form>
+                    </td>
+                </tr>
+                <tr id="updateFormc<?php echo $commentaire['id_cmnt']; ?>" style="display: none;">
+                <td colspan="6">
+                    <form method="POST" action="">
+                        <input type="hidden" value=<?PHP echo $commentaire['id_cmnt']; ?> name="id_cmnt">
+                        <label>Nom:</label>
+                        <input type="text"  name="nom" value="<?php echo $commentaire['nom']; ?>"><br>
+                        <label>Contenu:</label>
+                        <textarea  name="comment"><?php echo $commentaire['comment']; ?></textarea><br>
+                        <input type="submit" name="updatecommentId" value="Update">
+                    </form>
+                </td>
+            </tr>
+            
+            </table>
+<?php } ?>
+
                 <div class="blog-comments">
                     <h4 class="comments-count" id="comment">Commentaires</h4>
 
                     <div class="reply-form" >
                 
                   <h4 id="ajcmnt">Ajouter un commentaire</h4>
-                  <form  id="myBtn">
+                  <form action="" method="POST" id="myBtn">
                     
                       <div class="col-md-6 form-group">
-                        <input id="noun" type= "text" class="w3-panel w3-border w3-border-red w3-hover-border-green" placeholder="Votre nom*" > 
+                        <input id="noun" name="nom" type= "text" class="w3-panel w3-border w3-border-red w3-hover-border-green" placeholder="Votre nom*" > 
                         <span id="msg5" style="color: red" ></span>
                       </div>
                     
                       <div class="col form-group">
-                      <textarea id="cmnt" class="w3-panel w3-border w3-border-red w3-hover-border-green" placeholder="Votre commentaire*" autocomplete="off"></textarea>
+                      <textarea id="cmnt" name="comment" class="w3-panel w3-border w3-border-red w3-hover-border-green" placeholder="Votre commentaire*" autocomplete="off"></textarea>
                         <span id="msg6" style="color: red" ></span>
                       </div>
-                      <button id="client" type="submit" class="btn btn-primary" style="background-color:green;" >Poster commentaire</button>
+                      <button id="client" type="submit" name="ajout" value="Save" class="btn btn-primary" style="background-color:green;" >Poster commentaire</button>
                       
                   </form>
   
@@ -349,7 +434,17 @@ form input[type="submit"]:hover {
         return false;
     }
 </script>
+<script>
+    function openUpdateFormc(commentId) {
+            // Hide all update forms
+            document.querySelectorAll('[id^="updateFormc"]').forEach(function two (form) {
+                form.style.display = 'none';
+            });
 
+            // Show the selected update form
+            document.getElementById('updateFormc' + commentId).style.display = 'table-row';
+        }
+</script>
     <script>
         function openUpdateForm(articleId) {
             // Hide all update forms
@@ -371,24 +466,33 @@ form input[type="submit"]:hover {
     }
     ?>
     <script>
-document.getElementById('myBtn').addEventListener('submit', function two (event) {
-  var nom = document.getElementById('noun').value;
-  var commentaire = document.getElementById('cmnt').value; 
-  document.getElementById('msg5').textContent = '';
-  document.getElementById('msg6').textContent = ''; 
-  if (nom === '') {
-    document.getElementById('msg5').textContent = 'Le champ du titre ne peut pas être vide*.';
-    event.preventDefault();
-}  else if (!/^[a-zA-Z ]+$/.test(nom)) {
-    document.getElementById('msg5').textContent = 'Entrer un nom valide seulement avec des lettres alphabétiques et des espaces*.';
-    event.preventDefault();
-}
-if (commentaire === '') {
-        document.getElementById('msg6').textContent = 'Cette entrée est obligatoire*.';
-        event.preventDefault();
-    }
 
-});
+    document.getElementById('myBtn').addEventListener('submit', function (event) {
+        var nom = document.getElementById('noun').value;
+        var commentaire = document.getElementById('cmnt').value;
+
+        document.getElementById('msg5').textContent = '';
+        document.getElementById('msg6').textContent = '';
+
+        if (nom.trim() === '') {
+            document.getElementById('msg5').textContent = 'Le champ du nom ne peut pas être vide.';
+            event.preventDefault();
+        } else if (!/^[a-zA-Z ]+$/.test(nom)) {
+            document.getElementById('msg5').textContent = 'Entrer un nom valide avec des lettres alphabétiques et des espaces.';
+            event.preventDefault();
+        }
+
+        if (commentaire.trim() === '') {
+            document.getElementById('msg6').textContent = 'Le champ du commentaire ne peut pas être vide.';
+            event.preventDefault();
+        }
+        else if (commentaire.length<3){
+            document.getElementById('msg6').textContent = 'Le champ du commentaire doit contenir 3 chiffres mimimum.';
+            event.preventDefault();
+        }
+    });
+</script>
+
 </script>
 <script>
 
@@ -441,4 +545,3 @@ if (commentaire === '') {
 </body>
 
 </html>
-

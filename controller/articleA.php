@@ -178,18 +178,119 @@ public function updateArticle($articleId,$categorie,$titre,$nomprenom_artiste,$c
         }
     }
 }
-$reclamationController = new articleA();
+$articleA=new articleA();
 
 if (isset($_GET['action'])) {
-    if ($_GET['action'] === 'getSubjects') {
-        $reclamationController->getSubjectsBycategorie();
-        exit; // Important to exit to prevent further execution
-    }
-    // Add more actions if needed
+  if ($_GET['action'] === 'gettype') {
+      $articleA->getSubjectsBycategorie();
+      exit; // Important to exit to prevent further execution
+  }
+  // Add more actions if needed
 }
 
 header('HTTP/1.1 400 Bad Request');
+// echo json_encode(["error" => "Invalid Request"]);
+// $reclamationController = new articleA();
+
+// if (isset($_GET['action'])) {
+//     if ($_GET['action'] === 'getSubjects') {
+//         $reclamationController->getSubjectsBycategorie();
+//         exit; // Important to exit to prevent further execution
+//     }
+//     // Add more actions if needed
+// }
+
+//header('HTTP/1.1 400 Bad Request');
 //echo json_encode(["error" => "Invalid Request"]);
+class commentC{
+    public function listcomments() {
+        try {
+            $pdo = config::getConnexion(); // Get the PDO connection using the config class
+
+            $query = $pdo->prepare('SELECT * FROM commentaire cm ORDER BY cm.date_creation DESC' );
+            $query->execute();
+
+            $result = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            if ($result) {
+                return $result; // Return the result to the caller
+            } else {
+                return null; // No records found
+            }
+        } catch (Exception $e) {
+            echo "Error: " . $e->getMessage();
+            return null;
+        }
+    }
+    public function addcomment($idc,$co,$n,$dc,$dm): bool
+    {
+        try {
+            $pdo = config::getConnexion(); // Get the PDO connection using the config class
+    
+            $query = $pdo->prepare('INSERT INTO commentaire (id_cmnt, comment, 	nom,date_creation,date_modification) VALUES (?, ?, ?,?,?)');
+        $query->execute([$idc,$co,$n,$dc,$dm]);
+    
+            // Check if the query was successful
+            if ($query->rowCount() > 0) {
+                return true; // Player added successfully
+            } else {
+                return false; // Player not added
+            }
+        } catch (Exception $e) {
+            echo "Error: " . $e->getMessage();
+            return false; // An error occurred
+        }
+    }  
+    public function deletecomment($id_cmnt): bool
+  {
+      try {
+          $pdo = config::getconnexion();
+  
+          $query = $pdo->prepare('DELETE FROM commentaire WHERE id_cmnt = ?');
+          $query->execute([$id_cmnt]);
+  
+          return $query->rowCount() > 0;
+      } catch (PDOException $e) {
+          // Log the error or throw an exception for the calling code to handle
+          // Log: error_log("Error deleting article: " . $e->getMessage());
+          // or throw: throw new Exception("Error deleting article: " . $e->getMessage());
+          return false;
+      }
+  }
+  public function updatecomment($commentId,$comment,$nom,$date_modification): bool
+    {
+        try {
+            $pdo = config::getConnexion();
+
+            $query = $pdo->prepare('UPDATE commentaire SET comment=?, nom=?, date_modification=? WHERE id_cmnt = ?');
+            $query->execute([$comment,$nom,$date_modification,$commentId]);
+
+            // Check if the query was successful
+            if ($query->rowCount() > 0) {
+                return true; // User updated successfully
+            } else {
+                return false; // User not found or not updated
+            }
+        } catch (Exception $e) {
+            echo "Error: " . $e->getMessage();
+            return false; // An error occurred
+        }
+    } 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
 
 
 

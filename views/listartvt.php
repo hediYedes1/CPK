@@ -154,26 +154,16 @@ $tab = $c->listArticlesByCategory($category);
       </header>
     
       <div class="w3-bar w3-border-bottom">
-       <button class="tablink w3-bar-item w3-button" onclick="openCity(event, 'art1')">Litterature</button>
-       <button class="tablink w3-bar-item w3-button" onclick="openCity(event, 'culture')">écrivain</button>
+       <button class="tablink w3-bar-item w3-button" onclick="openCity(event, 'art1')">Vetement</button>
+       
       </div>
     
       <div id="art1" class="w3-container city">
-       <h1>La litterature tunisienne</h1>
-       <p>La littérature de la Tunisie désigne l'ensemble des productions, orales et écrites, des populations (12 millions environ en 2023) du territoire tunisien, à toute époque, en toute langue. Elle inclut également celles des écrivains la diaspora tunisienne (plus d'un million, en 2023) et celles des auteurs qui revendiquent, au moins partiellement, leur appartenance à la culture tunisienne.</p>
+       <h1>Les costumes traditionnels</h1>
+       <p>Les costumes traditionnels sont des costumes caractéristiques d'une région, d'une ville, d'un pays. Ils sont aussi appelés costumes folkloriques lorsqu'ils ne sont plus portés couramment mais pour des spectacles ou des commémorations.</p>
        </div>
     
-      <div id="culture" class="w3-container city">
-       <h1>des écrivains tunisens</h1>
-       <p><li>Ibn Al-Abbar (1199-1260)</li>
-       <li>Abdelaziz El Aroui (1898-1971)</li>
-       <li>Tahar Haddad (1899-1935)</li>
-       <li>Tahar Guiga (1922-1993), nouvelliste</li>
-       <li>Emna Belhadj Yahia (1945- ), enseignante, philosophe, essayiste</li>
-        et beaucoup plus d'autres écrivains
-    </p>
-       
-      </div>
+     
       <div class="w3-container w3-light-grey w3-padding">
        <button class="w3-button w3-right w3-white w3-border" 
        onclick="document.getElementById('id01').style.display='none'">Close</button>
@@ -206,8 +196,8 @@ $tab = $c->listArticlesByCategory($category);
 
     <div style="text-align:center">
       <div class="w3-panel w3-leftbar w3-light-grey">
-        <p class="w3-xlarge w3-serif"><i>“ Le retour à la culture. Oui, vraiment, à la culture. On ne peut pas consommer grand-chose si l'on reste tranquillement assis à lire des livres. ”</i><br></p>
-        <p> Aldous Huxley</p> 
+        <p class="w3-xlarge w3-serif"><i>“ La simplicitée est la clé de toute véritable élégance ”</i><br></p>
+        <p> Coco Chanel</p> 
       </div> 
       <!-- The four columns -->
       
@@ -235,7 +225,7 @@ $tab = $c->listArticlesByCategory($category);
                 <tr>
                     <td>
                     <form method="POST" action="vt.php">
-                        <input type="submit" name="detaille" class="w3-container w3-light-green" value="Détaille"  >
+                        <input type="submit" name="detaille" class="w3-container w3-light-green" value="Détail"  >
                         <input type="hidden" value=<?PHP echo $article['id_art']; ?> name="id_art">
                     </form><br>
                     <form method="POST" action="">

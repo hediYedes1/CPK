@@ -160,7 +160,7 @@ $tab = $c->listArticlesByCategory($category);
     
       <div id="art1" class="w3-container city">
        <h1>La litterature tunisienne</h1>
-       <p>La littérature de la Tunisie désigne l'ensemble des productions, orales et écrites, des populations (12 millions environ en 2023) du territoire tunisien, à toute époque, en toute langue. Elle inclut également celles des écrivains la diaspora tunisienne (plus d'un million, en 2023) et celles des auteurs qui revendiquent, au moins partiellement, leur appartenance à la culture tunisienne.</p>
+       <p>La municipalité ou commune urbaine en Tunisie est un territoire de plusieurs centaines d'hectares incluant des espaces urbains et ruraux organisés en général autour d'une ville principale</p>
        </div>
     
       <div id="culture" class="w3-container city">
@@ -235,7 +235,7 @@ $tab = $c->listArticlesByCategory($category);
                 <tr>
                     <td>
                     <form method="POST" action="lvr.php">
-                        <input type="submit" name="detaille" class="w3-container w3-light-green" value="Détaille"  >
+                        <input type="submit" name="detaille" class="w3-container w3-light-green" value="Détail"  >
                         <input type="hidden" value=<?PHP echo $article['id_art']; ?> name="id_art">
                     </form><br>
                     <form method="POST" action="">
