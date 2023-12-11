@@ -36,7 +36,7 @@ if (isset($list)){
 <h2>publicite correspondants au produit selectionne</h2>
 <ul>
     <?php foreach ($list as $Publicite){ ?>
-        <li> <?= $Publicite['nompub'] ?> - <?=$Publicite['id_pub'] ?></li>
+        <li> <?= $Publicite['nom'] ?> - <?=$Publicite['id_pub'] ?></li>
         <?php } ?>
         </ul>
         <?php } ?>

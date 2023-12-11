@@ -25,13 +25,13 @@ foreach($tab as $row){
 	?>
 	<tr>
 	<td><?PHP echo $row['id_pub']; ?></td>
-	<td><?PHP echo $row['typepub']; ?></td>
-	<td><?PHP echo $row['imagepub']; ?></td>
-	<td><?PHP echo $row['nompub']; ?></td>
-	<td><?PHP echo $row['prix_sans_remise']; ?></td>
+	<td><?PHP echo $row['type']; ?></td>
+	<td><?PHP echo $row['image']; ?></td>
+	<td><?PHP echo $row['nom']; ?></td>
+	<td><?PHP echo $row['prix']; ?></td>
     <td><?PHP echo $row['prix_avec_remise']; ?></td>
-	<td><?PHP echo $row['descriptionpub']; ?></td>
-	<td><?PHP echo $row['quantitepub']; ?></td>
+	<td><?PHP echo $row['description']; ?></td>
+	<td><?PHP echo $row['quantite']; ?></td>
 	
 	<td><form method="POST" action="supprimerpublicite.php">
 	<input type="submit" name="supprimer" value="supprimer">

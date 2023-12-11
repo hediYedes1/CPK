@@ -1,25 +1,25 @@
 <?PHP
 class Publicite{
 	private $id_pub;
-	private $typepub;
-	private $imagepub;
-	private $nompub;
-	private $prix_sans_remise;
+	private $type;
+	private $image;
+	private $nom;
+	private $prix;
     private $prix_avec_remise;
-	private $descriptionpub;
-	private $quantitepub;
-	private $ida;
+	private $description;
+	private $quantite;
+	private $id_article;
 
-	function __construct($id_pub,$typepub,$imagepub,$nompub,$prix_sans_remise,$prix_avec_remise,$descriptionpub,$quantitepub,$ida){
+	function __construct($id_pub,$type,$image,$nom,$prix,$prix_avec_remise,$description,$quantite,$id_article){
 		$this->id_pub=$id_pub;
-		$this->typepub=$typepub;
-		$this->imagepub=$imagepub;
-		$this->nompub=$nompub;
-		$this->prix_sans_remise=$prix_sans_remise;
+		$this->type=$type;
+		$this->image=$image;
+		$this->nom=$nom;
+		$this->prix=$prix;
         $this->prix_avec_remise=$prix_avec_remise;
-		$this->descriptionpub=$descriptionpub;
-		$this->quantitepub=$quantitepub;
-		$this->ida=$ida;
+		$this->description=$description;
+		$this->quantite=$quantite;
+		$this->id_article=$id_article;
 
 	}
 	
@@ -27,56 +27,56 @@ class Publicite{
 		return $this->id_pub;
 	}
 	function getTypepub(){
-		return $this->typepub;
+		return $this->type;
 	}
 	function getImagepub(){
-		return $this->imagepub;
+		return $this->image;
 	}
 	function getNompub(){
-		return $this->nompub;
+		return $this->nom;
 	}
 	function getPrixsansremise(){
-		return $this->prix_sans_remise;
+		return $this->prix;
 	}
     function getPrixavecremise(){
 		return $this->prix_avec_remise;
 	}
 	function getDescriptionpub(){
-		return $this->descriptionpub;
+		return $this->description;
 	}
 	function getQuantitepub(){
-		return $this->quantitepub;
+		return $this->quantite;
 	}
-	function getIda(){
-		return $this->ida;
+	function getId_article(){
+		return $this->id_article;
 	}
 
 	function setId_pub($id_pub){
 		$this->id_pub=$id_pub;
 	}
-	function setTypepub($typepub){
-		$this->typepub=$typepub;
+	function setTypepub($type){
+		$this->type=$type;
 	}
-	function setImagepub($imagepub){
-		$this->imagepub=$imagepub;
+	function setImagepub($image){
+		$this->image=$image;
 	}
-	function setNompub($nompub){
-		$this->nompub=$nompub;
+	function setNompub($nom){
+		$this->nom=$nom;
 	}
-	function setPrixsansremise($prix_sans_remise){
-		$this->prix_sans_remise=$prix_sans_remise;
+	function setPrixsansremise($prix){
+		$this->prix=$prix;
 	}
     function setPrixavecremise($prix_avec_remise){
 		$this->prix_avec_remise=$prix_avec_remise;
 	}
-		function setDescriptionpub($descriptionpub){
-		$this->descriptionpub=$descriptionpub;
+		function setDescriptionpub($description){
+		$this->description=$description;
 	}
-	function setQuantitepub($quantitepub){
-		$this->quantitepub=$quantitepub;
+	function setQuantitepub($quantite){
+		$this->quantite=$quantite;
 	}
-	function setIda($ida){
-		$this->id_pub=$ida;
+	function setId_article($id_article){
+		$this->id_article=$id_article;
 	}
 	
 }

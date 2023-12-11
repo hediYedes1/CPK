@@ -203,7 +203,7 @@ function Recherche($nom){
 	public function afficher_publicite_selon_id_de_article($id_article){
         try {
             $pdo = config::getConnexion();
-            $query = $pdo->prepare("SELECT * FROM pub WHERE ida = :id");
+            $query = $pdo->prepare("SELECT * FROM pub WHERE id_article = :id");
             $query->execute(['id' => $id_article]);
             return $query->fetchAll();
         } catch (PDOException $e) {

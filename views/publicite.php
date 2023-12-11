@@ -3,6 +3,16 @@ include "../controller/PubliciteC.php";
 
 $PubliciteC=new PubliciteC();
 
+
+	
+$id_article = isset($_GET["id"]) ? $_GET["id"] :null;
+
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -130,313 +140,9 @@ input {
     <!--sidebar start-->
     <body>
 
-  <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
+    <?php require('header.php'); ?>
 
-    <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
-        <img src="assetss/img/logo.png" alt="">
-        <span class="d-none d-lg-block">LocalArt</span>
-      </a>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
-    </div><!-- End Logo -->
-
-    <div class="search-bar">
-      <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-      </form>
-    </div><!-- End Search Bar -->
-
-    <nav class="header-nav ms-auto">
-      <ul class="d-flex align-items-center">
-
-        <li class="nav-item d-block d-lg-none">
-          <a class="nav-link nav-icon search-bar-toggle " href="#">
-            <i class="bi bi-search"></i>
-          </a>
-        </li><!-- End Search Icon-->
-
-        <li class="nav-item dropdown">
-
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-bell"></i>
-            <span class="badge bg-primary badge-number">4</span>
-          </a><!-- End Notification Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-            <li class="dropdown-header">
-              You have 4 new notifications
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-exclamation-circle text-warning"></i>
-              <div>
-                <h4>Lorem Ipsum</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>30 min. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-x-circle text-danger"></i>
-              <div>
-                <h4>Atque rerum nesciunt</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>1 hr. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-check-circle text-success"></i>
-              <div>
-                <h4>Sit rerum fuga</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>2 hrs. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-info-circle text-primary"></i>
-              <div>
-                <h4>Dicta reprehenderit</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>4 hrs. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li class="dropdown-footer">
-              <a href="#">Show all notifications</a>
-            </li>
-
-          </ul><!-- End Notification Dropdown Items -->
-
-        </li><!-- End Notification Nav -->
-
-        <li class="nav-item dropdown">
-
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-chat-left-text"></i>
-            <span class="badge bg-success badge-number">3</span>
-          </a><!-- End Messages Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-            <li class="dropdown-header">
-              You have 3 new messages
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="message-item">
-              <a href="#">
-                <img src="assetss/img/messages-1.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>Maria Hudson</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>4 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="message-item">
-              <a href="#">
-                <img src="assetss/img/messages-2.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>Anna Nelson</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>6 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="message-item">
-              <a href="#">
-                <img src="assetss/img/messages-3.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>David Muldon</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>8 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="dropdown-footer">
-              <a href="#">Show all messages</a>
-            </li>
-
-          </ul><!-- End Messages Dropdown Items -->
-
-        </li><!-- End Messages Nav -->
-
-        <li class="nav-item dropdown pe-3">
-
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assetss/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">G. Hmidi</span>
-          </a><!-- End Profile Iamge Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header">
-              <h6>Ghaith Hmidi</h6>
-              <span>Web Developer</span>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-person"></i>
-                <span>My Profile</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                <i class="bi bi-question-circle"></i>
-                <span>Need Help?</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </a>
-            </li>
-
-          </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
-
-      </ul>
-    </nav><!-- End Icons Navigation -->
-   
-  </header><!-- End Header -->
-
-  <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar">
-
-    <ul class="sidebar-nav" id="sidebar-nav">
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="index.html">
-          <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
-        </a>
-      </li><!-- End Dashboard Nav -->
-
-     
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#produits-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-journal-text"></i><span>produits</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="produits-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="../views/publicite.php">
-              <i class="bi bi-circle"></i><span>ajouter publicites</span>
-            </a>
-          </li>
-          <li>
-            <a href="../views/consulterpublicite.php">
-              <i class="bi bi-circle"></i><span>consulter publicites</span>
-            </a>
-          </li>
-          <li>
-            <a href="../views/statproduit.php">
-              <i class="bi bi-circle"></i><span>statistique publicites</span>
-            </a>
-          </li>
-          </ul>
-        </li>
-
-      <li class="nav-heading">Pages</li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="users-profile.html">
-          <i class="bi bi-person"></i>
-          <span>Profile</span>
-        </a>
-      </li><!-- End Profile Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-faq.html">
-          <i class="bi bi-question-circle"></i>
-          <span>F.A.Q</span>
-        </a>
-      </li><!-- End F.A.Q Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-contact.html">
-          <i class="bi bi-envelope"></i>
-          <span>Contact</span>
-        </a>
-      </li><!-- End Contact Page Nav -->
-
-     
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-error-404.html">
-          <i class="bi bi-dash-circle"></i>
-          <span>Error 404</span>
-        </a>
-      </li><!-- End Error 404 Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-blank.html">
-          <i class="bi bi-file-earmark"></i>
-          <span>Blank</span>
-        </a>
-      </li><!-- End Blank Page Nav -->
-
-    </ul>
-
-  </aside><!-- End Sidebar-->
+<?php require('aside.php'); ?>
 
 
   <main id="main" class="main">
@@ -475,84 +181,23 @@ input {
   <h1>publicite</h1>
  
 
-    <form id="form-work" class="" action="../views/ajoutpublicite.php" method="GET" name="f"> 
+  <form id="form-work" class="" action="ajoutpublicite.php" method="POST" name="f">
+
       
       <fieldset>
       
+      <input type="hidden" name="id_article" value="<?php echo $_GET["id"]; ?>">
 
-      <!-- <div class="form-group">
-            <div class="col-md-6">
-              <label class="control-label" for="tel">id_pub</label>
-              <div class="input-group">
-                <input id="id" name="id_pub" class="form-control" placeholder="id_pub" type="id">
-                <span id="myid"></span>
-              </div>
-            </div>
-            </div> -->
-          <!-- <div class="form-group">
-            <div class="col-md-6">
-              <label class="control-label" for="tel">Type pub</label>
-              <select id="type" name="typepub" class="form-control">
-                <option>choisir le type ..</option>
-                <option>Art</option>
-                <option>Culture</option>
-              </select>
-              <span id="mytype"></span>
-            </div>
-            </div>
-             <div class="form-group">
-            <div class="col-md-6">
-              <label class="control-label" for="tel">Image pub</label>
-              <div class="input-group">
-                <input id="image" name="imagepub" class="form-control" placeholder="imagepub" type="file">
-                <span id="myimage"></span>
-              </div>
-            </div>
-            </div> 
-             <div class="form-group">
-            <div class="col-md-6">
-              <label class="control-label" for="tel">Nom pub</label>
-              <div class="input-group">
-                <input id="nom" name="nompub" class="form-control" placeholder="nompub" type="nom">
-                <span id="mynom"></span>
-              </div>
-            </div>
-            </div>
-            <div class="form-group">
-            <div class="col-md-6">
-              <label class="control-label" for="tel">Prix sans remise</label>
-              <div class="input-group">
-                <input id="prix" name="prix_sans_remise" class="form-control" placeholder="prix_sans_remise" type="prix">
-                <span id="myprix"></span>
-              </div>
-            </div>
-             </div> -->
-            <div class="form-group">
-            <div class="col-md-6">
-              <label class="control-label" for="tel">Prix avec remise</label>
-              <div class="input-group">
-                <input id="prix" name="prix_avec_remise" class="form-control" placeholder="prix_avec_remise" type="prix">
-                <span id="myprix"></span>
-              </div>
-            </div>
-             <!-- <div class="form-group">
-            <div class="col-md-6">
-              <label class="control-label" for="tel">Description pub</label>
-              <div class="input-group">
-                <input id="description" name="descriptionpub" class="form-control" placeholder="descriptionpub" type="description">
-                <span id="mydescription"></span>
-              </div>
-            </div>
-            </div>
 
             <div class="form-group">
             <div class="col-md-6">
-              <label class="control-label" for="tel">quantite pub</label>
+              <label class="control-label" for="tel">Pourcentage</label>
               <div class="input-group">
-                <input id="quantite" name="quantitepub" class="form-control" placeholder="quantitepub" type="quantite">
-                <span id="myquantite"></span>
+              <input id="prix" name="prix_avec_remise" class="form-control" placeholder="pourcentage" type="text">
+                <span id="myprix"></span>
               </div>
-            </div> -->
+            </div>
+
 
           </div>
 
@@ -562,10 +207,12 @@ input {
 
           <div class="form-group">
             <div class="col-md-12">
-              <button type="submit" class="btn btn-primary btn-lg btn-block info">Ajouter</button>
-              
+            <a href="../views/consulterpublicite.php?id=<?PHP echo $row['id_article']; ?>">
+            <button type="submit" name="submit" class="btn btn-primary btn-lg btn-block info">Ajouter</button>
+            </a>  
             </div>
-          </div>  
+          </div>
+            
             <td><a href="../views/publicitefront.php" style=" color:white; margin-left: 250px";  class="btn btn-warning">
             Retour au Front</a></td>   
       </fieldset> 
@@ -602,7 +249,7 @@ input {
   <script src="assetss/vendor/simple-datatables/simple-datatables.js"></script>
   <script src="assetss/vendor/tinymce/tinymce.min.js"></script>
   <script src="assetss/vendor/php-email-form/validate.js"></script>
-  <script  src="../js/cs.js"></script> 
+  <!-- <script  src="../js/cs.js"></script>  -->
  
 
   <!-- Template Main JS File -->

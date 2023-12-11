@@ -1,8 +1,10 @@
 <?php  
-include "../controller/PubliciteC.php";
-$PubliciteC=new PubliciteC();
+include "../controller/CommandeC.php";
+include_once '../config.php';
+$commandeC = new CommandeC();
 
-$tab = $PubliciteC->afficherpublicite();
+$tab = $commandeC->getAllCommandeByUserId(1);
+
 
 ?>
       
@@ -30,53 +32,14 @@ $tab = $PubliciteC->afficherpublicite();
 
 <body>
 
-<input id="queryLoc" type="text" value="Tunis,Tn" />
-        <input type="button" value="Météo" onclick="buttonClickGET()"/>
-        <p id="zone_meteo"></p>
-
-        <script>
-
-var CallBackGetSuccess=function(data){
-console.log("donnees api",data)
-//alert("La temperature est de  :"+data.main.temp);
-var element = document.getElementById('zone_meteo');
-element.innerHTML="La temperature est de " + data.main.temp;
-
-}
-
-function buttonClickGET(){
-
-var url="https://api.openweathermap.org/data/2.5/weather?q=Tunis,tn&appid=c21a75b667d6f7abb81f118dcf8d4611&units=metric"
-$.get(url,CallBackGetSuccess).done(function(){
-
-})
-.fail(function(){
-	alert("error");
-})
-.always(function(){
-});
-}
-</script>
-
 
        
-<!-- Load Facebook SDK for JavaScript -->
-<div id="fb-root"></div>
-  <script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));</script>
 
   <!-- Your share button code -->
   <div class="fb-share-button" 
     data-href="https://www.facebook.com/LocalArt/" 
     data-layout="button_count">
   </div>
-
-
     <!-- Start Top Nav -->
     <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
         <div class="container text-light">
@@ -108,7 +71,6 @@ $.get(url,CallBackGetSuccess).done(function(){
 
     <?php require('menu.php'); ?>
 
-    <!-- Close Header -->
 
     <!-- Modal -->
     <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -136,85 +98,12 @@ $.get(url,CallBackGetSuccess).done(function(){
 
      
 
-            <div class="col-lg-3">
-                <h1 class="h2 pb-4">Categories</h1>
-                <ul class="list-unstyled templatemo-accordion">
-                    <li class="pb-3">
-                        <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-                            Art
-                            <i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
-                        </a>
-                        <ul class="collapse show list-unstyled pl-3">
-                            <li><a class="text-decoration-none" href="#">toile</a></li>
-                            <li><a class="text-decoration-none" href="#">artisanaux</a></li>
-                        </ul>
-                    </li>
-                    <li class="pb-3">
-                        <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
-                            Culture
-                            <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
-                        </a>
-                        <ul id="collapseTwo" class="collapse list-unstyled pl-3">
-                            <li><a class="text-decoration-none" href="#">livre</a></li>
-                            <li><a class="text-decoration-none" href="#">habits traditionnel</a></li>
-                        </ul>
-                    </li>
-                    
-                </ul>
+            <div class="col-lg-2">
+
             </div>
 
             <div class="col-lg-9">
-                <div class="row">
-                    <div class="col-md-6">
-                 
-                    <form method="POST">
-                      
-<select name="type" style="width: 300px; height: 40px;font-size: 20px;  border-radius: 50px;background:rgba(230, 230, 230, 0.3);">
- <option  value="All">All</option> 
- <option value="Art">Art</option>
- <option   value="Culture">Culture</option> 
-</select> 
-
-<input type="submit" name="submit" value="Rechercher" />
-
-</form>
-
-<?PHP
-	 $tab=$PubliciteC->afficherpublicite();
-
-if(isset($_POST['submit']))
-{
-	if($_POST['type']=='Art')
-	{
-		$tab=$PubliciteC->tribytypepub($_POST['type']);
-
-	}
-	else if($_POST['type']=='Culture')
-	{
-		$tab=$PubliciteC->tribytypepub($_POST['type']);
-
-	}
-	else
-	{
-
-	 $tab=$PubliciteC->afficherPublicite();
-
-	}
-
-}
-  
-
-?>
-                    </div>
-                    <div class="col-md-6 pb-4">
-                        <div class="d-flex">
-                            <select class="form-control">
-                                <option>Featured</option>
-                                <option>A to Z</option>
-                                <option>Item</option>
-                            </select>
-                        </div>
-                    </div>
+   
                 </div>
 
                 
@@ -222,88 +111,89 @@ if(isset($_POST['submit']))
 					<!-- Products tab & slick -->
                    
                   
+					
+					<div class="col-md-12">
+						<div class="row">
+							<div class="products-tabs">
+
+
+
+								<!-- tab -->
+                               
+									<div class="products-slick" data-nav="#slick-nav-2">
+                                  
+                                    <?php foreach($tab as $row){
+	 ?>
+										<!-- product -->
+										<div class="product">
+                                    
+                                       										<div class="product-img" >
+                                                                              
+                                                                             
+												<img src="img/<?PHP echo $row['image']; ?>" alt="">
+											
+												<div class="product-label">
+													
+												</div>
+											</div>
+											<div class="product-body">
+                                            <div class="col-md-4">
+                        <div>
+												
+												<h3 class="product-name">Nom de produit :<u><?PHP echo $row['nom']; ?></u></h3>
+                                              
+                                               
+												<center><table><tr>
+													
+													<td><h4 class="product-price" style="color: red; ">Prix :<?PHP echo $row['prix'].' TND'; ?></h4></td>
+												</tr></table></center>
+												<div class="add-to-cart">
+                                                <center><p class="product-category">Total Quantity :<?PHP echo $row['total_quantity']; ?></p></center>
+                                                <center><p class="product-category">Total Price :<?PHP echo $row['total_price']; ?> DT</p></center>
+                                                <?php 
+      if($row['status'] == "pending") {
+        echo   '<center><a href="#"><button  class="add-to-cart-btn"><i ></i>Pending</button></a></center>';
+      }else {
+        echo   '<center><a href="#"><button  class="add-to-cart-btn"><i ></i>Processed</button></a></center>';
+      }
+      ?>
+												
+
+												
+												
+											
+											</div>
+										
+                                            </div>
+                        </div>
+											
+										
+									
+												
+											</div>
+										
+												
+											
+										</div>
+										<!-- /product -->
+
+                                        <?php } ?>
+										
+									</div>
+									<div id="slick-nav-2" class="products-slick-nav"></div>
+								
+								<!-- /tab -->
+							</div>
+						</div>
+					</div>
                    
-
-<!-- Products tab & slick -->
-<div class="col-md-12">
-<div class="row">
-<div class="products-tabs">
-
-
-
-<!-- tab -->
-<!-- <div id="tab2" class="tab-pane fade in active"> -->
-    <div class="products-slick" data-nav="#slick-nav-2">
-
-
-        <?php foreach($tab as $row){
-                                $pourcentage=round(((($row['prix']-$row['prix_avec_remise']))/($row['prix'])*100));
-                                $prix = $row['prix']; // Remplacez par le prix original
-                                $prix_avec_remise =$prix * ($pourcentage / 100);
-                                //$pourcentage = round((( $row['prix_avec_remise']* 100) / $row['prix']) );
-
-
-         ?> 
-        <!-- product -->
-        <div class="product">
-            <div class="product-img">
-                <img src="img/<?PHP echo $row['image']; ?>" alt="">
-
-                
-                <div class="product-label">
-                    
-                </div>
-            </div>
-            <div class="product-body">
-            <div class="col-md-4">
-            <h3 class="product-name"><u>nom :<?PHP echo $row['nom']; ?></u></h3>
-                <p class="product-category">type :<?PHP echo $row['type']; ?></p>
-               
-                <center><table><tr>
-                    <td><h4 class="product-price" style="color: red; " >prix_sans_remise :<strike ><?PHP echo $row['prix'].' TND'; ?></strike></h4></td>
-                    <td><pre style="background: none;border: none;">       </pre></td>
-                    <td><h4 class="product-price" style="color: red; ">prix_avec_remise :<?PHP echo $row['prix_avec_remise'].' TND'; ?></h4></td>
-
-                    <h4 class="product-price" style="color: red; font-size: 30px; ">pourcentage :<?PHP echo '-'.$pourcentage.'%'; ?></h4>
-
-                </tr></table></center>
-                <center><a href="singlepagepub.php?id=<?php echo $row['id_pub']?>"><button  class="add-to-cart-btn"><i ></i> consulter produit</button></a></center>
-
-                
-            </div>
-            </div>
-        
-            
-        
-
-
-
-</div>
-
-
-
-        
-
-
-        <!-- /product -->
-<?php } ?>
-    
-
-    </div>
-    <div id="slick-nav-2" class="products-slick-nav"></div>
-</div>
-<!-- /tab -->
-</div>
-</div>
-</div>
-<!-- /Products tab & slick -->
-</div>
-<!-- /row -->
-</div>
-<!-- /container -->
-</div>
-<!-- /SECTION -->
-
+					<!-- /Products tab & slick -->
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /SECTION -->
 
 
 

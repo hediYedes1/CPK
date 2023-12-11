@@ -3,45 +3,53 @@ include "config.php";
 class PubliciteC {
 function afficherPubliciteC ($Publicite){
 		echo "id_pub: ".$Publicite->getId_pub()."<br>";
-		echo "typepub: ".$Publicite->getTypepub()."<br>";
-		echo "imagepub: ".$Publicite->getImagepub()."<br>";
-		echo "nompub: ".$Publicite->getNompub()."<br>";
-		echo "prix_sans_remise: ".$Publicite->getPrixsansremise()."<br>";
+		echo "type: ".$Publicite->getTypepub()."<br>";
+		echo "image: ".$Publicite->getImagepub()."<br>";
+		echo "nom: ".$Publicite->getNompub()."<br>";
+		echo "prix: ".$Publicite->getPrixsansremise()."<br>";
         echo "prix_avec_remise: ".$Publicite->getPrixavecremise()."<br>";
-		echo "descriptionpub: ".$Publicite->getDescriptionpub()."<br>";
-		echo "quantitepub: ".$Publicite->getQuantitepub()."<br>";
+		echo "description: ".$Publicite->getDescriptionpub()."<br>";
+		echo "quantite: ".$Publicite->getQuantitepub()."<br>";
 	
 	}
-	
-	function ajouterPubliciteC($Publicite){
-		$sql="INSERT INTO publicite (id_pub,typepub,imagepub,nompub,prix_sans_remise,prix_avec_remise,descriptionpub,quantitepub,ida) 
-			VALUES (:id_pub,:typepub,:imagepub,:nompub,:prix_sans_remise,:prix_avec_remise,:descriptionpub,:quantitepub,:ida)";
-			
-			$db = config::getConnexion();
-			try{
-				$query = $db->prepare($sql);
-				$query->execute([
-                    'id_pub' => $Publicite->getId_pub(),
-                    'typepub' => $Publicite->getTypepub(),
-                    'imagepub' => $Publicite->getImagepub(),
-					'nompub' => $Publicite->getNompub(),
-					'prix_sans_remise' => $Publicite->getPrixsansremise(),
-					'prix_avec_remise' => $Publicite->getPrixavecremise(),
-					'descriptionpub' => $Publicite->getDescriptionpub(),	
-                    'quantitepub' => $Publicite->getQuantitepub(),	
-                    'ida' => $Publicite->getIda(),	
-		
-			]);			
-			}
-			catch (Exception $e){
-				echo 'Erreur: '.$e->getMessage();
-			}		
-		
-	}
+// function addreponse($reponse, $id_rec)
+//     {
+//         $sql = "INSERT INTO reponse_rec (contenu, date, id_rec) VALUES (:contenu, :date, :id_rec)";
+//         $sql2 = "UPDATE reclamation SET etat = 1 WHERE id_rec = :id_rec";
+//         $db = config::getConnexion();
+//         try {
+//             $query = $db->prepare($sql);
+//             $query->execute([
+//                 'contenu' => $reponse->getcontenu(),
+//                 'date' => $reponse->getdate(),
+//                 'id_rec' => $id_rec,
+//             ]);
+    
+//             $query2 = $db->prepare($sql2);
+//             $query2->execute([
+//                 'id_rec' => $id_rec,
+//             ]);
+//         } catch (Exception $e) {
+//             echo 'Error: ' . $e->getMessage();
+//         }
+    
+    function ajouterPubliciteC($prix_avec_remise, $id_article) {
+        $sql = "INSERT INTO pub (prix_avec_remise, id_article) VALUES (:prix_avec_remise, :id_article)";
+        try {
+            $db = config::getConnexion();
+            $req1 = $db->prepare($sql);
+            $req1->bindParam(':prix_avec_remise', $prix_avec_remise, PDO::PARAM_INT);
+            $req1->bindParam(':id_article', $id_article, PDO::PARAM_INT);
+            $req1->execute();
+        } catch (PDOException $e) {
+            echo 'Erreur: ' . $e->getMessage();
+        }
+    }
+    
 
 	function affichersinglepub($id_pub){
 
-		$sql="SElECT * From pub where id_pub= $id_pub";
+		$sql="SELECT *,(c.prix-(c.prix*(e.prix_avec_remise/100))) as prix_avec_remise  From pub e inner join  Catalogue c on e.id_article = c.id_article where e.id_pub= $id_pub";
 		$db = config::getConnexion();
 		try{
 		$liste=$db->query($sql);
@@ -54,7 +62,7 @@ function afficherPubliciteC ($Publicite){
 	
 	function afficherpublicite(){
 		
-		$sql="SElECT * From pub";
+		$sql="SELECT *,(c.prix-(c.prix*(e.prix_avec_remise/100))) as prix_avec_remise  From pub e inner join  Catalogue c on e.id_article = c.id_article";
 		$db = config::getConnexion();
 		try{
 		$liste=$db->query($sql);
@@ -78,30 +86,30 @@ function afficherPubliciteC ($Publicite){
         }
 	}
 	function modifierpublicite($Publicite,$id_pub){
-		$sql="UPDATE pub SET id_pub=:id_pub,typepub=:typepub,imagepub=:imagepub,nompub=:nompub,prix_sans_remise=:prix_sans_remise,prix_avec_remise=:prix_avec_remise ,descriptionpub=:descriptionpub  ,quantitepub=:quantitepub WHERE id_pub=:id_pub";
+		$sql="UPDATE pub SET id_pub=:id_pub,type=:type,image=:image,nom=:nom,prix=:prix,prix_avec_remise=:prix_avec_remise ,description=:description,quantite=:quantite WHERE id_pub=:id_pub";
 		
 		$db = config::getConnexion();
 		
 try{		
         $req=$db->prepare($sql);
         $id_pub=$Publicite->getId_pub();
-        $typepub=$Publicite->getTypepub();
-        $imagepub=$Publicite->getImagepub();
-        $nompub=$Publicite->getNompub();
-        $prix_sans_remise=$Publicite->getPrixsansremise();
+        $type=$Publicite->getTypepub();
+        $image=$Publicite->getImagepub();
+        $nom=$Publicite->getNompub();
+        $prix=$Publicite->getPrixsansremise();
         $prix_avec_remise=$Publicite->getPrixavecremise();
-        $descriptionpub=$Publicite->getDescriptionpub();
-		$quantitepub=$Publicite->getQuantitepub();
+        $description=$Publicite->getDescriptionpub();
+		$quantite=$Publicite->getQuantitepub();
    
-		$datas = array(':id_pub'=>$id_pub,':typepub'=>$typepub,':imagepub'=>$imagepub,':nompub'=>$nompub,':prix_sans_remise'=>$prix_sans_remise,':prix_avec_remise'=>$prix_avec_remise,':descriptionpub'=>$descriptionpub,':quantitepub'=>$quantitepub);
+		$datas = array(':id_pub'=>$id_pub,':type'=>$type,':image'=>$image,':nom'=>$nom,':prix'=>$prix,':prix_avec_remise'=>$prix_avec_remise,':description'=>$description,':quantite'=>$quantite);
 		$req->bindValue('id_pub',$id_pub);
-		$req->bindValue(':typepub',$typepub);
-		$req->bindValue(':imagepub',$imagepub);
-		$req->bindValue(':nompub',$nompub);
-		$req->bindValue(':prix_sans_remise',$prix_sans_remise);
+		$req->bindValue(':type',$type);
+		$req->bindValue(':image',$image);
+		$req->bindValue(':nom',$nom);
+		$req->bindValue(':prix',$prix);
         $req->bindValue(':prix_avec_remise',$prix_avec_remise);
-		$req->bindValue(':descriptionpub',$descriptionpub);
-		$req->bindValue(':quantitepub',$quantitepub);
+		$req->bindValue(':description',$description);
+		$req->bindValue(':quantite',$quantite);
 
 		
             $s=$req->execute();
@@ -116,7 +124,7 @@ try{
 		
 	}
 	function recupererpublicite($id_pub){
-		$sql="SELECT * from pub where id_pub=$id_pub";
+		$sql="SELECT *,(c.prix-(c.prix*(e.prix_avec_remise/100)))as prix_avec_remise  From pub e inner join  Catalogue c on e.id_article = c.id_article where e.id_pub=$id_pub";
 		$db = config::getConnexion();
 		try{
 		$liste=$db->query($sql);
@@ -126,8 +134,8 @@ try{
             die('Erreur: '.$e->getMessage());
         }
 	}
-	function tribytypepub($typepub){
-		$sql="SELECT * from pub where typepub='$typepub'";
+	function tribytypepub($type){
+		$sql="SELECT * from pub where type='$type'";
 		$db = config::getConnexion();
 		try{
 		$liste=$db->query($sql);
@@ -149,7 +157,7 @@ function pagetotale($prodparpage)
         function pagination($prodparpage,$depart)
         {
         $db = config::getConnexion();
-        $Publicite = $db->query('SELECT * FROM pub ORDER BY id_pub DESC LIMIT '.$depart.','.$prodparpage);
+        $Publicite = $db->query('SELECT *,(c.prix-(c.prix*(e.prix_avec_remise/100))) as prix_avec_remise  From pub e inner join  Catalogue c on e.id_article = c.id_article ORDER BY e.id_pub DESC LIMIT '.$depart.','.$prodparpage);
         return $Publicite;
         }
 
@@ -157,7 +165,7 @@ function pagetotale($prodparpage)
 
 		function gettypeBytype()
     {
-       $sql = "SELECT typepub, COUNT(*) AS nombre FROM pub GROUP BY typepub";
+       $sql = "SELECT type, COUNT(*) AS nombre FROM pub GROUP BY type";
 //        $sql = "SELECT
 //        type,
 //        COUNT(*) AS nombre
@@ -177,7 +185,7 @@ function pagetotale($prodparpage)
     }
 
     public function getPubliciteByArticleId($id_article) {
-        $query = "SELECT * FROM pub WHERE id_pub = :id_article"; // Assuming the id_pub is the correct column name
+        $query = "SELECT *,(c.prix-(c.prix*(e.prix_avec_remise/100))) as prix_avec_remise  From pub e inner join  Catalogue c on e.id_article = c.id_article WHERE e.id_article = :id_article"; // Assuming the id_pub is the correct column name
         $db = config::getConnexion();
         try {
             $stmt = $db->prepare($query);
@@ -191,57 +199,6 @@ function pagetotale($prodparpage)
     }
 
 
-
-
-
-    // function ajouterPubliciteC($Publicite){
-    //     $db = config::getConnexion();
-    //     $db->beginTransaction(); // Start a transaction
-    
-    //     try {
-    //         // Insert into pub table
-    //         $sqlPub = "INSERT INTO Publicite (id_pub, typepub, imagepub, nompub, prix_sans_remise, prix_avec_remise, descriptionpub, quantitepub) 
-    //                    VALUES (:id_pub, :typepub, :imagepub, :nompub, :prix_sans_remise, :prix_avec_remise, :descriptionpub, :quantitepub)";
-    //         $reqPub = $db->prepare($sqlPub);
-            
-    //         // Bind values
-    //         $reqPub->bindValue(':id_pub', $Publicite->getId_pub());
-    //         $reqPub->bindValue(':typepub', $Publicite->getTypepub());
-    //         $reqPub->bindValue(':imagepub', $Publicite->getImagepub());
-    //         $reqPub->bindValue(':nompub', $Publicite->getNompub());
-    //         $reqPub->bindValue(':prix_sans_remise', $Publicite->getPrixsansremise());
-    //         $reqPub->bindValue(':prix_avec_remise', $Publicite->getPrixavecremise());
-    //         $reqPub->bindValue(':descriptionpub', $Publicite->getDescriptionpub());
-    //         $reqPub->bindValue(':quantitepub', $Publicite->getQuantitepub());
-    
-    //         $reqPub->execute();
-    
-    //         // Insert into catalogue table
-    //         $sqlCatalogue = "INSERT INTO catalogue (id_article, type, image, nom, prix, description, quantite) 
-    //                          VALUES (:id_article, :type, :image, :nom, :prix, :description, :quantite)";
-    //         $reqCatalogue = $db->prepare($sqlCatalogue);
-            
-    //         // Assuming $Publicite is an instance of the Catalogue class, otherwise modify accordingly
-    //         $reqCatalogue->bindValue(':id_article', $Publicite->getId_article());
-    //         $reqCatalogue->bindValue(':type', $Publicite->getType());
-    //         $reqCatalogue->bindValue(':image', $Publicite->getImage());
-    //         $reqCatalogue->bindValue(':nom', $Publicite->getNom());
-    //         $reqCatalogue->bindValue(':prix', $Publicite->getPrix());
-    //         $reqCatalogue->bindValue(':description', $Publicite->getDescription());
-    //         $reqCatalogue->bindValue(':quantite', $Publicite->getquantite());
-    
-    //         $reqCatalogue->execute();
-    
-    //         // If all queries succeed, commit the transaction
-    //         $db->commit();
-    //         echo "Records inserted successfully.";
-    //     } catch (Exception $e) {
-    //         // If any query fails, roll back the transaction
-    //         $db->rollBack();
-    //         echo 'Erreur: ' . $e->getMessage();
-    //     }
-    // }
-    
 }
 
 
